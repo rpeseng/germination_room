@@ -1,0 +1,3 @@
+adafruit-circuitpython-am2320
+RPi.GPIO
+PyQt5
