@@ -70,23 +70,5 @@ if __name__ == "__main__":
     try:
         while True:
             lcd.update_values()
-
-
-
-            """            
-            count = 0
-            incoming_value_array = [water_temp, ph, ec, air_temp]
-            for i in range(4):
-                incoming_value_array[i] = self.find_none_values(incoming_value_array[i])
-            # print(incoming_value_array)
-            while count < 2:
-
-                # LCD ekranına metinleri ve verileri yazdır
-                self.print_on_lcd(f"Water_temp =   {incoming_value_array[0]:.2f}", 1, 'right')
-                self.print_on_lcd(f"Ph          =   {incoming_value_array[1]:.2f}", 2, 'right')
-                self.print_on_lcd(f"Ec         =   {incoming_value_array[2]:.2f}", 3, 'right')
-                self.print_on_lcd(f"Air_temp   =   {incoming_value_array[3]:.2f}", 4, 'right')
-
-                time.sleep(2)  # 3 saniye beklet
-                count += 1 """
-
+    except Exception as er:
+        print(er)
