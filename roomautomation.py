@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from data.lcd_library import I2CLcd
-from data.am2320_data import AM2120Sensor
+from data.am2120_data import AM2120Sensor
 
 class GerminationRoom:
     def __init__(self):
