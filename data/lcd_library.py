@@ -37,14 +37,12 @@ class LCDController:
             return 0
         return control_value
 
-    def update_values(self, water_temp, ph, ec, air_temp):
+    def update_values(self):
 
         try:
-            pass
-            while True:
-                avg_temp,avg_hum = self.am2120sensor.read_am2120_values()
-                self.print_on_lcd(f"Temperature =   {avg_temp:.2f}", 1, 'right')
-                self.print_on_lcd(f"Humudity    =   {avg_hum:.2f}", 2, 'right')
+            avg_temp,avg_hum = self.am2120sensor.read_am2120_values()
+            self.print_on_lcd(f"Temperature =   {avg_temp:.2f}", 1, 'right')
+            self.print_on_lcd(f"Humudity    =   {avg_hum:.2f}", 2, 'right')
 
 
         except KeyboardInterrupt:
@@ -67,6 +65,11 @@ class LCDController:
             logging.error(f"lcd_connection lcd_screen_deactivates: {error}")
             print(f"lcd_screen_deactivate : {error}")
 
+if __name__ == "__main__":
+    lcd = LCDController()
+    try:
+        while True:
+            lcd.update_values()
 
 
 
@@ -86,3 +89,4 @@ class LCDController:
 
                 time.sleep(2)  # 3 saniye beklet
                 count += 1 """
+
