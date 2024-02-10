@@ -99,6 +99,7 @@ class ButtonController:
                             r = i - 2
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
+                print(set_temp_min)
                 time.sleep(0.2)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
