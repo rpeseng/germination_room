@@ -1,20 +1,23 @@
+from RPLCD import *
+from RPLCD.i2c import CharLCD
 
-from rpi_lcd import LCD
-import time
+from time import sleep
 from data.am2120_data import AM2120Sensor
-import logging
 
+framebuffer = [
+        '',
+        '',
+        ]
 
 class LCDController:
     def __init__(self, address=0x27):
         # LCD ekranının I2C adresi
-        self.lcd = LCD()
+        self.lcd = CharLCD('PCF8574', 0x27)
         self.am2120sensor = AM2120Sensor()
 
         # Ekran temizleme
         self.clear_screen()
-        logging.basicConfig(filename='/logs/lcd_tools_log.txt', level=logging.ERROR,
-                            format='%(asctime)s - %(levelname)s - %(message)s')
+
 
     def clear_screen(self):
         """
@@ -26,21 +29,38 @@ class LCDController:
         """
                     Function is for print on lcd.
         """
-        self.lcd.text(message, line, alignment)
+        if line == 0:
+            self.lcd.cursor_pos(line, 0)
+            self.lcd.write_string(message)
+        if line == 1:
+            self.lcd.cursor_pos(line, 0)
+            self.lcd.write_string(message)
+        if line == 2:
+            self.lcd.cursor_pos(line, 0)
+            self.lcd.write_string(message)
+        if line == 3:
+            self.lcd.cursor_pos(line, 0)
+            self.lcd.write_string(message)
 
-    def find_none_values(self, control_value):
-        """
-        This function checks if the incoming data is none.
-        If it is None, replaces it with 0.
-        """
-        if control_value is None:
-            return 0
-        return control_value
+
+    def write_to_lcd(self,lcd, framebuffer, num_cols):
+        """Write the framebuffer out to the specified LCD."""
+        lcd.home()
+        for row in framebuffer:
+            self.lcd.write_string(row.ljust(num_cols)[:num_cols])
+            self.lcd.write_string('\r\n')
+    def long_text(self,text):
+        if len(text) < 20:
+            self.lcd.write_string(text)
+        for i in range(len(text) - 20 + 1):
+            framebuffer[1] = text[i:i + 20]
+            self.write_to_lcd(self.lcd, framebuffer, 20)
+            sleep(0.2)
 
     def update_values(self):
 
         try:
-            avg_temp,avg_hum = self.am2120sensor.read_am2120_values()
+            avg_temp, avg_hum = self.am2120sensor.read_am2120_values()
             self.print_on_lcd(f"Temperature =   {avg_temp:.2f}", 1, 'right')
             self.print_on_lcd(f"Humudity    =   {avg_hum:.2f}", 2, 'right')
 
@@ -48,11 +68,10 @@ class LCDController:
         except KeyboardInterrupt:
             pass
         except Exception as error:
-            logging.error(f"lcd_connection update_values: {error}", exc_info=True)
+            print(f"lcd_connection update_values: {error}")
             self.lcd_screen_deactivate()
         finally:
             self.clear_screen()
-
 
 
     def lcd_screen_deactivate(self):
@@ -62,7 +81,7 @@ class LCDController:
         except KeyboardInterrupt:
             pass
         except Exception as error:
-            logging.error(f"lcd_connection lcd_screen_deactivates: {error}")
+            print(f"lcd_connection lcd_screen_deactivates: {error}")
             print(f"lcd_screen_deactivate : {error}")
 
 if __name__ == "__main__":

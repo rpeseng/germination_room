@@ -1,112 +1,163 @@
-import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-
-
-class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
-        super().__init__()
-
-        # Değişkenler
-        self.counter = 0
-        self.ayarlar_gosteriliyor = False
-
-        # Ana pencere ayarları
-        self.setWindowTitle("4 Satırlık Ekran Uygulaması")
-        self.setGeometry(100, 100, 300, 200)
-
-        # Widget'lar
-        self.label_1 = QtWidgets.QLabel("Merhaba", self)
-        self.label_2 = QtWidgets.QLabel("Dünya", self)
-        self.label_3 = QtWidgets.QLabel(str(self.counter), self)
-        self.button_arttir = QtWidgets.QPushButton("Arttır", self)
-        self.button_azalt = QtWidgets.QPushButton("Azalt", self)
-        self.button_ayarlar = QtWidgets.QPushButton("Ayarlar", self)
-
-        # Widget düzenleme
-        self.label_1.setGeometry(10, 10, 100, 20)
-        self.label_2.setGeometry(10, 30, 100, 20)
-        self.label_3.setGeometry(10, 50, 100, 20)
-        self.button_arttir.setGeometry(120, 10, 100, 20)
-        self.button_azalt.setGeometry(120, 30, 100, 20)
-        self.button_ayarlar.setGeometry(120, 50, 100, 20)
-
-        # Slotlar
-        self.button_arttir.clicked.connect(self.deger_arttir)
-        self.button_azalt.clicked.connect(self.deger_azalt)
-        self.button_ayarlar.clicked.connect(self.ayarlari_goster)
-
-        # Zamanlayıcı
-        self.timer = QtCore.QTimer()
-        self.timer.setInterval(2000)  # 2 saniyede bir
-        self.timer.timeout.connect(self.deger_arttir)
-        self.timer.start()
-
-    def deger_arttir(self):
-        self.counter += 1
-        self.label_3.setText(str(self.counter))
-
-    def deger_azalt(self):
-        self.counter -= 1
-        self.label_3.setText(str(self.counter))
-
-    def ayarlari_goster(self):
-        if not self.ayarlar_gosteriliyor:
-            self.ayarlar_gosteriliyor = True
-
-            # Ayarlar menüsü widget'ları
-            self.label_ayarlar_1 = QtWidgets.QLabel("Ana Menü", self)
-            self.label_ayarlar_2 = QtWidgets.QLabel("Nem: %", self)
-            self.label_ayarlar_3 = QtWidgets.QLabel("Sıcaklık: %", self)
-            self.label_ayarlar_4 = QtWidgets.QLabel("Çıkış", self)
-
-            # Widget düzenleme
-            self.label_ayarlar_1.setGeometry(10, 10, 100, 20)
-            self.label_ayarlar_2.setGeometry(10, 30, 100, 20)
-            self.label_ayarlar_3.setGeometry(10, 50, 100, 20)
-            self.label_ayarlar_4.setGeometry(10, 70, 100, 20)
-
-            # Butonları gizle
-            self.button_arttir.hide()
-            self.button_azalt.hide()
-            self.button_ayarlar.hide()
-
-            # Klavye kısayolları
-            self.shortcut_yukari = QtWidgets.QShortcut(QtGui.QKeySequence("Up"), self)
-            self.shortcut_yukari.activated.connect(self.ayarlar_yukari)
-            self.shortcut_asagi = QtWidgets.QShortcut(QtGui.QKeySequence("Down"), self)
-            self.shortcut_asagi.activated.connect(self.ayarlar_asagi)
-            self.shortcut_enter = QtWidgets.QShortcut(QtGui.QKeySequence("Return"), self)
-            self.shortcut_enter.activated.connect(self.ayarlari_sec)
-
-    def ayarlari_gizle(self):
-        if self.ayarlar_gosteriliyor:
-            self.ayarlar_gosteriliyor = False
-
-            # Ayarlar menüsü widget'larını gizle
-            self.label_ayarlar_1.hide()
-            self.label_ayarlar_2.hide()
-            self.label_ayarlar_3.hide()
-            self.label_ayarlar_4.hide()
-
-            # Butonları göster
-            self.button_arttir.show()
-            self.button_azalt.show()
-            self.button_ayarlar.show()
-
-    def ayarlar_yukari(self):
-        # Seçili satırı bir yukarı kaydır
-        ...
-
-    def ayarlar_asagi(self):
-        # Seçili satırı bir aşağı kaydır
-        ...
-
-    def ayarlari_sec(self):
-        # Seçilen satırdaki işlevi gerçekleştir
-        ...
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
+#Try RPLCD Liberary
+# from RPLCD-master import *
+# from RPLCD import RPLCD
+from RPLCD import *
+from time import sleep
+from RPLCD.i2c import CharLCD
+lcd = CharLCD('PCF8574', 0x27)
+lcd.cursor_pos = (0, 5)
+lcd.write_string('Wlcomme to')
+lcd.cursor_pos = (1, 3)
+lcd.write_string('Circuit Digest')
+sleep(2)
+framebuffer = [
+        '',
+        '',
+        ]
+def write_to_lcd(lcd, framebuffer, num_cols):
+        """Write the framebuffer out to the specified LCD."""
+        lcd.home()
+        for row in framebuffer:
+            lcd.write_string(row.ljust(num_cols)[:num_cols])
+            lcd.write_string('\r\n')
+def long_text(text):
+        if len(text)<20:
+            lcd.write_string(text)
+        for i in range(len(text) - 20 + 1):
+            framebuffer[1] = text[i:i+20]
+            write_to_lcd(lcd, framebuffer, 20)
+            sleep(0.2)
+face_LB=(
+  0b10000,
+  0b10100,
+  0b10011,
+  0b10000,
+  0b11100,
+  0b11111,
+  0b01111,
+  0b00111
+    )
+face_LT=(
+  0b10111,
+  0b10111,
+  0b01000,
+  0b01000,
+  0b10000,
+  0b10001,
+  0b10001,
+  0b10000
+)
+face_RT=(
+  0b10101,
+  0b11101,
+  0b00010,
+  0b00010,
+  0b00001,
+  0b10001,
+  0b10001,
+  0b00001
+)
+face_RB=(
+  0b00001,
+  0b00101,
+  0b11001,
+  0b00001,
+  0b01111,
+  0b11111,
+  0b11110,
+  0b11100
+)
+battery_EMP = (
+  0b00000,
+  0b01110,
+  0b11111,
+  0b10001,
+  0b10001,
+  0b10001,
+  0b10001,
+  0b11111
+)
+battery_HLF = (
+  0b00000,
+  0b01110,
+  0b11111,
+  0b10001,
+  0b10001,
+  0b11111,
+  0b11111,
+  0b11111
+)
+battery_FULL = (
+  0b00000,
+  0b01110,
+  0b11111,
+  0b11111,
+  0b11111,
+  0b11111,
+  0b11111,
+  0b11111
+)
+Locked = (
+  0b00000,
+  0b01110,
+  0b10001,
+  0b10001,
+  0b11111,
+  0b11111,
+  0b11011,
+  0b11111
+)
+Un_Locked = (
+  0b00000,
+  0b01110,
+  0b00001,
+  0b00001,
+  0b11111,
+  0b11111,
+  0b11011,
+  0b11111
+)
+lcd.create_char(0, battery_EMP)
+lcd.create_char(1, battery_HLF)
+lcd.create_char(2, battery_FULL)
+lcd.create_char(3, Locked)
+# lcd.create_char(4, Un_Locked)
+lcd.create_char(4, face_LT)
+lcd.create_char(5, face_RT)
+lcd.create_char(6, face_LB)
+lcd.create_char(7, face_RB)
+# U_L_Ch='\x04'
+L_Ch='\x03'
+B_F_Ch='\x02'
+B_H_Ch='\x01'
+B_E_Ch='\x00'
+while 1:
+    lcd.clear()
+    lcd.cursor_pos = (0, 0)
+    lcd.write_string('Chargerging')
+    lcd.cursor_pos = (0, 19)
+    lcd.write_string(B_E_Ch)
+    sleep(.4)
+    lcd.cursor_pos = (0, 19)
+    lcd.write_string(B_H_Ch)
+    sleep(.4)
+    lcd.cursor_pos = (0, 19)
+    lcd.write_string(B_F_Ch)
+    sleep(1)
+    lcd.cursor_pos = (1, 0)
+    long_text('This is a Scrolling text')
+#     lcd.cursor_pos = (3, 19)
+#     lcd.write_string(U_L_Ch)
+#     sleep(.6)
+    lcd.cursor_pos = (2, 4)
+    lcd.write_string('\x04')
+    lcd.cursor_pos = (2, 5)
+    lcd.write_string('\x05')
+    lcd.cursor_pos = (3, 4)
+    lcd.write_string('\x06')
+    lcd.cursor_pos = (3, 5)
+    lcd.write_string('\x07')
+#     sleep(2)
+    lcd.cursor_pos = (3, 19)
+    lcd.write_string(L_Ch)
+    sleep(2)

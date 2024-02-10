@@ -1,4 +1,6 @@
-rpi_lcd
+RPLCD
+smbus2
 gpiozero
 Adafruit_DHT
 python-telegram-bot
+

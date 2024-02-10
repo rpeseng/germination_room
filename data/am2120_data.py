@@ -1,9 +1,6 @@
 import Adafruit_DHT
-import logging
 
-# Hata kodlarını kaydedecek fonksiyon.
-logging.basicConfig(filename='/logs/am2120logs.txt', level=logging.ERROR,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 class AM2120Sensor:
     def __init__(self, sensor_pin1=19, sensor_pin2=21):
@@ -28,5 +25,5 @@ class AM2120Sensor:
                 print("Sensörden veri okunamadı. Hata olabilir.")
                 return None, None
         except Exception as error:
-            logging.error(f"Hata oluştu! read_dht_value: {error}")
+            print(f"Hata oluştu! read_dht_value: {error}")
 

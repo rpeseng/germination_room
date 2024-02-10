@@ -1,28 +1,46 @@
-import RPi.GPIO as GPIO
+from gpiozero import Button
 import time
-from data.lcd_library import I2CLcd
+from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
+
+
+# Menü seçenekleri
+menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
+set_temp_min = 0
+set_temp_max = 20
+set_hum_min = 65
+set_hum_max = 75
+
+
+# Seçilen menü öğesi
+selected_item = 0
 
 class GerminationRoom:
     def __init__(self):
         self.value = 0
         self.selected_option = 1
-        self.lcd = I2CLcd()
+        self.lcd = LCDController()
         self.temp_and_humudity = AM2120Sensor()
 
         # Raspberry Pi GPIO konfigürasyonu
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # 17. pin: Arttır butonu
-        GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # 27. pin: Azalt butonu
-        GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # 22. pin: Ayarlar Menüsü butonu
+        # GPIO pin numaraları
+        SET_PIN = 26
+        INCREASE_PIN = 18
+        DECREASE_PIN = 21
+
+        # Butonlar
+        set_button = Button(SET_PIN)
+        increase_button = Button(INCREASE_PIN)
+        decrease_button = Button(DECREASE_PIN)
 
     def show_main_screen(self):
-        temp = self.temp_and_humudity.read_temperature()
-        humudity = self.temp_and_humudity.read_humidity()
+        values = self.temp_and_humudity.read_am2120_values()
+        temp = values[0]
+        humudity = values[1]
 
-        self.lcd.lcd_set_text(1, "ORTAM DEGERLERI")
-        self.lcd.lcd_set_text(2, f"Sıcaklık: {temp}")
-        self.lcd.lcd_set_text(2, f"Nem     : {humudity}")
+        self.lcd.print_on_lcd(1, "ORTAM DEGERLERI")
+        self.lcd.print_on_lcd(2, f"Sıcaklık: {temp}")
+        self.lcd.print_on_lcd(3, f"Nem     : {humudity}")
         time.sleep(2)
 
 
@@ -42,10 +60,11 @@ class GerminationRoom:
 
         while True:
             self.selected_option = self.get_selected_option(options)
-            self.lcd.lcd_set_text(4, options[self.selected_option - 1])
+            self.lcd.print_on_lcd(4, options[self.selected_option - 1])
 
             if self.selected_option == 1:
-                print("Ana Menü seçildi")
+                print("set_temp_min")
+
             elif self.selected_option == 2:
                 print("Nem Değeri seçildi")
             elif self.selected_option == 3:
@@ -72,23 +91,53 @@ class GerminationRoom:
 
             time.sleep(0.2)
 
+
+class ButtonController:
+    def __init__(self, set_pin=26, increase_pin=18, decrease_pin=21):
+        # Butonlar oluşturuluyor
+        self.set_button = Button(set_pin)
+        self.increase_button = Button(increase_pin)
+        self.decrease_button = Button(decrease_pin)
+
+        # Değişken
+        self.counter = 0
+
+        # Buton tetikleyicileri atanıyor
+        self.set_button.when_pressed = self.set_pressed
+        self.increase_button.when_pressed = self.increase_pressed
+        self.decrease_button.when_pressed = self.decrease_pressed
+
+    def set_pressed(self):
+        self.counter = 0  # Sıfırla
+        print("Set button pressed")
+
+    def increase_pressed(self):
+        self.counter += 1  # Artır
+        print("Increase button pressed")
+
+    def decrease_pressed(self):
+        self.counter -= 1  # Azalt
+        print("Decrease button pressed")
+
+    def run(self):
+        try:
+            while True:
+                # Her saniyede bir sayaç değerini göster
+                print("Counter:", self.counter)
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("Program sonlandırılıyor...")
+
+
+
 if __name__ == "__main__":
     germination_room = GerminationRoom()
+    button_controller = ButtonController()
 
     try:
         while True:
-            key_increase = GPIO.wait_for_edge(17, GPIO.FALLING)
-            key_decrease = GPIO.wait_for_edge(27, GPIO.FALLING)
-            key_settings = GPIO.wait_for_edge(22, GPIO.FALLING)
+            germination_room.show_settings_menu()
 
-            if key_increase == 17:
-                germination_room.increase_value()
-            elif key_decrease == 27:
-                germination_room.decrease_value()
-            elif key_settings == 22:
-                germination_room.show_settings_menu()
-
-            time.sleep(0.2)
 
     except KeyboardInterrupt:
-        GPIO.cleanup()
+        print("Program is closed.")
