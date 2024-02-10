@@ -62,8 +62,8 @@ class ButtonController:
     def run(self):
         try:
             while True:
-                tuple_data = list(self.counter)
-                last_value = tuple_data.pop()
+                tuple_data = self.counter
+                last_value = tuple_data[-1]
                 self.lcd.print_on_lcd(last_value, 1, 'left')
                 time.sleep(1)
         except KeyboardInterrupt:
