@@ -1,4 +1,4 @@
-from gpiozero import Button
+import RPi.GPIO as GPIO
 import time
 from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
@@ -15,20 +15,17 @@ class MenuOptions:
     def __init__(self):
         pass
 
+
 class ButtonController:
     def __init__(self, set_pin, increase_pin, decrease_pin):
-        self.set_button = Button(set_pin)
-        self.increase_button = Button(increase_pin)
-        self.decrease_button = Button(decrease_pin)
-
         self.lcd = LCDController()
+        # GPIO modunu belirle
+        GPIO.setmode(GPIO.BCM)
 
-        self.counter = 0
-
-        # Buton tetikleyicileri atanıyor
-        self.set_button.when_pressed = self.set_pressed
-        self.increase_button.when_pressed = self.increase_pressed
-        self.decrease_button.when_pressed = self.decrease_pressed
+        # Buton pinlerini tanımla
+        self.set_pin = set_pin
+        self.increase_pin = increase_pin
+        self.decrease_pin = decrease_pin
 
         # Butonlar için debouncing süresi
         self.debounce_time = 0.1
@@ -36,35 +33,42 @@ class ButtonController:
         self.last_time_increase = time.time()
         self.last_time_decrease = time.time()
 
-    def set_pressed(self):
-        current_time = time.time()
-        if current_time - self.last_time_set > self.debounce_time:
-            self.counter = 0
-            print("Set button pressed")
-            self.last_time_set = current_time
+        # Butonları giriş olarak ayarla
+        GPIO.setup(self.set_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.increase_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.decrease_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+        # Değişken
+        self.counter = 0
+
+        # Buton tetikleyicileri atanıyor
+        GPIO.add_event_detect(self.set_pin, GPIO.FALLING, callback=self.set_pressed, bouncetime=150)
+        GPIO.add_event_detect(self.increase_pin, GPIO.FALLING, callback=self.increase_pressed, bouncetime=150)
+        GPIO.add_event_detect(self.decrease_pin, GPIO.FALLING, callback=self.decrease_pressed, bouncetime=150)
+
+    def set_pressed(self, channel):
+        self.counter = 0
+        print("Set button pressed")
 
     def increase_pressed(self):
-        current_time = time.time()
-        if current_time - self.last_time_increase > self.debounce_time:
-            self.counter += 1
-            print("Increase button pressed")
-            self.last_time_increase = current_time
+        self.counter += 1
+        print("Increase button pressed")
 
-    def decrease_pressed(self):
-        current_time = time.time()
-        if current_time - self.last_time_decrease > self.debounce_time:
-            self.counter -= 1
-            print("Decrease button pressed")
-            self.last_time_decrease = current_time
+    def decrease_pressed(self, channel):
+        self.counter -= 1
+        print("Decrease button pressed")
+
 
     def run(self):
         try:
             while True:
-                self.lcd.clear_screen()
-                self.lcd.print_on_lcd(1, str(self.counter))
+                counter = str(self.counter)
+                self.lcd.print_on_lcd(counter, 1, 'left')
                 time.sleep(1)
         except KeyboardInterrupt:
             print("Program sonlandırılıyor...")
+            # GPIO pinlerini temizle
+            GPIO.cleanup()
 
 
 # ButonController sınıfını kullanarak nesne oluştur
@@ -72,3 +76,4 @@ button_controller = ButtonController(set_pin=17, increase_pin=18, decrease_pin=1
 
 # Ana döngüyü başlat
 button_controller.run()
+
