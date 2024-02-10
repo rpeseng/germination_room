@@ -12,7 +12,7 @@ ENTER_PIN = 4
 lcd = CharLCD(i2c_expander='PCF8574', address=0x27,port=1, cols=20, rows=4)
 
 # Menü seçenekleri
-menu_items = ["CONFIGRATION", "DATE AND TIME", "LOGGING", "OUTPUT", "SETTINGS"]
+menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
 
 # Buton pinlerini tanımla
 button_pins = [SET_PIN, INCREASE_PIN, DECREASE_PIN, ENTER_PIN]
