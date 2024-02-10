@@ -15,11 +15,11 @@ submenus = {
     ]
 }
 
-
 set_temp_min = 2
 set_temp_max = 20
 set_hum_min = 65
 set_hum_max = 75
+
 
 class MenuOptions:
     def __init__(self):
@@ -41,6 +41,12 @@ class ButtonController:
         self.button_pins = [self.set_pin]
 
         self.count = 0
+        self.deger_degistir = 0
+
+        self.set_temp_min = 2
+        self.set_temp_max = 20
+        self.set_hum_min = 65
+        self.set_hum_max = 75
 
 
 
@@ -69,7 +75,7 @@ class ButtonController:
         print("Set button pressed")
         if self.select_item == 0:
             self.count = 1
-            self.show_sub_menu()  # Alt menüyü göster
+            self.show_sub_menu1()  # Alt menüyü göster
         else:
             selected_item = self.items[self.select_item]
             # Seçilen menü öğesine göre işlevi çalıştır
@@ -95,6 +101,9 @@ class ButtonController:
     def increase_pressed(self, channel):
 
         self.select_item = (self.select_item - 1) % len(self.items)
+        if self.select_item == 0:
+            if self.deger_degistir ==1:
+                self.set_temp_min +=  1
 
         #self.lcd.clear_screen()
         #self.lcd.write("Increase button pressed")
@@ -102,6 +111,9 @@ class ButtonController:
     def decrease_pressed(self, channel):
 
         self.select_item = (self.select_item + 1) % len(self.items)
+        if self.select_item == 0:
+            if self.deger_degistir ==1:
+                self.set_temp_min -=  1
         print("Decrease button pressed")
         #self.lcd.clear_screen()
         #self.lcd.write("Decrease button pressed")
@@ -151,7 +163,7 @@ class ButtonController:
                     time.sleep(0.2)
 
                 else:
-                    print(set_temp_min)
+                    print(self.set_temp_min)
                     time.sleep(0.2)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
@@ -160,8 +172,9 @@ class ButtonController:
             # GPIO pinlerini temizle
             GPIO.cleanup()
 
-    def show_sub_menu(self):
+    def show_sub_menu1(self):
         if self.select_item == 0:
+
             self.lcd.clear_screen()
             self.lcd.lcd.cursor_pos = (0, 0)
             self.lcd.write("Menu")
@@ -170,7 +183,7 @@ class ButtonController:
             self.lcd.write(self.items[0])
             self.lcd.lcd.cursor_pos = (2, 0)
             self.lcd.write("Set Degeri =  ")
-            self.lcd.write(str(set_temp_min))
+            self.lcd.write(str(self.set_temp_min))
             time.sleep(2)
             self.count = 0
 
