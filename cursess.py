@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 import time
 from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
-import asyncio
 
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
@@ -48,6 +47,8 @@ class ButtonController:
         self.set_hum_min = 65
         self.set_hum_max = 75
 
+
+
         # Butonları giriş olarak ayarla
         GPIO.setup(self.set_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.increase_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -85,14 +86,31 @@ class ButtonController:
                 self.set_hum_min_function()
             elif selected_item == "set_hum_max":
                 self.set_hum_max_function()
+        """
+        print("Set button pressed")
+
+        if self.select_item == 0:
+            self.show_sub_menu()
+        print("Increase button pressed")
+        return self.items[self.select_item]
+
+        #self.lcd.clear_screen()
+        #self.lcd.write("Set button pressed")"""
 
     def increase_pressed(self, channel):
 
         self.select_item = (self.select_item - 1) % len(self.items)
+        print("increase button pressed")
+        #self.lcd.clear_screen()
+        #self.lcd.write("Increase button pressed")
 
     def decrease_pressed(self, channel):
 
         self.select_item = (self.select_item + 1) % len(self.items)
+
+        print("Decrease button pressed")
+        #self.lcd.clear_screen()
+        #self.lcd.write("Decrease button pressed")
 
     # Buton durumlarını kontrol etme fonksiyonu
     def check_buttons(self):
@@ -100,13 +118,10 @@ class ButtonController:
             if not GPIO.input(pin):
                 return pin
         return None
-        # Buton durumlarını kontrol etme fonksiyonu
-
 
     def show_menu(self):
         try:
-            while True:
-                if self.count == 0:
+
                     self.lcd.clear_screen()
                     for i in range(len(self.items)):
                         if i == self.select_item:
@@ -146,38 +161,63 @@ class ButtonController:
             GPIO.cleanup()
 
     def show_sub_menu1(self):
-        try:
-            while True:
-                self.lcd.clear_screen()
-                self.lcd.lcd.cursor_pos = (0, 0)
-                self.lcd.write("Menu")
-                self.lcd.lcd.cursor_pos = (1, 0)
-                self.lcd.write("> ")
-                self.lcd.write(self.items[0])
-                self.lcd.lcd.cursor_pos = (2, 0)
-                self.lcd.write("Set Degeri =  ")
-                self.lcd.write(str(self.set_temp_min))
+        if self.select_item == 0:
+            """self.deger_degistir=1
+            self.lcd.clear_screen()
+            self.lcd.lcd.cursor_pos = (0, 0)
+            self.lcd.write("Menu")
+            self.lcd.lcd.cursor_pos = (1, 0)
+            self.lcd.write("> ")
+            self.lcd.write(self.items[0])
+            self.lcd.lcd.cursor_pos = (2, 0)
+            self.lcd.write("Set Degeri =  ")
+            self.lcd.write(str(self.set_temp_min))
+            time.sleep(0.5)"""
+            try:
+                while True:
+                    button_pressed = self.check_buttons()
+                    if button_pressed == self.increase_pin:
+                        self.set_temp_min += 1
+                        self.lcd.clear_screen()
+                        self.lcd.lcd.cursor_pos = (0, 0)
+                        self.lcd.write("Menu")
+                        self.lcd.lcd.cursor_pos = (1, 0)
+                        self.lcd.write("> ")
+                        self.lcd.write(self.items[0])
+                        self.lcd.lcd.cursor_pos = (2, 0)
+                        self.lcd.write("Set Degeri =  ")
+                        self.lcd.write(str(self.set_temp_min))
+                    elif button_pressed == self.decrease_pin:
+                        self.set_temp_min -= 1
+                        self.lcd.clear_screen()
+                        self.lcd.lcd.cursor_pos = (0, 0)
+                        self.lcd.write("Menu")
+                        self.lcd.lcd.cursor_pos = (1, 0)
+                        self.lcd.write("> ")
+                        self.lcd.write(self.items[0])
+                        self.lcd.lcd.cursor_pos = (2, 0)
+                        self.lcd.write("Set Degeri =  ")
+                        self.lcd.write(str(self.set_temp_min))
+                    elif button_pressed == self.set_pin:
+                        self.count = 0
+                        break
+                    time.sleep(0.1)
+            except KeyboardInterrupt:
+                self.lcd.lcd_screen_deactivate()
+                pass
 
-                button_pressed = self.check_buttons()
-                if button_pressed == self.increase_pin:
-                    self.set_temp_min += 1
-                elif button_pressed == self.decrease_pin:
-                    self.set_temp_min -= 1
-                elif button_pressed == self.set_pin:
-                    self.count = 0
-                    break
-                time.sleep(0.1)
-        except KeyboardInterrupt:
-            self.lcd.lcd_screen_deactivate()
-            pass
+            print("yazildi")
+
 
 # ButonController sınıfını kullanarak nesne oluştur
 button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
-"""async def main():
-    await asyncio.gather(button_controller.show_menu(), button_controller.show_sub_menu1())
+try:
+    while True:
+        if button_controller.count == 0:
+            button_controller.show_menu()
+        else:
+            button_controller.show_sub_menu1()
 
-asyncio.run(main())"""
+except Exception as error:
+    print(f"hata: {error}")
 
-
-# Ana döngüyü başlat
-button_controller.show_menu()
