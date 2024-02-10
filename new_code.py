@@ -5,7 +5,7 @@ from data.am2120_data import AM2120Sensor
 
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
-set_temp_min = 0
+set_temp_min = 2
 set_temp_max = 20
 set_hum_min = 65
 set_hum_max = 75
@@ -114,6 +114,16 @@ class ButtonController:
 
     def show_sub_menu(self):
         if self.select_item == 0:
+            self.lcd.clear_screen()
+            self.lcd.lcd.cursor_pos = (0, 0)
+            self.lcd.write("Menu")
+            self.lcd.lcd.cursor_pos = (1, 0)
+            self.lcd.write("> ")
+            self.lcd.write(self.items[0])
+            self.lcd.lcd.cursor_pos = (2, 0)
+            self.lcd.write("Set Degeri =  ")
+            self.lcd.write(set_temp_min)
+
             print("yazildi")
 
 
