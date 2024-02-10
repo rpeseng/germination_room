@@ -93,8 +93,8 @@ class ButtonController:
 
         self.select_item = (self.select_item - 1) % len(self.items)
         print("increase button pressed")
-        return 1
 
+        self.yerdegistirme = 1
         #self.lcd.clear_screen()
         #self.lcd.write("Increase button pressed")
 
@@ -102,6 +102,7 @@ class ButtonController:
 
         self.select_item = (self.select_item + 1) % len(self.items)
 
+        self.yerdegistirme = 2
         print("Decrease button pressed")
         #self.lcd.clear_screen()
         #self.lcd.write("Decrease button pressed")
@@ -155,7 +156,7 @@ class ButtonController:
     def show_sub_menu1(self):
         if self.select_item == 0:
             try:
-                if self.increase_pressed(self)==1:
+                if self.yerdegistirme==1:
                     self.set_temp_min += 1
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
@@ -166,7 +167,8 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
-                elif self.decrease_pressed(self)==1:
+                    self.yerdegistirme = 0
+                elif self.yerdegistirme==2:
                     self.set_temp_min -= 1
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
@@ -177,6 +179,7 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
+                    self.yerdegistirme = 0
                 elif button_pressed == self.set_pin:
                     self.count = 0
                 time.sleep(0.2)
