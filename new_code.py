@@ -111,7 +111,6 @@ class ButtonController:
             # GPIO pinlerini temizle
             GPIO.cleanup()
 
-
     def show_sub_menu(self):
         if self.select_item == 0:
             self.lcd.clear_screen()
@@ -122,7 +121,7 @@ class ButtonController:
             self.lcd.write(self.items[0])
             self.lcd.lcd.cursor_pos = (2, 0)
             self.lcd.write("Set Degeri =  ")
-            self.lcd.write(set_temp_min)
+            self.lcd.write(str(set_temp_min))
             time.sleep(2)
 
             print("yazildi")
