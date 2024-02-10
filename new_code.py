@@ -97,14 +97,12 @@ class ButtonController:
         self.select_item = (self.select_item - 1) % len(self.items)
         print("increase button pressed")
 
-
         #self.lcd.clear_screen()
         #self.lcd.write("Increase button pressed")
 
     def decrease_pressed(self, channel):
 
         self.select_item = (self.select_item + 1) % len(self.items)
-
 
         print("Decrease button pressed")
         #self.lcd.clear_screen()
