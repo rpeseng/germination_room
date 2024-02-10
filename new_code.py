@@ -72,12 +72,7 @@ class ButtonController:
                 self.lcd.clear_screen()
                 for i in range(len(self.items)):
                     if i == self.select_item:
-                        if i== 0:
-                            self.lcd.lcd.cursor_pos(0, 0)
-                            self.lcd.write("> ")
-                        elif i == 1:
-                            self.lcd.lcd.cursor_pos(1, 0)
-                            self.lcd.write("> ")
+                        self.lcd.print_on_lcd("> ", i, 'left')
                     self.lcd.write(self.items[i])
                 time.sleep(0.2)
         except KeyboardInterrupt:
