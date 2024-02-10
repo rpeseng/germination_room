@@ -5,6 +5,17 @@ from data.am2120_data import AM2120Sensor
 
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
+
+# Submenu seçenekleri
+submenus = {
+    "set_temp_min": [
+        {"name": "Sıcaklığı 1 Derece Artır", "function":""},
+        {"name": "Sıcaklığı 1 Derece Azalt", "function":""},
+        {"name": "Sıcaklığı Manuel Gir", "function":""},
+    ]
+}
+
+
 set_temp_min = 2
 set_temp_max = 20
 set_hum_min = 65
@@ -44,7 +55,21 @@ class ButtonController:
         GPIO.add_event_detect(self.decrease_pin, GPIO.FALLING, callback=self.decrease_pressed, bouncetime=150)
 
     def set_pressed(self, channel):
-
+        print("Set button pressed")
+        if self.select_item == 0:
+            self.show_sub_menu()  # Alt menüyü göster
+        else:
+            selected_item = self.items[self.select_item]
+            # Seçilen menü öğesine göre işlevi çalıştır
+            if selected_item == "set_temp_min":
+                self.set_temp_min_function()
+            elif selected_item == "set_temp_max":
+                self.set_temp_max_function()
+            elif selected_item == "set_hum_min":
+                self.set_hum_min_function()
+            elif selected_item == "set_hum_max":
+                self.set_hum_max_function()
+        """
         print("Set button pressed")
 
         if self.select_item == 0:
@@ -53,7 +78,7 @@ class ButtonController:
         return self.items[self.select_item]
 
         #self.lcd.clear_screen()
-        #self.lcd.write("Set button pressed")
+        #self.lcd.write("Set button pressed")"""
 
     def increase_pressed(self, channel):
 
