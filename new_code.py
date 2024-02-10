@@ -13,9 +13,9 @@ set_hum_max = 75
 
 
 # GPIO pin numaraları
-SET_PIN = 17
+SET_PIN = 19
 INCREASE_PIN = 18
-DECREASE_PIN = 19
+DECREASE_PIN = 16
 
 # Butonlar
 set_button = Button(SET_PIN)
