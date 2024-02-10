@@ -39,11 +39,12 @@ menu3 = MenuOption("LOGGING")
 menu4 = MenuOption("OUTPUT")
 menu5 = MenuOption("SETTINGS")
 # Alt menü öğelerini oluştur
-sub_menu1_1 = MenuOption("Offset", "Datum")
+sub_menu1_1 = MenuOption("Offset")
 sub_menu1_2 = MenuOption("Datum")
 
 # Ana menü öğelerini oluştur
-menu1 = MenuOption("CONFIGRATION", child_menu=sub_menu1_1)
+menu1 = MenuOption("CONFIGRATION",next_menu=sub_menu1_2 , prev_menu=sub_menu1_1)
+
 
 menu1.next = menu2
 menu1.prev = menu5
@@ -74,7 +75,6 @@ def write_lcd(message):
 # Ana döngü
 try:
     while True:
-        current_menu= menu1
         # Ana menüyü ekrana yazdır
         write_lcd("MAIN MENU\n")
         write_lcd("> " + current_menu.name)
