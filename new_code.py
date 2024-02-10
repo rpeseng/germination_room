@@ -74,11 +74,22 @@ class ButtonController:
                     if i == self.select_item:
                         if i == 0:
                             self.lcd.print_on_lcd("Menu", 0)
-                            self.lcd.print_on_lcd("> ", i+1)
+                            i = i+1
+                            self.lcd.print_on_lcd("> ", i)
+                            self.lcd.write(self.items[i])
+                        elif i == 1:
+                            self.lcd.print_on_lcd("Menu", 0)
+                            self.lcd.print_on_lcd("> ", i)
+                            self.lcd.write(self.items[i])
+                        elif i == 2:
+                            self.lcd.print_on_lcd("Menu", 0)
+                            i = i - 1
+                            self.lcd.print_on_lcd("> ", i)
                             self.lcd.write(self.items[i])
                         else:
                             self.lcd.print_on_lcd("Menu", 0)
-                            self.lcd.print_on_lcd("> ", i+1)
+                            i = i - 2
+                            self.lcd.print_on_lcd("> ", i)
                             self.lcd.write(self.items[i])
                 time.sleep(0.2)
         except KeyboardInterrupt:
