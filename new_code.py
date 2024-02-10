@@ -62,6 +62,7 @@ class ButtonController:
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
+            self.count = 1
             self.show_sub_menu()  # Alt menüyü göster
         else:
             selected_item = self.items[self.select_item]
