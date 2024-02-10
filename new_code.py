@@ -76,12 +76,13 @@ class ButtonController:
         print("Set button pressed")
         if self.select_item == 0:
             self.count = 1
-            self.show_sub_menu1()  # Alt menüyü göster
+            self.count=0
 
         if self.set_pin_activate == 0:
             self.set_pin_activate=1
-        else:
-            self.set_pin_activate = 0
+        elif self.set_pin_activate ==1:
+            self.set_pin_activate = 2
+
         """ 
        else:
             selected_item = self.items[self.select_item]
@@ -200,7 +201,6 @@ class ButtonController:
                 time.sleep(0.2)
             except KeyboardInterrupt:
                 self.lcd.lcd_screen_deactivate()
-                pass
 
             print("yazildi")
 
