@@ -74,6 +74,7 @@ def write_lcd(message):
 # Ana döngü
 try:
     while True:
+        current_menu= menu1
         # Ana menüyü ekrana yazdır
         write_lcd("MAIN MENU\n")
         write_lcd("> " + current_menu.name)
