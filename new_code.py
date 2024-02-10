@@ -172,7 +172,7 @@ class ButtonController:
 
     def show_sub_menu1(self):
         if self.select_item == 0:
-            self.deger_degistir=1
+            """self.deger_degistir=1
             self.lcd.clear_screen()
             self.lcd.lcd.cursor_pos = (0, 0)
             self.lcd.write("Menu")
@@ -182,7 +182,7 @@ class ButtonController:
             self.lcd.lcd.cursor_pos = (2, 0)
             self.lcd.write("Set Degeri =  ")
             self.lcd.write(str(self.set_temp_min))
-            time.sleep(0.5)
+            time.sleep(0.5)"""
             try:
                 while True:
                     button_pressed = self.check_buttons()
