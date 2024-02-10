@@ -49,23 +49,26 @@ class ButtonController:
     def set_pressed(self, channel):
         self.counter = 0
         print("Set button pressed")
+        self.lcd.print_on_lcd("Set button pressed", 3)
+
 
     def increase_pressed(self):
         self.counter += 1
         print("Increase button pressed")
+        self.lcd.print_on_lcd("Increase button pressed",2)
 
     def decrease_pressed(self, channel):
         self.counter -= 1
         print("Decrease button pressed")
+        self.lcd.print_on_lcd("Decrease button pressed",1)
 
 
     def run(self):
         try:
             while True:
-                tuple_data = self.counter
-                last_value = tuple_data[-1]
-                self.lcd.print_on_lcd(last_value, 1, 'left')
+                print("merhaba")
                 time.sleep(1)
+                self.lcd.clear_screen()
         except KeyboardInterrupt:
             print("Program sonlandırılıyor...")
             # GPIO pinlerini temizle
