@@ -195,7 +195,7 @@ class ButtonController:
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
                     self.yerdegistirme = 0
-                elif self.set_pin_activate==0:
+                elif self.set_pin_activate==2:
                     self.count = 0
                 time.sleep(0.2)
             except KeyboardInterrupt:
