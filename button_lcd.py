@@ -24,9 +24,8 @@ class Menu:
         self.lcd.clear_screen()
         for i in range(len(self.items)):
             if i == self.selected_item:
-                lcd.cursor_pos = (i, 0)
-                lcd.write("> ")
-            lcd.write(self.items[i])
+                self.lcd.print_on_lcd(i, "> ")
+            self.lcd.write_to_lcd(self.items[i])
 
     def select_item(self):
         return self.items[self.selected_item]
