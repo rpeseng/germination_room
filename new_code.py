@@ -57,7 +57,7 @@ class ButtonController:
         GPIO.setup(self.decrease_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
         # Değişken
-        self.counter = 0
+        self.count = 0
 
         # Buton tetikleyicileri atanıyor
         GPIO.add_event_detect(self.set_pin, GPIO.FALLING, callback=self.set_pressed, bouncetime=150)
@@ -75,7 +75,7 @@ class ButtonController:
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
-            self.count=0
+            self.count=1
 
         if self.set_pin_activate == 0:
             self.set_pin_activate=1
@@ -199,6 +199,7 @@ class ButtonController:
                     self.count = 0
                 time.sleep(0.2)
             except KeyboardInterrupt:
+                GPIO.cleanup()
                 self.lcd.lcd_screen_deactivate()
 
             print("yazildi")
