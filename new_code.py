@@ -80,7 +80,7 @@ class ButtonController:
             elif selected_item == "set_hum_min":
                 self.set_hum_min_function()
             elif selected_item == "set_hum_max":
-                self.count = 1
+                self.count = 0
                 self.set_hum_max_function()
         """
         print("Set button pressed")
