@@ -176,6 +176,7 @@ button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=2
 async def main():
     await asyncio.gather(button_controller.show_menu(), button_controller.show_sub_menu1())
 
+asyncio.run(main())
 
 """
 # Ana döngüyü başlat
