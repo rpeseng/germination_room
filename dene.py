@@ -99,7 +99,13 @@ class ButtonController:
             if not GPIO.input(pin):
                 return pin
         return None
+        # Buton durumlarını kontrol etme fonksiyonu
 
+    def check_buttons(self):
+        for pin in self.button_pins:
+            if not GPIO.input(pin):
+                return pin
+        return None
     def show_menu(self):
         try:
             while True:
