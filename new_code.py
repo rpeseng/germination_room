@@ -48,8 +48,7 @@ class ButtonController:
         self.lcd.clear_screen()
         self.lcd.write("Set button pressed")
 
-
-    def increase_pressed(self):
+    def increase_pressed(self, channel):
         self.counter += 1
         print("Increase button pressed")
         self.lcd.clear_screen()
@@ -60,7 +59,6 @@ class ButtonController:
         print("Decrease button pressed")
         self.lcd.clear_screen()
         self.lcd.write("Decrease button pressed")
-
 
     def run(self):
         try:
