@@ -54,6 +54,8 @@ class ButtonController:
         GPIO.add_event_detect(self.increase_pin, GPIO.FALLING, callback=self.increase_pressed, bouncetime=150)
         GPIO.add_event_detect(self.decrease_pin, GPIO.FALLING, callback=self.decrease_pressed, bouncetime=150)
 
+    def set_hum_max_function(self):
+        print("hade bakalım")
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:

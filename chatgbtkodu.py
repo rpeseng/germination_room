@@ -43,7 +43,7 @@ sub_menu1_1 = MenuOption("Offset")
 sub_menu1_2 = MenuOption("Datum")
 
 # Ana menü öğelerini oluştur
-menu1 = MenuOption("CONFIGRATION",next_menu=sub_menu1_2 , prev_menu=sub_menu1_1)
+menu1 = MenuOption("CONFIGRATION", next_menu=sub_menu1_2, prev_menu=sub_menu1_1)
 
 
 menu1.next = menu2
