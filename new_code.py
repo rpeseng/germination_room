@@ -182,6 +182,7 @@ class ButtonController:
             self.lcd.lcd.cursor_pos = (2, 0)
             self.lcd.write("Set Degeri =  ")
             self.lcd.write(str(self.set_temp_min))
+            time.sleep(0.5)
             try:
                 while True:
                     button_pressed = self.check_buttons()
