@@ -39,7 +39,7 @@ menu3 = MenuOption("LOGGING")
 menu4 = MenuOption("OUTPUT")
 menu5 = MenuOption("SETTINGS")
 # Alt menü öğelerini oluştur
-sub_menu1_1 = MenuOption("Offset")
+sub_menu1_1 = MenuOption("Offset", "Datum")
 sub_menu1_2 = MenuOption("Datum")
 
 # Ana menü öğelerini oluştur
