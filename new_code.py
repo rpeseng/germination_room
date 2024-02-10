@@ -112,7 +112,7 @@ class ButtonController:
         print("Decrease button pressed")
         #self.lcd.clear_screen()
         #self.lcd.write("Decrease button pressed")
-        return 1
+
 
     """
     # Buton durumlarını kontrol etme fonksiyonu
