@@ -75,7 +75,6 @@ class ButtonController:
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
-            self.count = 1
             self.count=0
 
         if self.set_pin_activate == 0:
