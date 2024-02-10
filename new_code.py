@@ -101,9 +101,9 @@ class ButtonController:
     def increase_pressed(self, channel):
 
         self.select_item = (self.select_item - 1) % len(self.items)
-        if self.select_item == 0:
+        """if self.select_item == 0:
             if self.deger_degistir ==1:
-                self.set_temp_min +=  1
+                self.set_temp_min +=  1"""
 
         #self.lcd.clear_screen()
         #self.lcd.write("Increase button pressed")
@@ -111,9 +111,9 @@ class ButtonController:
     def decrease_pressed(self, channel):
 
         self.select_item = (self.select_item + 1) % len(self.items)
-        if self.select_item == 0:
+        """if self.select_item == 0:
             if self.deger_degistir ==1:
-                self.set_temp_min -=  1
+                self.set_temp_min -=  1"""
         print("Decrease button pressed")
         #self.lcd.clear_screen()
         #self.lcd.write("Decrease button pressed")
@@ -127,7 +127,6 @@ class ButtonController:
 
     def show_menu(self):
         try:
-
             while True:
                 if self.count == 0:
                     self.lcd.clear_screen()
@@ -161,7 +160,6 @@ class ButtonController:
                                 self.lcd.write("> ")
                                 self.lcd.write(self.items[i])
                     time.sleep(0.2)
-
                 else:
                     print(self.set_temp_min)
                     time.sleep(0.2)
@@ -184,9 +182,37 @@ class ButtonController:
             self.lcd.lcd.cursor_pos = (2, 0)
             self.lcd.write("Set Degeri =  ")
             self.lcd.write(str(self.set_temp_min))
-            time.sleep(2)
-            self.deger_degistir=0
-            self.count = 0
+            try:
+                while True:
+                    button_pressed = self.check_buttons()
+                    if button_pressed == self.increase_pin:
+                        self.set_temp_min += 1
+                        self.lcd.clear_screen()
+                        self.lcd.lcd.cursor_pos = (0, 0)
+                        self.lcd.write("Menu")
+                        self.lcd.lcd.cursor_pos = (1, 0)
+                        self.lcd.write("> ")
+                        self.lcd.write(self.items[0])
+                        self.lcd.lcd.cursor_pos = (2, 0)
+                        self.lcd.write("Set Degeri =  ")
+                        self.lcd.write(str(self.set_temp_min))
+                    elif button_pressed == self.decrease_pin:
+                        self.set_temp_min -= 1
+                        self.lcd.clear_screen()
+                        self.lcd.lcd.cursor_pos = (0, 0)
+                        self.lcd.write("Menu")
+                        self.lcd.lcd.cursor_pos = (1, 0)
+                        self.lcd.write("> ")
+                        self.lcd.write(self.items[0])
+                        self.lcd.lcd.cursor_pos = (2, 0)
+                        self.lcd.write("Set Degeri =  ")
+                        self.lcd.write(str(self.set_temp_min))
+                    elif button_pressed == self.set_pin:
+                        self.count = 0
+                        break
+                    time.sleep(0.1)
+            except KeyboardInterrupt:
+                pass
 
             print("yazildi")
 
