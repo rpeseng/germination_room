@@ -173,7 +173,6 @@ class ButtonController:
             self.lcd.write(str(set_temp_min))
             time.sleep(2)
             self.count = 0
-            self.show_menu()
 
             print("yazildi")
 
