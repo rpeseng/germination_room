@@ -25,6 +25,9 @@ class LCDController:
         """
         self.lcd.clear()
 
+    def write(self, message):
+        self.lcd.write_string(message)
+
     def print_on_lcd(self, message, line, alignment='right'):
         """
                     Function is for print on lcd.
