@@ -58,9 +58,9 @@ sub_menu4_1_1_8 = MenuOption("115200")
 sub_menu4_1_2_1 = MenuOption("Odd")
 sub_menu4_1_2_2 = MenuOption("Even")
 sub_menu4_1_2_3 = MenuOption("None")
-
-sub_menu4_1 = MenuOption("RS232", child_menu=sub_menu4_1_1, next_menu=sub_menu4_2)
 sub_menu4_2 = MenuOption("Bluetooth")
+sub_menu4_1 = MenuOption("RS232", child_menu=sub_menu4_1_1, next_menu=sub_menu4_2)
+
 
 # Ana menü öğelerini oluştur
 menu1 = MenuOption("CONFIGRATION", child_menu=sub_menu1_1)
