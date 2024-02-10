@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import time
 
 # GPIO pin tanımları
-SET_PIN = 17
+SET_PIN = 18
 INCREASE_PIN = 16
 DECREASE_PIN = 26
 ENTER_PIN = 4
