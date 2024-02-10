@@ -1,6 +1,5 @@
 from gpiozero import Button
 import time
-from RPLCD import CharLCD
 from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
 
@@ -13,22 +12,16 @@ set_hum_min = 65
 set_hum_max = 75
 
 
-# I2C ayarları
-i2c_address = 0x27  # Ekranınızın I2C adresini ayarlayın
-i2c_bus = 1  # I2C veri yolunu ayarlayın (genellikle 1)
-
-# Ekran boyutları
-lcd_columns = 16
-lcd_rows = 2
 
 
 class Menu:
     def __init__(self, items):
         self.items = items
         self.selected_item = 0
+        self.lcd = LCDController()
 
     def show_menu(self, lcd):
-        lcd.clear()
+        self.lcd.clear_screen()
         for i in range(len(self.items)):
             if i == self.selected_item:
                 lcd.cursor_pos = (i, 0)
@@ -45,26 +38,14 @@ class Menu:
         self.selected_item = (self.selected_item + 1) % len(self.items)
 
 
-class LCD:
-    def __init__(self, i2c_address, i2c_bus, columns, rows):
-        self.i2c_address = i2c_address
-        self.i2c_bus = i2c_bus
-        self.lcd = CharLCD(self.i2c_address, self.i2c_bus, columns=columns, rows=rows, i2c_expander="PCF8574")
 
-    def clear(self):
-        self.lcd.clear()
-
-    def write(self, text):
-        self.lcd.write(text)
-
-    def cursor_pos(self, position):
-        self.lcd.cursor_pos = position
 
 
 # Değer ayarlama fonksiyonu
 def set_value(item):
-    lcd.clear()
-    lcd.write(f"{item}: ")
+    menu = Menu(menu_items)
+    menu.lcd.clear_screen()
+    menu.lcd.write_to_lcd(f"{item}: ")
     # Değer ayarlama kodunuzu buraya ekleyin
     # Örnek kod:
     new_value = input("Yeni değeri girin: ")
@@ -83,11 +64,10 @@ btn_select = Button(btn_select)
 
 # Menü ve LCD nesneleri
 menu = Menu(menu_items)
-lcd = LCD(i2c_address, i2c_bus, lcd_columns, lcd_rows)
 
 # Ana döngü
 while True:
-    menu.show_menu(lcd)
+    menu.show_menu()
     # Ekran güncelleme kodunuzu buraya ekleyin
     # Örnek kod:
     time.sleep(0.1)
