@@ -3,7 +3,6 @@ import time
 from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
 
-
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
 set_temp_min = 0
@@ -18,6 +17,8 @@ class MenuOptions:
 
 class ButtonController:
     def __init__(self, set_pin, increase_pin, decrease_pin):
+        self.items = menu_items
+        self.select_item = 0
         self.lcd = LCDController()
         # GPIO modunu belirle
         GPIO.setmode(GPIO.BCM)
@@ -43,28 +44,36 @@ class ButtonController:
         GPIO.add_event_detect(self.decrease_pin, GPIO.FALLING, callback=self.decrease_pressed, bouncetime=150)
 
     def set_pressed(self, channel):
-        self.counter = 0
+
         print("Set button pressed")
-        self.lcd.clear_screen()
-        self.lcd.write("Set button pressed")
+        return self.items[self.select_item]
+
+        #self.lcd.clear_screen()
+        #self.lcd.write("Set button pressed")
 
     def increase_pressed(self, channel):
-        self.counter += 1
+
+        self.select_item = (self.select_item - 1) % len(self.items)
         print("Increase button pressed")
-        self.lcd.clear_screen()
-        self.lcd.write("Increase button pressed")
+
+        #self.lcd.clear_screen()
+        #self.lcd.write("Increase button pressed")
 
     def decrease_pressed(self, channel):
-        self.counter -= 1
-        print("Decrease button pressed")
-        self.lcd.clear_screen()
-        self.lcd.write("Decrease button pressed")
 
-    def run(self):
+        self.select_item = (self.select_item + 1) % len(self.items)
+        print("Decrease button pressed")
+        #self.lcd.clear_screen()
+        #self.lcd.write("Decrease button pressed")
+
+    def show_menu(self):
         try:
             while True:
-                print("merhaba")
-                time.sleep(1)
+                self.lcd.clear_screen()
+                for i in range(len(self.items)):
+                    if i == self.select_item:
+                        self.lcd.print_on_lcd(i, "> ")
+                    self.lcd.write(self.items[i])
         except KeyboardInterrupt:
             print("Program sonlandırılıyor...")
             # GPIO pinlerini temizle
@@ -75,5 +84,5 @@ class ButtonController:
 button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
 
 # Ana döngüyü başlat
-button_controller.run()
+button_controller.show_menu()
 
