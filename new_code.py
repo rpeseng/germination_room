@@ -63,7 +63,8 @@ class ButtonController:
         try:
             while True:
                 counter = str(self.counter)
-                self.lcd.print_on_lcd(counter, 1, 'left')
+                last_value = counter[len(counter) - 1]
+                self.lcd.print_on_lcd(last_value, 1, 'left')
                 time.sleep(1)
         except KeyboardInterrupt:
             print("Program sonlandırılıyor...")
