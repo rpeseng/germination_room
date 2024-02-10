@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
+import asyncio
 
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
@@ -102,7 +103,7 @@ class ButtonController:
         # Buton durumlarını kontrol etme fonksiyonu
 
 
-    def show_menu(self):
+    async def show_menu(self):
         try:
             while True:
                 if self.count == 0:
@@ -144,7 +145,7 @@ class ButtonController:
             # GPIO pinlerini temizle
             GPIO.cleanup()
 
-    def show_sub_menu1(self):
+    async def show_sub_menu1(self):
         try:
             while True:
                 self.lcd.clear_screen()
@@ -172,6 +173,11 @@ class ButtonController:
 
 # ButonController sınıfını kullanarak nesne oluştur
 button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
+async def main():
+    await asyncio.gather(button_controller.show_menu(), button_controller.show_sub_menu1())
 
+
+"""
 # Ana döngüyü başlat
 button_controller.show_menu()
+"""
