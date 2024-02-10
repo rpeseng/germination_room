@@ -112,12 +112,13 @@ class ButtonController:
         #self.lcd.clear_screen()
         #self.lcd.write("Decrease button pressed")
 
+    """
     # Buton durumlarını kontrol etme fonksiyonu
     def check_buttons(self):
         for pin in self.button_pins:
             if not GPIO.input(pin):
                 return pin
-        return None
+        return None"""
 
     def show_menu(self):
         try:
@@ -158,17 +159,6 @@ class ButtonController:
 
     def show_sub_menu1(self):
         if self.select_item == 0:
-            """self.deger_degistir=1
-            self.lcd.clear_screen()
-            self.lcd.lcd.cursor_pos = (0, 0)
-            self.lcd.write("Menu")
-            self.lcd.lcd.cursor_pos = (1, 0)
-            self.lcd.write("> ")
-            self.lcd.write(self.items[0])
-            self.lcd.lcd.cursor_pos = (2, 0)
-            self.lcd.write("Set Degeri =  ")
-            self.lcd.write(str(self.set_temp_min))
-            time.sleep(0.5)"""
             try:
                 button_pressed = self.check_buttons()
                 if button_pressed == self.increase_pin:
@@ -195,7 +185,7 @@ class ButtonController:
                     self.lcd.write(str(self.set_temp_min))
                 elif button_pressed == self.set_pin:
                     self.count = 0
-                time.sleep(0.1)
+                time.sleep(0.2)
             except KeyboardInterrupt:
                 self.lcd.lcd_screen_deactivate()
                 pass
