@@ -192,7 +192,7 @@ class ButtonController:
                     self.yerdegistirme = 0
                 elif self.yerdegistirme==1:
                     self.count = 0
-                time.sleep(0.2)
+                time.sleep(0.5)
             except KeyboardInterrupt:
                 GPIO.cleanup()
                 self.lcd.lcd_screen_deactivate()
