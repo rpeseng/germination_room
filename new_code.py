@@ -41,6 +41,7 @@ class ButtonController:
         self.button_pins = [self.set_pin]
 
         self.count = 0
+        self.yerdegistirme = 0
 
         self.set_temp_min = 2
         self.set_temp_max = 20
@@ -75,7 +76,8 @@ class ButtonController:
         if self.select_item == 0:
             self.count = 1
             self.show_sub_menu1()  # Alt menüyü göster
-        else:
+        """ 
+       else:
             selected_item = self.items[self.select_item]
             # Seçilen menü öğesine göre işlevi çalıştır
             if selected_item == "set_temp_min":
@@ -85,22 +87,14 @@ class ButtonController:
             elif selected_item == "set_hum_min":
                 self.set_hum_min_function()
             elif selected_item == "set_hum_max":
-                self.set_hum_max_function()
-        """
-        print("Set button pressed")
-
-        if self.select_item == 0:
-            self.show_sub_menu()
-        print("Increase button pressed")
-        return self.items[self.select_item]
-
-        #self.lcd.clear_screen()
-        #self.lcd.write("Set button pressed")"""
+                self.set_hum_max_function()"""
 
     def increase_pressed(self, channel):
 
         self.select_item = (self.select_item - 1) % len(self.items)
         print("increase button pressed")
+        return 1
+
         #self.lcd.clear_screen()
         #self.lcd.write("Increase button pressed")
 
@@ -111,6 +105,7 @@ class ButtonController:
         print("Decrease button pressed")
         #self.lcd.clear_screen()
         #self.lcd.write("Decrease button pressed")
+        return 1
 
     """
     # Buton durumlarını kontrol etme fonksiyonu
@@ -160,8 +155,7 @@ class ButtonController:
     def show_sub_menu1(self):
         if self.select_item == 0:
             try:
-                button_pressed = self.check_buttons()
-                if button_pressed == self.increase_pin:
+                if self.increase_pressed(self)==1:
                     self.set_temp_min += 1
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
@@ -172,7 +166,7 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
-                elif button_pressed == self.decrease_pin:
+                elif self.decrease_pressed(self)==1:
                     self.set_temp_min -= 1
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
