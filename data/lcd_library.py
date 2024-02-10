@@ -33,16 +33,16 @@ class LCDController:
                     Function is for print on lcd.
         """
         if line == 0:
-            self.lcd.cursor_post(line, 0)
+            self.lcd.cursor_post=(line, 0)
             self.lcd.write_string(message)
         if line == 1:
-            self.lcd.cursor_post(line, 0)
+            self.lcd.cursor_post=(line, 0)
             self.lcd.write_string(message)
         if line == 2:
-            self.lcd.cursor_post(line, 0)
+            self.lcd.cursor_post=(line, 0)
             self.lcd.write_string(message)
         if line == 3:
-            self.lcd.cursor_post(line, 0)
+            self.lcd.cursor_post=(line, 0)
             self.lcd.write_string(message)
 
 
