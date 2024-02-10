@@ -72,7 +72,7 @@ class GerminationRoom:
             elif self.selected_option == 4:
                 print("Çıkış seçildi")
                 break
-
+    """
     def get_selected_option(self, options):
         current_option = 1
 
@@ -80,7 +80,7 @@ class GerminationRoom:
             for idx, option in enumerate(options, start=1):
                 print(f"{idx}. {option}")
 
-            key = GPIO.wait_for_edge(22, GPIO.FALLING)
+            #key = GPIO.wait_for_edge(22, GPIO.FALLING)
 
             if key == 22:
                 return current_option
@@ -89,7 +89,7 @@ class GerminationRoom:
             if current_option > len(options):
                 current_option = 1
 
-            time.sleep(0.2)
+            time.sleep(0.2)"""
 
 
 class ButtonController:
