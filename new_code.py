@@ -101,6 +101,7 @@ class ButtonController:
                             self.lcd.write(self.items[i])
                 time.sleep(0.2)
         except KeyboardInterrupt:
+            self.lcd.print_on_lcd("LCD Deactive", 1)
             print("Program sonlandırılıyor...")
             # GPIO pinlerini temizle
             GPIO.cleanup()
