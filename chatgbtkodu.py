@@ -9,7 +9,7 @@ DECREASE_PIN = 26
 ENTER_PIN = 4
 
 # LCD'nin I2C adresi
-lcd = CharLCD(i2c_expander='PCF8574', address=0x27, port=1, cols=20, rows=4)
+lcd = CharLCD(i2c_expander='PCF8574', address=0x27, cols=20, rows=4)
 
 # Menü seçenekleri
 menu_items = ["CONFIGRATION", "DATE AND TIME", "LOGGING", "OUTPUT", "SETTINGS"]
