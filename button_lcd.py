@@ -25,7 +25,7 @@ class Menu:
         for i in range(len(self.items)):
             if i == self.selected_item:
                 self.lcd.print_on_lcd(i, "> ")
-            self.lcd.print_on_lcd(self.items[i])
+            self.lcd.write(self.items[i])
 
     def select_item(self):
         return self.items[self.selected_item]
