@@ -75,6 +75,7 @@ class ButtonController:
                         if i == 0:
                             self.lcd.print_on_lcd("Menu", 0)
                             self.lcd.print_on_lcd("> ", i+1)
+                            self.lcd.write(self.items[i])
                         else:
                             self.lcd.print_on_lcd("Menu", 0)
                             self.lcd.print_on_lcd("> ", i+1)
