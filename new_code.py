@@ -156,6 +156,15 @@ class ButtonController:
     def show_sub_menu1(self):
         if self.select_item == 0:
             try:
+                self.lcd.clear_screen()
+                self.lcd.lcd.cursor_pos = (0, 0)
+                self.lcd.write("Menu")
+                self.lcd.lcd.cursor_pos = (1, 0)
+                self.lcd.write("> ")
+                self.lcd.write(self.items[0])
+                self.lcd.lcd.cursor_pos = (2, 0)
+                self.lcd.write("Set Degeri =  ")
+                self.lcd.write(str(self.set_temp_min))
                 if self.yerdegistirme==1:
                     self.set_temp_min += 1
                     self.lcd.clear_screen()
