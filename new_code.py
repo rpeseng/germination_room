@@ -73,7 +73,7 @@ class ButtonController:
                 for i in range(len(self.items)):
                     if i == self.select_item:
                         self.lcd.print_on_lcd("> ", i)
-                    self.lcd.write(self.items[i])
+                        self.lcd.write(self.items[i])
                 time.sleep(0.2)
         except KeyboardInterrupt:
             print("Program sonlandırılıyor...")
