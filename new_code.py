@@ -72,6 +72,7 @@ class ButtonController:
                 self.lcd.clear_screen()
                 for i in range(len(self.items)):
                     if i == self.select_item:
+                        print(i)
                         self.lcd.lcd.cursor_pos(i, 0)
                         self.lcd.write("> ")
                     self.lcd.write(self.items[i])
