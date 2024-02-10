@@ -46,6 +46,10 @@ class ButtonController:
     def set_pressed(self, channel):
 
         print("Set button pressed")
+
+        if self.select_item == 0:
+            self.show_sub_menu()
+        print("Increase button pressed")
         return self.items[self.select_item]
 
         #self.lcd.clear_screen()
@@ -54,9 +58,6 @@ class ButtonController:
     def increase_pressed(self, channel):
 
         self.select_item = (self.select_item - 1) % len(self.items)
-        if self.select_item == 0:
-            self.show_sub_menu()
-        print("Increase button pressed")
 
         #self.lcd.clear_screen()
         #self.lcd.write("Increase button pressed")
