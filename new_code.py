@@ -75,7 +75,7 @@ class ButtonController:
 
 
 # ButonController sınıfını kullanarak nesne oluştur
-button_controller = ButtonController(set_pin=17, increase_pin=18, decrease_pin=19)
+button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
 
 # Ana döngüyü başlat
 button_controller.run()
