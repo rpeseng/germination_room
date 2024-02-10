@@ -20,7 +20,7 @@ class Menu:
         self.selected_item = 0
         self.lcd = LCDController()
 
-    def show_menu(self, lcd):
+    def show_menu(self):
         self.lcd.clear_screen()
         for i in range(len(self.items)):
             if i == self.selected_item:
