@@ -212,6 +212,7 @@ class ButtonController:
                         break
                     time.sleep(0.1)
             except KeyboardInterrupt:
+                self.lcd.lcd_screen_deactivate()
                 pass
 
             print("yazildi")
