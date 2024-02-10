@@ -59,6 +59,12 @@ class ButtonController:
 
     def set_hum_max_function(self):
         print("hade bakalım")
+    def set_temp_max_function(self):
+        print("hade bakalım2")
+    def set_hum_min_function(self):
+        print("hade bakalım3")
+    def set_temp_min_function(self):
+        print("hade bakalım4")
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
@@ -164,6 +170,7 @@ class ButtonController:
             self.lcd.write(str(set_temp_min))
             time.sleep(2)
             self.count = 0
+            self.show_menu()
 
             print("yazildi")
 
