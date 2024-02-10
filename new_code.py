@@ -108,8 +108,6 @@ class ButtonController:
         try:
             running = True
             while True:
-                if not running:
-
                 if running:
                     button_pressed = self.check_buttons()
                     if button_pressed == self.set_pin:
