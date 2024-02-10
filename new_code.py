@@ -123,6 +123,7 @@ class ButtonController:
             self.lcd.lcd.cursor_pos = (2, 0)
             self.lcd.write("Set Degeri =  ")
             self.lcd.write(set_temp_min)
+            time.sleep(2)
 
             print("yazildi")
 
