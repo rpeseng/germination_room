@@ -38,6 +38,7 @@ class ButtonController:
         self.set_pin = set_pin
         self.increase_pin = increase_pin
         self.decrease_pin = decrease_pin
+        self.button_pins = [self.set_pin]
 
 
 
@@ -96,39 +97,53 @@ class ButtonController:
         #self.lcd.clear_screen()
         #self.lcd.write("Decrease button pressed")
 
+    # Buton durumlarını kontrol etme fonksiyonu
+    def check_buttons(self):
+        for pin in self.button_pins:
+            if not GPIO.input(pin):
+                return pin
+        return None
+
     def show_menu(self):
         try:
+            running = True
             while True:
-                self.lcd.clear_screen()
-                for i in range(len(self.items)):
-                    if i == self.select_item:
-                        if i == 0:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            r = i+1
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
-                        elif i == 1:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
-                        elif i == 2:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            r = i - 1
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
-                        else:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            r = i - 2
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
+                if not running:
+
+                if running:
+                    button_pressed = self.check_buttons()
+                    if button_pressed == self.set_pin:
+                        running = not running
+                    self.lcd.clear_screen()
+                    for i in range(len(self.items)):
+                        if i == self.select_item:
+                            if i == 0:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                r = i+1
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
+                            elif i == 1:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
+                            elif i == 2:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                r = i - 1
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
+                            else:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                r = i - 2
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
                 print(set_temp_min)
                 time.sleep(0.2)
         except KeyboardInterrupt:
