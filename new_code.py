@@ -42,6 +42,7 @@ class ButtonController:
 
         self.count = 0
         self.yerdegistirme = 0
+        self.set_pin_activate=0
 
         self.set_temp_min = 2
         self.set_temp_max = 20
@@ -76,6 +77,11 @@ class ButtonController:
         if self.select_item == 0:
             self.count = 1
             self.show_sub_menu1()  # Alt menüyü göster
+
+        if self.set_pin_activate == 0:
+            self.set_pin_activate=1
+        else:
+            self.set_pin_activate = 0
         """ 
        else:
             selected_item = self.items[self.select_item]
@@ -189,7 +195,7 @@ class ButtonController:
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
                     self.yerdegistirme = 0
-                elif button_pressed == self.set_pin:
+                elif self.set_pin_activate==0:
                     self.count = 0
                 time.sleep(0.2)
             except KeyboardInterrupt:
