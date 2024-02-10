@@ -75,12 +75,9 @@ class ButtonController:
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
-            self.count=1
+            self.count= 1
 
-        if self.set_pin_activate == 0:
-            self.set_pin_activate=1
-        elif self.set_pin_activate ==1:
-            self.set_pin_activate = 2
+
 
         """ 
        else:
@@ -195,7 +192,7 @@ class ButtonController:
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
                     self.yerdegistirme = 0
-                elif self.set_pin_activate==2:
+                elif self.yerdegistirme==1:
                     self.count = 0
                 time.sleep(0.2)
             except KeyboardInterrupt:
