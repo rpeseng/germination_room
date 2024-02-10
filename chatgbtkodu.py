@@ -3,9 +3,9 @@ import RPi.GPIO as GPIO
 import time
 
 # GPIO pin tanımları
-SET_PIN = 1
-INCREASE_PIN = 2
-DECREASE_PIN = 3
+SET_PIN = 17
+INCREASE_PIN = 16
+DECREASE_PIN = 26
 ENTER_PIN = 4
 
 # LCD'nin I2C adresi
@@ -32,42 +32,18 @@ class MenuOption:
         self.parent = parent_menu
         self.menu_function = menu_function
 
+# Menü öğelerini oluştur
+
+menu2 = MenuOption("DATE AND TIME")
+menu3 = MenuOption("LOGGING")
+menu4 = MenuOption("OUTPUT")
+menu5 = MenuOption("SETTINGS")
 # Alt menü öğelerini oluştur
 sub_menu1_1 = MenuOption("Offset")
 sub_menu1_2 = MenuOption("Datum")
 
-sub_menu2_1 = MenuOption("Date")
-sub_menu2_2 = MenuOption("Time")
-
-sub_menu3_1 = MenuOption("Burst")
-
-sub_menu4_1_1 = MenuOption("Baud Rate")
-sub_menu4_1_2 = MenuOption("Parity")
-sub_menu4_1_3 = MenuOption("Data Bit")
-sub_menu4_1_4 = MenuOption("Stop Bit")
-
-sub_menu4_1_1_1 = MenuOption("1200")
-sub_menu4_1_1_2 = MenuOption("2400")
-sub_menu4_1_1_3 = MenuOption("4800")
-sub_menu4_1_1_4 = MenuOption("9600")
-sub_menu4_1_1_5 = MenuOption("19200")
-sub_menu4_1_1_6 = MenuOption("38400")
-sub_menu4_1_1_7 = MenuOption("57600")
-sub_menu4_1_1_8 = MenuOption("115200")
-
-sub_menu4_1_2_1 = MenuOption("Odd")
-sub_menu4_1_2_2 = MenuOption("Even")
-sub_menu4_1_2_3 = MenuOption("None")
-sub_menu4_2 = MenuOption("Bluetooth")
-sub_menu4_1 = MenuOption("RS232", child_menu=sub_menu4_1_1, next_menu=sub_menu4_2)
-
-
 # Ana menü öğelerini oluştur
 menu1 = MenuOption("CONFIGRATION", child_menu=sub_menu1_1)
-menu2 = MenuOption("DATE AND TIME", child_menu=sub_menu2_1)
-menu3 = MenuOption("LOGGING", child_menu=sub_menu3_1)
-menu4 = MenuOption("OUTPUT", child_menu=sub_menu4_1)
-menu5 = MenuOption("SETTINGS")
 
 menu1.next = menu2
 menu1.prev = menu5
