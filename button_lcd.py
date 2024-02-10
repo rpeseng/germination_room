@@ -18,8 +18,8 @@ i2c_address = 0x27  # Ekranınızın I2C adresini ayarlayın
 i2c_bus = 1  # I2C veri yolunu ayarlayın (genellikle 1)
 
 # Ekran boyutları
-lcd_columns = 20
-lcd_rows = 4
+lcd_columns = 16
+lcd_rows = 2
 
 
 class Menu:
