@@ -27,11 +27,7 @@ class ButtonController:
         self.increase_pin = increase_pin
         self.decrease_pin = decrease_pin
 
-        # Butonlar için debouncing süresi
-        self.debounce_time = 0.1
-        self.last_time_set = time.time()
-        self.last_time_increase = time.time()
-        self.last_time_decrease = time.time()
+
 
         # Butonları giriş olarak ayarla
         GPIO.setup(self.set_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
