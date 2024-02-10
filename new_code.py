@@ -68,7 +68,6 @@ class ButtonController:
             while True:
                 print("merhaba")
                 time.sleep(1)
-                self.lcd.clear_screen()
         except KeyboardInterrupt:
             print("Program sonlandırılıyor...")
             # GPIO pinlerini temizle
