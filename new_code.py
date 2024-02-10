@@ -11,12 +11,17 @@ set_temp_max = 20
 set_hum_min = 65
 set_hum_max = 75
 
+class MenuOptions:
+    def __init__(self):
+        pass
 
 class ButtonController:
     def __init__(self, set_pin, increase_pin, decrease_pin):
         self.set_button = Button(set_pin)
         self.increase_button = Button(increase_pin)
         self.decrease_button = Button(decrease_pin)
+
+        self.lcd = LCDController()
 
         self.counter = 0
 
@@ -55,7 +60,8 @@ class ButtonController:
     def run(self):
         try:
             while True:
-                print("Counter:", self.counter)
+                self.lcd.clear_screen()
+                self.lcd.print_on_lcd(1, self.counter)
                 time.sleep(1)
         except KeyboardInterrupt:
             print("Program sonlandırılıyor...")
