@@ -214,5 +214,6 @@ try:
             button_controller.show_sub_menu1()
 
 except Exception as error:
+    GPIO.cleanup()
     print(f"hata: {error}")
 
