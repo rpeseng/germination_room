@@ -54,6 +54,8 @@ class ButtonController:
     def increase_pressed(self, channel):
 
         self.select_item = (self.select_item - 1) % len(self.items)
+        if self.select_item == 0:
+            self.show_sub_menu()
         print("Increase button pressed")
 
         #self.lcd.clear_screen()
@@ -107,6 +109,11 @@ class ButtonController:
             print("Program sonlandırılıyor...")
             # GPIO pinlerini temizle
             GPIO.cleanup()
+
+
+    def show_sub_menu(self):
+        if self.select_item == 0:
+            print("yazildi")
 
 
 # ButonController sınıfını kullanarak nesne oluştur
