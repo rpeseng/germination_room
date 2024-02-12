@@ -76,6 +76,7 @@ class ButtonController:
         print("Set button pressed")
         "if self.select_item == 0:"
         self.count = 1
+        print(self.count)
         self.show_sub_menu1()
 
 
