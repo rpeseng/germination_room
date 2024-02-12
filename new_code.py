@@ -20,6 +20,7 @@ set_temp_max = 20
 set_hum_min = 65
 set_hum_max = 75
 
+count = 0
 
 class MenuOptions:
     def __init__(self):
@@ -40,7 +41,7 @@ class ButtonController:
         self.decrease_pin = decrease_pin
         self.button_pins = [self.set_pin]
 
-        self.count = 0
+        count = 0
         self.yerdegistirme = 0
         self.set_pin_activate=0
 
@@ -55,9 +56,6 @@ class ButtonController:
         GPIO.setup(self.set_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.increase_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.decrease_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-        # Değişken
-        self.count = 0
 
         # Buton tetikleyicileri atanıyor
         GPIO.add_event_detect(self.set_pin, GPIO.FALLING, callback=self.set_pressed, bouncetime=150)
@@ -76,7 +74,7 @@ class ButtonController:
         print("Set button pressed")
 
         if self.select_item == 0:
-            self.count = 1
+            count = 1
             self.show_sub_menu1()
 
 
@@ -121,119 +119,111 @@ class ButtonController:
 
     def show_menu(self):
         try:
-            while True:
-                if self.count == 0:
-                    self.lcd.clear_screen()
-                    for i in range(len(self.items)):
-                        if i == self.select_item:
-                            if i == 0:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                            elif i == 1:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                            elif i == 2:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                            else:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                time.sleep(0.2)
+
+            if count == 0:
+                self.lcd.clear_screen()
+                for i in range(len(self.items)):
+                    if i == self.select_item:
+                        if i == 0:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        elif i == 1:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        elif i == 2:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        else:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+            print("show_menu")
+            time.sleep(0.2)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
-            self.lcd.print_on_lcd("LCD Deactive", 1)
-            print("Program sonlandırılıyor...")
-            # GPIO pinlerini temizle
+            self.lcd.lcd_screen_deactivate()
             GPIO.cleanup()
 
     def show_sub_menu1(self):
-        while True:
-            if self.count == 1:
-                print("bura1")
-                if self.select_item == 0:
-                    print("bura2")
-                    try:
+
+        if count == 1:
+            if self.select_item == 0:
+                try:
+                    self.lcd.clear_screen()
+                    self.lcd.lcd.cursor_pos = (0, 0)
+                    self.lcd.write("Menu")
+                    self.lcd.lcd.cursor_pos = (1, 0)
+                    self.lcd.write("> ")
+                    self.lcd.write(self.items[0])
+                    self.lcd.lcd.cursor_pos = (2, 0)
+                    self.lcd.write("Set Degeri =  ")
+                    self.lcd.write(str(self.set_temp_min))
+
+                    if self.yerdegistirme==1:
+                        self.set_temp_min += 1
                         self.lcd.clear_screen()
-                        time.sleep(0.02)
-                        print("bura2.1")
                         self.lcd.lcd.cursor_pos = (0, 0)
-                        print("bura2.2")
-                        time.sleep(0.02)
                         self.lcd.write("Menu")
-                        print("bura2.3")
-                        time.sleep(0.02)
                         self.lcd.lcd.cursor_pos = (1, 0)
-                        time.sleep(0.02)
                         self.lcd.write("> ")
-                        print("bura2.4")
                         self.lcd.write(self.items[0])
-                        time.sleep(0.02)
                         self.lcd.lcd.cursor_pos = (2, 0)
-                        print("bura2.5")
-                        time.sleep(0.02)
                         self.lcd.write("Set Degeri =  ")
-                        time.sleep(0.02)
                         self.lcd.write(str(self.set_temp_min))
-                        time.sleep(0.02)
-                        print("bura3")
-                        if self.yerdegistirme==1:
-                            self.set_temp_min += 1
-                            self.lcd.clear_screen()
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[0])
-                            self.lcd.lcd.cursor_pos = (2, 0)
-                            self.lcd.write("Set Degeri =  ")
-                            self.lcd.write(str(self.set_temp_min))
-                            self.yerdegistirme = 0
-                        elif self.yerdegistirme==2:
-                            self.set_temp_min -= 1
-                            self.lcd.clear_screen()
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[0])
-                            self.lcd.lcd.cursor_pos = (2, 0)
-                            self.lcd.write("Set Degeri =  ")
-                            self.lcd.write(str(self.set_temp_min))
-                            self.yerdegistirme = 0
-                        elif self.yerdegistirme==1:
-                            self.count = 0
-                            self.show_menu()
-                        time.sleep(0.2)
-                    except KeyboardInterrupt:
-                        GPIO.cleanup()
-                        self.lcd.lcd_screen_deactivate()
-                        print("bura4")
-                else:
-                    self.count = 0
-                    print("Testt")
-                    self.show_menu()
-
-            time.sleep(0.1)
-
-            print("yazildi")
+                        self.yerdegistirme = 0
+                    elif self.yerdegistirme==2:
+                        self.set_temp_min -= 1
+                        self.lcd.clear_screen()
+                        self.lcd.lcd.cursor_pos = (0, 0)
+                        self.lcd.write("Menu")
+                        self.lcd.lcd.cursor_pos = (1, 0)
+                        self.lcd.write("> ")
+                        self.lcd.write(self.items[0])
+                        self.lcd.lcd.cursor_pos = (2, 0)
+                        self.lcd.write("Set Degeri =  ")
+                        self.lcd.write(str(self.set_temp_min))
+                        self.yerdegistirme = 0
+                    elif self.yerdegistirme==1:
+                        self.count = 0
+                        self.show_menu()
+                    time.sleep(0.2)
+                except KeyboardInterrupt:
+                    GPIO.cleanup()
+                    self.lcd.lcd_screen_deactivate()
+            else:
+                self.count = 0
+                print("Testt")
+                #self.show_menu()
 
 
-# ButonController sınıfını kullanarak nesne oluştur
-button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
 
-button_controller.show_menu()
+def main():
+    # ButonController sınıfını kullanarak nesne oluştur
+    button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
+
+    while True:
+        if count == 0:
+            button_controller.show_menu()
+        else:
+            button_controller.show_sub_menu1()
+
+
+if __name__ == "__main__":
+    main()
+
+
+
 
 """try:
     while True:
