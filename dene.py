@@ -27,6 +27,7 @@ def show_main_menu():
         lcd.write_string("2. Value2 Ayarla")
         lcd.cursor_pos = (3, 0)
         lcd.write_string("0. Çıkış")
+        time.sleep(0.2)
 
         if enter_button.is_pressed:
             selected_menu = select_submenu()
@@ -54,6 +55,7 @@ def set_value1_menu():
     lcd.write_string("1. Artır\n")
     lcd.write_string("2. Azalt\n")
     lcd.write_string("0. Geri\n")
+
 
     if enter_button.is_pressed:
         return
