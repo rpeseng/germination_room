@@ -6,9 +6,9 @@ import time
 lcd = CharLCD('PCF8574', address=0x27, port=1)
 
 # Buton pinlerini tanımla
-UP_PIN = 17
+UP_PIN = 16
 DOWN_PIN = 18
-ENTER_PIN = 27
+ENTER_PIN = 26
 
 # Butonları tanımla
 up_button = Button(UP_PIN)
@@ -19,10 +19,14 @@ enter_button = Button(ENTER_PIN)
 def show_main_menu():
     while True:
         lcd.clear()
-        lcd.write_string("=== Ana Menü ===\n")
-        lcd.write_string("1. Value1 Ayarla\n")
-        lcd.write_string("2. Value2 Ayarla\n")
-        lcd.write_string("0. Çıkış\n")
+        lcd.cursor_pos = (0, 0)
+        lcd.write_string("=== Ana Menü ===")
+        lcd.cursor_pos = (1, 0)
+        lcd.write_string("1. Value1 Ayarla")
+        lcd.cursor_pos = (2, 0)
+        lcd.write_string("2. Value2 Ayarla")
+        lcd.cursor_pos = (3, 0)
+        lcd.write_string("0. Çıkış")
 
         if enter_button.is_pressed:
             selected_menu = select_submenu()
@@ -32,9 +36,12 @@ def show_main_menu():
 def select_submenu():
     while True:
         lcd.clear()
-        lcd.write_string("Alt Menü Seçin\n")
-        lcd.write_string("1. Value1\n")
-        lcd.write_string("2. Value2\n")
+        lcd.cursor_pos = (0, 0)
+        lcd.write_string("Alt Menü Seçin")
+        lcd.cursor_pos = (1, 0)
+        lcd.write_string("1. Value1")
+        lcd.cursor_pos = (2, 0)
+        lcd.write_string("2. Value2")
 
         if up_button.is_pressed:
             return set_value1_menu
