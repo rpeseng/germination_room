@@ -96,7 +96,6 @@ class ButtonController:
 
 
     def show_sub_menu1(self):
-
         try:
 
             while True:
@@ -119,9 +118,7 @@ class ButtonController:
                 if set_pin.is_pressed:
                     time.sleep(0.12)
                     print("Basildi")
-                    return self.show_menu()
-
-
+                    break
                 time.sleep(0.1)
 
         except KeyboardInterrupt:
@@ -134,7 +131,6 @@ def main():
     button_controller = ButtonController()
 
     try:
-
         button_controller.show_menu()
 
 
