@@ -59,9 +59,9 @@ class ButtonController:
                             self.lcd.lcd.cursor_pos = (1, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
-                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.lcd.cursor_pos = (2, 0)
                             self.lcd.write(self.items[(i+1)])
-                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.lcd.cursor_pos = (3, 0)
                             self.lcd.write(self.items[(i+2)])
                         elif i == 1:
                             self.lcd.clear_screen()
