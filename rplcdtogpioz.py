@@ -60,18 +60,21 @@ class ButtonController:
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
                         elif i == 1:
+                            self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("Menu")
                             self.lcd.lcd.cursor_pos = (1, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
                         elif i == 2:
+                            self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("Menu")
                             self.lcd.lcd.cursor_pos = (1, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
                         else:
+                            self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("Menu")
                             self.lcd.lcd.cursor_pos = (1, 0)
@@ -79,17 +82,17 @@ class ButtonController:
                             self.lcd.write(self.items[i])
                     if increase_pin.is_pressed:
                         self.increase_pressed()
-                        time.sleep(0.2)
+                        time.sleep(0.1)
                     if decrease_pin.is_pressed:
                         self.decrease_pressed()
-                        time.sleep(0.2)
-                    time.sleep(0.2)
+                        time.sleep(0.1)
+                    time.sleep(0.1)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
             self.lcd.lcd_screen_deactivate()
 
 
-    """def show_sub_menu1(self):
+    def show_sub_menu1(self):
 
         try:
                 if self.select_item == 0:
@@ -133,7 +136,7 @@ class ButtonController:
 
 
         except KeyboardInterrupt:
-            self.lcd.lcd_screen_deactivate()"""
+            self.lcd.lcd_screen_deactivate()
 
 
 def main():
