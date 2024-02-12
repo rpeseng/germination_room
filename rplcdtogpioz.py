@@ -81,7 +81,7 @@ class ButtonController:
                         self.increase_pressed()
                         time.sleep(0.2)
                     if decrease_pin.is_pressed:
-                        self.lcd.clear_screen()
+                        self.decrease_pressed()
                         time.sleep(0.2)
                     time.sleep(0.2)
         except KeyboardInterrupt:
