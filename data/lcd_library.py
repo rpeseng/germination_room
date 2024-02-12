@@ -79,8 +79,10 @@ class LCDController:
 
     def lcd_screen_deactivate(self):
         try:
-            self.print_on_lcd("Lcd Screen,", 1, 'left')
-            self.print_on_lcd("Deactivate", 2, 'left')
+            self.lcd.cursor_pos = (1, 5)
+            self.write("Lcd Screen,")
+            self.lcd.cursor_pos = (2, 5)
+            self.write("Deactivate")
         except KeyboardInterrupt:
             pass
         except Exception as error:
