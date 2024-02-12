@@ -169,19 +169,27 @@ class ButtonController:
                     try:
 
                         self.lcd.clear_screen()
+                        time.sleep(0.02)
                         print("bura2.1")
                         self.lcd.lcd.cursor_pos = (0, 0)
                         print("bura2.2")
+                        time.sleep(0.02)
                         self.lcd.write("Menu")
                         print("bura2.3")
+                        time.sleep(0.02)
                         self.lcd.lcd.cursor_pos = (1, 0)
+                        time.sleep(0.02)
                         self.lcd.write("> ")
                         print("bura2.4")
                         self.lcd.write(self.items[0])
+                        time.sleep(0.02)
                         self.lcd.lcd.cursor_pos = (2, 0)
                         print("bura2.5")
+                        time.sleep(0.02)
                         self.lcd.write("Set Degeri =  ")
+                        time.sleep(0.02)
                         self.lcd.write(str(self.set_temp_min))
+                        time.sleep(0.02)
                         print("bura3")
                         if self.yerdegistirme==1:
                             self.set_temp_min += 1
