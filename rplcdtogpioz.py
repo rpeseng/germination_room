@@ -131,7 +131,7 @@ class ButtonController:
                         self.lcd.lcd.cursor_pos = (2, 0)
                         self.lcd.write("Set Degeri =  ")
                         self.lcd.write(str(self.set_temp_min))
-
+                        self.yerdegistirme = 0
                         if self.yerdegistirme==1:
                             self.set_temp_min += 1
                             self.lcd.clear_screen()
