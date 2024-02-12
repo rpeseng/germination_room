@@ -20,13 +20,13 @@ def show_main_menu():
     while True:
         lcd.clear()
         lcd.cursor_pos = (0, 0)
-        lcd.write_string("=== Ana Menü ===")
+        lcd.write_string("=== Ana Menu ===")
         lcd.cursor_pos = (1, 0)
         lcd.write_string("1. Value1 Ayarla")
         lcd.cursor_pos = (2, 0)
         lcd.write_string("2. Value2 Ayarla")
         lcd.cursor_pos = (3, 0)
-        lcd.write_string("0. Çıkış")
+        lcd.write_string("0. Cikis")
         time.sleep(0.2)
 
         if enter_button.is_pressed:
@@ -38,7 +38,7 @@ def select_submenu():
     while True:
         lcd.clear()
         lcd.cursor_pos = (0, 0)
-        lcd.write_string("Alt Menü Seçin")
+        lcd.write_string("Alt Menu secin")
         lcd.cursor_pos = (1, 0)
         lcd.write_string("1. Value1")
         lcd.cursor_pos = (2, 0)
@@ -78,10 +78,15 @@ def set_value1_menu():
 
 def set_value2_menu():
     lcd.clear()
-    lcd.write_string("=== Value2 Ayarla ===\n")
-    lcd.write_string("1. Artır\n")
+    lcd.cursor_pos = (0, 0)
+    lcd.write_string("=== Value2 Ayarla ===")
+    lcd.cursor_pos = (1, 0)
+    lcd.write_string("1. Artır")
+    lcd.cursor_pos = (2, 0)
     lcd.write_string("2. Azalt\n")
-    lcd.write_string("0. Geri\n")
+    lcd.cursor_pos = (3, 0)
+    lcd.write_string("0. Geri")
+    time.sleep(0.1)
 
     if enter_button.is_pressed:
         return
@@ -103,8 +108,11 @@ value2 = 0
 # Ekranı güncelleme fonksiyonu
 def update_screen():
     lcd.clear()
-    lcd.write_string("Value1: {}\n".format(value1))
+    lcd.cursor_pos = (0, 0)
+    lcd.write_string("Value1: {}".format(value1))
+    lcd.cursor_pos = (1, 0)
     lcd.write_string("Value2: {}".format(value2))
+    time.sleep(0.05)
 
 # Arttırma fonksiyonu
 def increment_value1():
