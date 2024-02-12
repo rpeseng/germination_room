@@ -112,6 +112,7 @@ try:
           # Hakkında Bilgileri Göster
           pass
         elif current_menu == 2:
+            print("qqq")
           # Çık
 except:
     print("hata")
