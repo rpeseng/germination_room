@@ -119,9 +119,31 @@ class ButtonController:
     def show_sub_menu1(self):
 
         try:
-            if ButtonController.count == 1:
                 if self.select_item == 0:
 
+                    self.lcd.clear_screen()
+                    self.lcd.lcd.cursor_pos = (0, 0)
+                    self.lcd.write("Menu")
+                    self.lcd.lcd.cursor_pos = (1, 0)
+                    self.lcd.write("> ")
+                    self.lcd.write(self.items[0])
+                    self.lcd.lcd.cursor_pos = (2, 0)
+                    self.lcd.write("Set Degeri =  ")
+                    self.lcd.write(str(self.set_temp_min))
+                    self.yerdegistirme = 0
+                    if self.yerdegistirme==1:
+                        self.set_temp_min += 1
+                        self.lcd.clear_screen()
+                        self.lcd.lcd.cursor_pos = (0, 0)
+                        self.lcd.write("Menu")
+                        self.lcd.lcd.cursor_pos = (1, 0)
+                        self.lcd.write("> ")
+                        self.lcd.write(self.items[0])
+                        self.lcd.lcd.cursor_pos = (2, 0)
+                        self.lcd.write("Set Degeri =  ")
+                        self.lcd.write(str(self.set_temp_min))
+                    elif self.yerdegistirme==2:
+                        self.set_temp_min -= 1
                         self.lcd.clear_screen()
                         self.lcd.lcd.cursor_pos = (0, 0)
                         self.lcd.write("Menu")
@@ -132,38 +154,12 @@ class ButtonController:
                         self.lcd.write("Set Degeri =  ")
                         self.lcd.write(str(self.set_temp_min))
                         self.yerdegistirme = 0
-                        if self.yerdegistirme==1:
-                            self.set_temp_min += 1
-                            self.lcd.clear_screen()
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[0])
-                            self.lcd.lcd.cursor_pos = (2, 0)
-                            self.lcd.write("Set Degeri =  ")
-                            self.lcd.write(str(self.set_temp_min))
-                        elif self.yerdegistirme==2:
-                            self.set_temp_min -= 1
-                            self.lcd.clear_screen()
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[0])
-                            self.lcd.lcd.cursor_pos = (2, 0)
-                            self.lcd.write("Set Degeri =  ")
-                            self.lcd.write(str(self.set_temp_min))
-                            self.yerdegistirme = 0
-                        elif self.yerdegistirme==1:
-                            self.count = 0
-                            self.show_menu()
-                        time.sleep(0.2)
+                    elif self.yerdegistirme==1:
+                        self.count = 0
+                        self.show_menu()
+                    time.sleep(0.2)
 
-                else:
-                    ButtonController.count = 0
-                    print("Testt")
-                    #self.show_menu()
+
         except KeyboardInterrupt:
             self.lcd.lcd_screen_deactivate()
 
@@ -174,13 +170,11 @@ def main():
 
     try:
         while True:
-            if button_controller.count == 0:
-                button_controller.show_menu()
-            else:
-                button_controller.show_sub_menu1()
+
+            button_controller.show_menu()
+
 
     except Exception as error:
-        GPIO.cleanup()
         button_controller.lcd.lcd_screen_deactivate()
         print(f"hata: {error}")
 
