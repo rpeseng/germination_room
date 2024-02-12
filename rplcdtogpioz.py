@@ -87,7 +87,8 @@ class ButtonController:
                         self.decrease_pressed()
                         time.sleep(0.15)
                     if set_pin.is_pressed:
-                        self.show_sub_menu1()
+                        if self.select_item == 0:
+                            self.show_sub_menu1()
                         time.sleep(0.15)
                     time.sleep(0.1)
         except KeyboardInterrupt:
@@ -97,7 +98,6 @@ class ButtonController:
 
     def show_sub_menu1(self):
         try:
-
             while True:
                 if self.select_item == 0:
                     self.lcd.clear_screen()
