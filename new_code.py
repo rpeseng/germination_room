@@ -202,7 +202,10 @@ class ButtonController:
 
 # ButonController sınıfını kullanarak nesne oluştur
 button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
-try:
+
+button_controller.show_menu()
+
+"""try:
     while True:
         if button_controller.count == 0:
             button_controller.show_menu()
@@ -212,4 +215,4 @@ try:
 except Exception as error:
     GPIO.cleanup()
     print(f"hata: {error}")
-
+"""
