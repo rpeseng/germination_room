@@ -1,223 +1,121 @@
-import RPi.GPIO as GPIO
-import time
-from data.lcd_library import LCDController
-from data.am2120_data import AM2120Sensor
+class Menu:
+    def __init__(self, title):
+        self.title = title
+        self.submenus = []
 
-# Menü seçenekleri
-menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
+    def add_submenu(self, submenu):
+        self.submenus.append(submenu)
 
-# Submenu seçenekleri
-submenus = {
-    "set_temp_min": [
-        {"name": "Sıcaklığı 1 Derece Artır", "function":""},
-        {"name": "Sıcaklığı 1 Derece Azalt", "function":""},
-        {"name": "Sıcaklığı Manuel Gir", "function":""},
-    ]
-}
+    def show(self):
+        while True:
+            print("=== {} ===".format(self.title))
+            for index, submenu in enumerate(self.submenus, start=1):
+                print("{}. {}".format(index, submenu.title))
+            print("0. Çıkış")
+            choice = input("Seçiminizi yapın: ")
 
-set_temp_min = 2
-set_temp_max = 20
-set_hum_min = 65
-set_hum_max = 75
+            if choice == '0':
+                print("Programdan çıkılıyor...")
+                break
 
-
-class MenuOptions:
-    def __init__(self):
-        pass
-
-
-class ButtonController:
-    def __init__(self, set_pin, increase_pin, decrease_pin):
-        self.items = menu_items
-        self.select_item = 0
-        self.lcd = LCDController()
-        # GPIO modunu belirle
-        GPIO.setmode(GPIO.BCM)
-
-        # Buton pinlerini tanımla
-        self.set_pin = set_pin
-        self.increase_pin = increase_pin
-        self.decrease_pin = decrease_pin
-        self.button_pins = [self.set_pin]
-
-        self.count = 0
-
-        self.set_temp_min = 2
-        self.set_temp_max = 20
-        self.set_hum_min = 65
-        self.set_hum_max = 75
-
-
-
-        # Butonları giriş olarak ayarla
-        GPIO.setup(self.set_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.setup(self.increase_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.setup(self.decrease_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-        # Değişken
-        self.counter = 0
-
-        # Buton tetikleyicileri atanıyor
-        GPIO.add_event_detect(self.set_pin, GPIO.FALLING, callback=self.set_pressed, bouncetime=150)
-        GPIO.add_event_detect(self.increase_pin, GPIO.FALLING, callback=self.increase_pressed, bouncetime=150)
-        GPIO.add_event_detect(self.decrease_pin, GPIO.FALLING, callback=self.decrease_pressed, bouncetime=150)
-
-    def set_hum_max_function(self):
-        print("hade bakalım")
-    def set_temp_max_function(self):
-        print("hade bakalım2")
-    def set_hum_min_function(self):
-        print("hade bakalım3")
-    def set_temp_min_function(self):
-        print("hade bakalım4")
-    def set_pressed(self, channel):
-        print("Set button pressed")
-        if self.select_item == 0:
-            self.count = 1
-            self.show_sub_menu1()  # Alt menüyü göster
-        else:
-            selected_item = self.items[self.select_item]
-            # Seçilen menü öğesine göre işlevi çalıştır
-            if selected_item == "set_temp_min":
-                self.set_temp_min_function()
-            elif selected_item == "set_temp_max":
-                self.set_temp_max_function()
-            elif selected_item == "set_hum_min":
-                self.set_hum_min_function()
-            elif selected_item == "set_hum_max":
-                self.set_hum_max_function()
-        """
-        print("Set button pressed")
-
-        if self.select_item == 0:
-            self.show_sub_menu()
-        print("Increase button pressed")
-        return self.items[self.select_item]
-
-        #self.lcd.clear_screen()
-        #self.lcd.write("Set button pressed")"""
-
-    def increase_pressed(self, channel):
-
-        self.select_item = (self.select_item - 1) % len(self.items)
-        print("increase button pressed")
-        #self.lcd.clear_screen()
-        #self.lcd.write("Increase button pressed")
-
-    def decrease_pressed(self, channel):
-
-        self.select_item = (self.select_item + 1) % len(self.items)
-
-        print("Decrease button pressed")
-        #self.lcd.clear_screen()
-        #self.lcd.write("Decrease button pressed")
-
-    # Buton durumlarını kontrol etme fonksiyonu
-    def check_buttons(self):
-        for pin in self.button_pins:
-            if not GPIO.input(pin):
-                return pin
-        return None
-
-    def show_menu(self):
-        try:
-
-                    self.lcd.clear_screen()
-                    for i in range(len(self.items)):
-                        if i == self.select_item:
-                            if i == 0:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                            elif i == 1:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                            elif i == 2:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                            else:
-                                self.lcd.lcd.cursor_pos = (0, 0)
-                                self.lcd.write("Menu")
-                                self.lcd.lcd.cursor_pos = (1, 0)
-                                self.lcd.write("> ")
-                                self.lcd.write(self.items[i])
-                    time.sleep(0.2)
-                else:
-                    print(self.set_temp_min)
-                    time.sleep(0.2)
-        except KeyboardInterrupt:
-            self.lcd.clear_screen()
-            self.lcd.print_on_lcd("LCD Deactive", 1)
-            print("Program sonlandırılıyor...")
-            # GPIO pinlerini temizle
-            GPIO.cleanup()
-
-    def show_sub_menu1(self):
-        if self.select_item == 0:
-            """self.deger_degistir=1
-            self.lcd.clear_screen()
-            self.lcd.lcd.cursor_pos = (0, 0)
-            self.lcd.write("Menu")
-            self.lcd.lcd.cursor_pos = (1, 0)
-            self.lcd.write("> ")
-            self.lcd.write(self.items[0])
-            self.lcd.lcd.cursor_pos = (2, 0)
-            self.lcd.write("Set Degeri =  ")
-            self.lcd.write(str(self.set_temp_min))
-            time.sleep(0.5)"""
             try:
-                while True:
-                    button_pressed = self.check_buttons()
-                    if button_pressed == self.increase_pin:
-                        self.set_temp_min += 1
-                        self.lcd.clear_screen()
-                        self.lcd.lcd.cursor_pos = (0, 0)
-                        self.lcd.write("Menu")
-                        self.lcd.lcd.cursor_pos = (1, 0)
-                        self.lcd.write("> ")
-                        self.lcd.write(self.items[0])
-                        self.lcd.lcd.cursor_pos = (2, 0)
-                        self.lcd.write("Set Degeri =  ")
-                        self.lcd.write(str(self.set_temp_min))
-                    elif button_pressed == self.decrease_pin:
-                        self.set_temp_min -= 1
-                        self.lcd.clear_screen()
-                        self.lcd.lcd.cursor_pos = (0, 0)
-                        self.lcd.write("Menu")
-                        self.lcd.lcd.cursor_pos = (1, 0)
-                        self.lcd.write("> ")
-                        self.lcd.write(self.items[0])
-                        self.lcd.lcd.cursor_pos = (2, 0)
-                        self.lcd.write("Set Degeri =  ")
-                        self.lcd.write(str(self.set_temp_min))
-                    elif button_pressed == self.set_pin:
-                        self.count = 0
-                        break
-                    time.sleep(0.1)
-            except KeyboardInterrupt:
-                self.lcd.lcd_screen_deactivate()
-                pass
+                choice = int(choice)
+                if 1 <= choice <= len(self.submenus):
+                    selected_submenu = self.submenus[choice - 1]
+                    selected_submenu.show()
+                else:
+                    print("Geçersiz seçim, tekrar deneyin.")
+            except ValueError:
+                print("Geçersiz giriş, tekrar deneyin.")
 
-            print("yazildi")
+class SubMenu:
+    def __init__(self, title):
+        self.title = title
+        self.value1 = 0
+        self.value2 = 0
+        self.increment_function1 = None
+        self.increment_function2 = None
+        self.decrement_function1 = None
+        self.decrement_function2 = None
 
+    def set_increment_function1(self, function):
+        self.increment_function1 = function
 
-# ButonController sınıfını kullanarak nesne oluştur
-button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
-try:
-    while True:
-        if button_controller.count == 0:
-            button_controller.show_menu()
-        else:
-            button_controller.show_sub_menu1()
+    def set_increment_function2(self, function):
+        self.increment_function2 = function
 
-except Exception as error:
-    print(f"hata: {error}")
+    def set_decrement_function1(self, function):
+        self.decrement_function1 = function
 
+    def set_decrement_function2(self, function):
+        self.decrement_function2 = function
+
+    def show(self):
+        while True:
+            print("=== {} ===".format(self.title))
+            print("1. Değer 1 Artır")
+            print("2. Değer 1 Azalt")
+            print("3. Değer 2 Artır")
+            print("4. Değer 2 Azalt")
+            print("0. Geri")
+            choice = input("Seçiminizi yapın: ")
+
+            if choice == '0':
+                print("Ana menüye geri dönülüyor...")
+                break
+            elif choice == '1' and self.increment_function1:
+                self.increment_function1()
+            elif choice == '2' and self.decrement_function1:
+                self.decrement_function1()
+            elif choice == '3' and self.increment_function2:
+                self.increment_function2()
+            elif choice == '4' and self.decrement_function2:
+                self.decrement_function2()
+            else:
+                print("Geçersiz seçim, tekrar deneyin.")
+
+# Değerler
+value1 = 0
+value2 = 0
+
+# Değer 1 arttırma fonksiyonu
+def increment_value1():
+    global value1
+    value1 += 1
+    print("Değer 1 arttırıldı, yeni değer:", value1)
+
+# Değer 1 azaltma fonksiyonu
+def decrement_value1():
+    global value1
+    value1 -= 1
+    print("Değer 1 azaltıldı, yeni değer:", value1)
+
+# Değer 2 arttırma fonksiyonu
+def increment_value2():
+    global value2
+    value2 += 1
+    print("Değer 2 arttırıldı, yeni değer:", value2)
+
+# Değer 2 azaltma fonksiyonu
+def decrement_value2():
+    global value2
+    value2 -= 1
+    print("Değer 2 azaltıldı, yeni değer:", value2)
+
+# Ana menü oluştur
+main_menu = Menu("Ana Menü")
+
+# Alt menü oluştur
+submenu = SubMenu("Değer Ayarlama")
+
+# Artırma ve azaltma fonksiyonlarını alt menüye ekle
+submenu.set_increment_function1(increment_value1)
+submenu.set_decrement_function1(decrement_value1)
+submenu.set_increment_function2(increment_value2)
+submenu.set_decrement_function2(decrement_value2)
+
+# Ana menüye alt menüyü ekle
+main_menu.add_submenu(submenu)
+
+# Menüyü göster
+main_menu.show()
