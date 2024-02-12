@@ -81,8 +81,10 @@ class ButtonController:
         try:
             if increase_pin.is_pressed:
                 self.increase_pressed()
+                time.sleep(0.2)
             if decrease_pin.is_pressed:
                 self.lcd.clear_screen()
+                time.sleep(0.2)
                 for i in range(len(self.items)):
                     if i == self.select_item:
                         if i == 0:
