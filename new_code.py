@@ -167,6 +167,7 @@ class ButtonController:
                 if self.select_item == 0:
                     print("bura2")
                     try:
+                        print("bura2.1")
                         self.lcd.clear_screen()
                         self.lcd.lcd.cursor_pos = (0, 0)
                         self.lcd.write("Menu")
