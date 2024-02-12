@@ -73,12 +73,10 @@ class ButtonController:
     def set_temp_min_function(self):
         print("hade bakalım4")
     def set_pressed(self, channel):
-        print("basıldı")
         print("Set button pressed")
-        "if self.select_item == 0:"
-        self.count = 1
-        print(self.count)
-        self.show_sub_menu1()
+        if self.select_item == 0:
+            self.count = 1
+            self.show_sub_menu1()
 
 
 
@@ -163,7 +161,6 @@ class ButtonController:
 
     def show_sub_menu1(self):
         while True:
-            print("girildi")
             if self.select_item == 0:
                 try:
                     self.lcd.clear_screen()
