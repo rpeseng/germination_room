@@ -43,6 +43,7 @@ def select_submenu():
         lcd.write_string("1. Value1")
         lcd.cursor_pos = (2, 0)
         lcd.write_string("2. Value2")
+        time.sleep(0.2)
 
         if up_button.is_pressed:
             return set_value1_menu
@@ -51,10 +52,15 @@ def select_submenu():
 
 def set_value1_menu():
     lcd.clear()
-    lcd.write_string("=== Value1 Ayarla ===\n")
-    lcd.write_string("1. Artır\n")
-    lcd.write_string("2. Azalt\n")
-    lcd.write_string("0. Geri\n")
+    lcd.cursor_pos = (0, 0)
+    lcd.write_string("=== Value1 Ayarla ===")
+    lcd.cursor_pos = (1, 0)
+    lcd.write_string("1. Artır")
+    lcd.cursor_pos = (2, 0)
+    lcd.write_string("2. Azalt")
+    lcd.cursor_pos = (3, 0)
+    lcd.write_string("0. Geri")
+    time.sleep(0.2)
 
 
     if enter_button.is_pressed:
