@@ -26,19 +26,10 @@ decrease_pin = Button(18)
 
 
 class ButtonController:
-    def __init__(self, set_pin, increase_pin, decrease_pin):
+    def __init__(self):
         self.items = menu_items
         self.select_item = 0
         self.lcd = LCDController()
-
-
-        # Buton pinlerini tanımla
-        self.set_pin = set_pin
-        self.increase_pin = increase_pin
-        self.decrease_pin = decrease_pin
-
-
-
 
         self.set_temp_min = 2
         self.set_temp_max = 20
@@ -56,26 +47,16 @@ class ButtonController:
         self.select_item = (self.select_item - 1) % len(self.items)
         print("increase button pressed")
 
-        #self.lcd.clear_screen()
-        #self.lcd.write("Increase button pressed")
-
     def decrease_pressed(self):
 
         self.select_item = (self.select_item + 1) % len(self.items)
         print("Decrease button pressed")
-        #self.lcd.clear_screen()
-        #self.lcd.write("Decrease button pressed")
+
 
 
     def show_menu(self):
         try:
             while True:
-                if increase_pin.is_pressed:
-                    self.increase_pressed()
-                    time.sleep(0.2)
-                elif decrease_pin.is_pressed:
-                    self.lcd.clear_screen()
-                    time.sleep(0.2)
                 for i in range(len(self.items)):
                     if i == self.select_item:
                         if i == 0:
@@ -102,14 +83,19 @@ class ButtonController:
                             self.lcd.lcd.cursor_pos = (1, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
-
+                    if increase_pin.is_pressed:
+                        self.increase_pressed()
+                        time.sleep(0.2)
+                    if decrease_pin.is_pressed:
+                        self.lcd.clear_screen()
+                        time.sleep(0.2)
                     time.sleep(0.2)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
             self.lcd.lcd_screen_deactivate()
 
 
-    def show_sub_menu1(self):
+    """def show_sub_menu1(self):
 
         try:
                 if self.select_item == 0:
@@ -153,12 +139,12 @@ class ButtonController:
 
 
         except KeyboardInterrupt:
-            self.lcd.lcd_screen_deactivate()
+            self.lcd.lcd_screen_deactivate()"""
 
 
 def main():
     # ButonController sınıfını kullanarak nesne oluştur
-    button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
+    button_controller = ButtonController()
 
     try:
 
