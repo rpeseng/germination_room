@@ -167,7 +167,6 @@ class ButtonController:
                 if self.select_item == 0:
                     print("bura2")
                     try:
-
                         self.lcd.clear_screen()
                         time.sleep(0.02)
                         print("bura2.1")
@@ -227,6 +226,8 @@ class ButtonController:
                     self.count = 0
                     print("Testt")
                     self.show_menu()
+
+            time.sleep(0.1)
 
             print("yazildi")
 
