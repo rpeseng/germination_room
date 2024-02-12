@@ -86,7 +86,10 @@ class ButtonController:
                     if decrease_pin.is_pressed:
                         self.decrease_pressed()
                         time.sleep(0.1)
-                    time.sleep(0.1)
+                    if set_pin.is_pressed:
+                        self.show_sub_menu1()
+                        time.sleep(0.1)
+                    time.sleep(0.05)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
             self.lcd.lcd_screen_deactivate()
@@ -95,6 +98,7 @@ class ButtonController:
     def show_sub_menu1(self):
 
         try:
+            while True:
                 if self.select_item == 0:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
@@ -132,7 +136,16 @@ class ButtonController:
                     elif self.yerdegistirme==1:
                         self.count = 0
                         self.show_menu()
-                    time.sleep(0.2)
+                if increase_pin.is_pressed:
+                    self.set_temp_min += 1
+                    time.sleep(0.1)
+                if decrease_pin.is_pressed:
+                    self.set_temp_min -= 1
+                    time.sleep(0.1)
+                if set_pin.is_pressed:
+                    return self.show_menu()
+                    time.sleep(0.1)
+                time.sleep(0.05)
 
 
         except KeyboardInterrupt:
