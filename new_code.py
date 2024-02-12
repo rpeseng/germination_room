@@ -75,7 +75,7 @@ class ButtonController:
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
-            self.count= 1
+            self.count = 1
             self.show_sub_menu1()
 
 
@@ -160,7 +160,7 @@ class ButtonController:
             GPIO.cleanup()
 
     def show_sub_menu1(self):
-        while self.count > 0:
+        while True:
             if self.select_item == 0:
                 try:
                     self.lcd.clear_screen()
