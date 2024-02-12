@@ -36,12 +36,6 @@ class ButtonController:
         self.set_hum_min = 65
         self.set_hum_max = 75
 
-
-
-        if self.select_item == 0:
-            ButtonController.count = 1
-            self.show_sub_menu1()
-
     def increase_pressed(self):
 
         self.select_item = (self.select_item - 1) % len(self.items)
