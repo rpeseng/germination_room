@@ -64,16 +64,6 @@ class ButtonController:
         GPIO.add_event_detect(self.increase_pin, GPIO.FALLING, callback=self.increase_pressed, bouncetime=150)
         GPIO.add_event_detect(self.decrease_pin, GPIO.FALLING, callback=self.decrease_pressed, bouncetime=150)
 
-    def set_hum_max_function(self):
-        print("hade bakalım")
-    def set_temp_max_function(self):
-        print("hade bakalım2")
-    def set_hum_min_function(self):
-        print("hade bakalım3")
-    def set_temp_min_function(self):
-        print("hade bakalım4")
-    def set_pressed(self, channel):
-        print("Set button pressed")
 
         if self.select_item == 0:
             ButtonController.count = 1
