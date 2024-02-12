@@ -167,14 +167,19 @@ class ButtonController:
                 if self.select_item == 0:
                     print("bura2")
                     try:
-                        print("bura2.1")
+
                         self.lcd.clear_screen()
+                        print("bura2.1")
                         self.lcd.lcd.cursor_pos = (0, 0)
+                        print("bura2.2")
                         self.lcd.write("Menu")
+                        print("bura2.3")
                         self.lcd.lcd.cursor_pos = (1, 0)
                         self.lcd.write("> ")
+                        print("bura2.4")
                         self.lcd.write(self.items[0])
                         self.lcd.lcd.cursor_pos = (2, 0)
+                        print("bura2.5")
                         self.lcd.write("Set Degeri =  ")
                         self.lcd.write(str(self.set_temp_min))
                         print("bura3")
@@ -205,7 +210,7 @@ class ButtonController:
                         elif self.yerdegistirme==1:
                             self.count = 0
                             self.show_menu()
-                        time.sleep(0.5)
+                        time.sleep(0.2)
                     except KeyboardInterrupt:
                         GPIO.cleanup()
                         self.lcd.lcd_screen_deactivate()
