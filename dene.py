@@ -27,7 +27,7 @@ def show_main_menu():
         lcd.write_string("2. Value2 Ayarla")
         lcd.cursor_pos = (3, 0)
         lcd.write_string("0. Cikis")
-        time.sleep(0.02)
+        time.sleep(0.5)
 
         if enter_button.is_pressed:
             selected_menu = select_submenu()
