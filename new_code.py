@@ -76,7 +76,6 @@ class ButtonController:
         print("Set button pressed")
 
         if self.select_item == 0:
-            print("5")
             self.count = 1
             self.show_sub_menu1()
 
@@ -163,19 +162,9 @@ class ButtonController:
 
     def show_sub_menu1(self):
         while True:
-            if self.select_item == 0:
-                try:
-                    self.lcd.clear_screen()
-                    self.lcd.lcd.cursor_pos = (0, 0)
-                    self.lcd.write("Menu")
-                    self.lcd.lcd.cursor_pos = (1, 0)
-                    self.lcd.write("> ")
-                    self.lcd.write(self.items[0])
-                    self.lcd.lcd.cursor_pos = (2, 0)
-                    self.lcd.write("Set Degeri =  ")
-                    self.lcd.write(str(self.set_temp_min))
-                    if self.yerdegistirme==1:
-                        self.set_temp_min += 1
+            if self.count == 1:
+                if self.select_item == 0:
+                    try:
                         self.lcd.clear_screen()
                         self.lcd.lcd.cursor_pos = (0, 0)
                         self.lcd.write("Menu")
@@ -185,26 +174,41 @@ class ButtonController:
                         self.lcd.lcd.cursor_pos = (2, 0)
                         self.lcd.write("Set Degeri =  ")
                         self.lcd.write(str(self.set_temp_min))
-                        self.yerdegistirme = 0
-                    elif self.yerdegistirme==2:
-                        self.set_temp_min -= 1
-                        self.lcd.clear_screen()
-                        self.lcd.lcd.cursor_pos = (0, 0)
-                        self.lcd.write("Menu")
-                        self.lcd.lcd.cursor_pos = (1, 0)
-                        self.lcd.write("> ")
-                        self.lcd.write(self.items[0])
-                        self.lcd.lcd.cursor_pos = (2, 0)
-                        self.lcd.write("Set Degeri =  ")
-                        self.lcd.write(str(self.set_temp_min))
-                        self.yerdegistirme = 0
-                    elif self.yerdegistirme==1:
-                        self.count = 0
-                        self.show_menu()
-                    time.sleep(0.5)
-                except KeyboardInterrupt:
-                    GPIO.cleanup()
-                    self.lcd.lcd_screen_deactivate()
+                        if self.yerdegistirme==1:
+                            self.set_temp_min += 1
+                            self.lcd.clear_screen()
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[0])
+                            self.lcd.lcd.cursor_pos = (2, 0)
+                            self.lcd.write("Set Degeri =  ")
+                            self.lcd.write(str(self.set_temp_min))
+                            self.yerdegistirme = 0
+                        elif self.yerdegistirme==2:
+                            self.set_temp_min -= 1
+                            self.lcd.clear_screen()
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[0])
+                            self.lcd.lcd.cursor_pos = (2, 0)
+                            self.lcd.write("Set Degeri =  ")
+                            self.lcd.write(str(self.set_temp_min))
+                            self.yerdegistirme = 0
+                        elif self.yerdegistirme==1:
+                            self.count = 0
+                            self.show_menu()
+                        time.sleep(0.5)
+                    except KeyboardInterrupt:
+                        GPIO.cleanup()
+                        self.lcd.lcd_screen_deactivate()
+                else:
+                    self.count = 0
+                    print("Testt")
+                    self.show_menu()
 
             print("yazildi")
 
