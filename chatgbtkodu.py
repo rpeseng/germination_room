@@ -8,9 +8,9 @@ lcd = CharLCD(pin_rs=37, pin_e=35, pins_data=[33, 31, 29, 23],
               cols=16, rows=2, dotsize=8)
 
 # Buton pinleri
-btn_up = 12
-btn_down = 16
-btn_select = 18
+btn_up = 16
+btn_down = 18
+btn_select = 26
 
 # Butonlar için GPIO ayarı
 GPIO.setmode(GPIO.BOARD)
