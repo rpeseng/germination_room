@@ -6,9 +6,9 @@ from time import sleep
 lcd = CharLCD('PCF8574', 0x27)
 
 # Buton pinlerini tanımla
-BUTTON_PIN_1 = 17
+BUTTON_PIN_1 = 16
 BUTTON_PIN_2 = 18
-BUTTON_PIN_3 = 27
+BUTTON_PIN_3 = 26
 
 # GPIO pinlerini ayarla
 GPIO.setmode(GPIO.BCM)
