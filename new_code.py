@@ -9,9 +9,9 @@ menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
 # Submenu seçenekleri
 submenus = {
     "set_temp_min": [
-        {"name": "Sıcaklığı 1 Derece Artır", "function": ""},
-        {"name": "Sıcaklığı 1 Derece Azalt", "function": ""},
-        {"name": "Sıcaklığı Manuel Gir", "function": ""},
+        {"name": "Sıcaklığı 1 Derece Artır", "function":""},
+        {"name": "Sıcaklığı 1 Derece Azalt", "function":""},
+        {"name": "Sıcaklığı Manuel Gir", "function":""},
     ]
 }
 
@@ -42,12 +42,14 @@ class ButtonController:
 
         self.count = 0
         self.yerdegistirme = 0
-        self.set_pin_activate = 0
+        self.set_pin_activate=0
 
         self.set_temp_min = 2
         self.set_temp_max = 20
         self.set_hum_min = 65
         self.set_hum_max = 75
+
+
 
         # Butonları giriş olarak ayarla
         GPIO.setup(self.set_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -64,21 +66,19 @@ class ButtonController:
 
     def set_hum_max_function(self):
         print("hade bakalım")
-
     def set_temp_max_function(self):
         print("hade bakalım2")
-
     def set_hum_min_function(self):
         print("hade bakalım3")
-
     def set_temp_min_function(self):
         print("hade bakalım4")
-
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
             self.count = 1
             self.show_sub_menu1()
+
+
 
         """ 
        else:
@@ -98,16 +98,17 @@ class ButtonController:
         self.select_item = (self.select_item - 1) % len(self.items)
         print("increase button pressed")
 
-        # self.lcd.clear_screen()
-        # self.lcd.write("Increase button pressed")
+        #self.lcd.clear_screen()
+        #self.lcd.write("Increase button pressed")
 
     def decrease_pressed(self, channel):
 
         self.select_item = (self.select_item + 1) % len(self.items)
 
         print("Decrease button pressed")
-        # self.lcd.clear_screen()
-        # self.lcd.write("Decrease button pressed")
+        #self.lcd.clear_screen()
+        #self.lcd.write("Decrease button pressed")
+
 
     """
     # Buton durumlarını kontrol etme fonksiyonu
@@ -171,7 +172,7 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
-                    if self.yerdegistirme == 1:
+                    if self.yerdegistirme==1:
                         self.set_temp_min += 1
                         self.lcd.clear_screen()
                         self.lcd.lcd.cursor_pos = (0, 0)
@@ -183,7 +184,7 @@ class ButtonController:
                         self.lcd.write("Set Degeri =  ")
                         self.lcd.write(str(self.set_temp_min))
                         self.yerdegistirme = 0
-                    elif self.yerdegistirme == 2:
+                    elif self.yerdegistirme==2:
                         self.set_temp_min -= 1
                         self.lcd.clear_screen()
                         self.lcd.lcd.cursor_pos = (0, 0)
@@ -195,7 +196,7 @@ class ButtonController:
                         self.lcd.write("Set Degeri =  ")
                         self.lcd.write(str(self.set_temp_min))
                         self.yerdegistirme = 0
-                    elif self.yerdegistirme == 1:
+                    elif self.yerdegistirme==1:
                         self.count = 0
                         self.show_menu()
                     time.sleep(0.5)
