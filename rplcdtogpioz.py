@@ -117,9 +117,10 @@ class ButtonController:
                     self.set_temp_min -= 1
                     time.sleep(0.12)
                 if set_pin.is_pressed:
+                    time.sleep(0.12)
                     print("Basildi")
                     return self.show_menu()
-                    time.sleep(0.12)
+
 
                 time.sleep(0.1)
 
