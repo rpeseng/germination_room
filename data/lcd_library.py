@@ -80,7 +80,7 @@ class LCDController:
     def lcd_screen_deactivate(self):
         try:
             self.lcd.cursor_pos = (1, 5)
-            self.write("Lcd Screen,")
+            self.write("Lcd Screen")
             self.lcd.cursor_pos = (2, 5)
             self.write("Deactivate")
         except KeyboardInterrupt:

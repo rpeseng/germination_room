@@ -110,16 +110,36 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
-                if increase_pin.is_pressed:
-                    self.set_temp_min += 1
-                    time.sleep(0.15)
-                if decrease_pin.is_pressed:
-                    self.set_temp_min -= 1
-                    time.sleep(0.15)
-                if set_pin.is_pressed:
-                    time.sleep(0.15)
-                    print("Basildi")
-                    return self.show_menu()
+                    if increase_pin.is_pressed:
+                        self.set_temp_min += 1
+                        time.sleep(0.15)
+                    if decrease_pin.is_pressed:
+                        self.set_temp_min -= 1
+                        time.sleep(0.15)
+                    if set_pin.is_pressed:
+                        time.sleep(0.15)
+                        print("Basildi")
+                        return self.show_menu()
+                if self.select_item == 1:
+                    self.lcd.clear_screen()
+                    self.lcd.lcd.cursor_pos = (0, 0)
+                    self.lcd.write("Menu")
+                    self.lcd.lcd.cursor_pos = (1, 0)
+                    self.lcd.write("> ")
+                    self.lcd.write(self.items[0])
+                    self.lcd.lcd.cursor_pos = (2, 0)
+                    self.lcd.write("Set Degeri =  ")
+                    self.lcd.write(str(self.set_temp_min))
+                    if increase_pin.is_pressed:
+                        self.set_temp_max += 1
+                        time.sleep(0.15)
+                    if decrease_pin.is_pressed:
+                        self.set_temp_max -= 1
+                        time.sleep(0.15)
+                    if set_pin.is_pressed:
+                        time.sleep(0.15)
+                        print("Basildi2")
+                        return self.show_menu()
                 time.sleep(0.1)
 
         except KeyboardInterrupt:
