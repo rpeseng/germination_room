@@ -150,8 +150,6 @@ class ButtonController:
                                 self.lcd.lcd.cursor_pos = (1, 0)
                                 self.lcd.write("> ")
                                 self.lcd.write(self.items[i])
-                else:
-                    break
                 time.sleep(0.2)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
