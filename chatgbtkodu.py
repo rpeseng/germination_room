@@ -1,76 +1,117 @@
 import RPi.GPIO as GPIO
-from RPLCD.i2c import CharLCD
-from time import sleep
+from RPLCD import i2c
 
-# LCD ekranı için pin ayarları
-lcd = CharLCD('PCF8574', 0x27)
+# Buton Pinleri
+BUTTON_UP = 23
+BUTTON_DOWN = 24
+BUTTON_SELECT = 25
 
-# Buton pinlerini tanımla
-BUTTON_PIN_1 = 16
-BUTTON_PIN_2 = 18
-BUTTON_PIN_3 = 26
+# LCD Ekran I2C Adresi
+LCD_ADDRESS = 0x3f
 
-# GPIO pinlerini ayarla
+# Ekran Boyutları
+LCD_WIDTH = 16
+LCD_HEIGHT = 2
+
+# Menü Seçenekleri
+MENU_OPTIONS = ["Setting Set Value", "About", "Exit"]
+SUBMENU_OPTIONS = ["Set Hum Value", "Set Temp Value", "Back"]
+
+# Değişkenler
+current_menu = 0
+current_submenu = 0
+set_hum_value = 50
+set_temp_value = 20
+
+# GPIO Kurulumu
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(BUTTON_PIN_1, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(BUTTON_PIN_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(BUTTON_PIN_3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(BUTTON_UP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(BUTTON_DOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(BUTTON_SELECT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# Başlangıç değerleri
-menu_items = ["Setting", "About", "Exit"]
-submenu_items = ["Set Hum Value", "Set Temp Value", "Back"]
-selected_menu_item = 0
-selected_submenu_item = 0
-humidity_value = 0
-temperature_value = 0
+# LCD Ekran Kurulumu
+lcd = i2c(LCD_ADDRESS, LCD_WIDTH, LCD_HEIGHT)
 
+# Fonksiyonlar
 def display_menu():
-    lcd.clear()
-    lcd.cursor_pos = (0, 0)
-    lcd.write_string(menu_items[selected_menu_item])
-    lcd.cursor_pos = (1, 0)
-    lcd.write_string(submenu_items[selected_submenu_item])
+  lcd.clear()
+  for i in range(len(MENU_OPTIONS)):
+    if i == current_menu:
+      lcd.cursor_pos((0, i))
+      lcd.write("> ")
+    lcd.write(MENU_OPTIONS[i])
 
-def update_submenu():
-    lcd.clear()
-    lcd.cursor_pos = (0, 0)
-    lcd.write_string(submenu_items[selected_submenu_item])
+def display_submenu():
+  lcd.clear()
+  for i in range(len(SUBMENU_OPTIONS)):
+    if i == current_submenu:
+      lcd.cursor_pos((0, i))
+      lcd.write("> ")
+    lcd.write(SUBMENU_OPTIONS[i])
 
-def increase_value():
-    global humidity_value, temperature_value
-    if selected_submenu_item == 0:
-        humidity_value += 1
-    elif selected_submenu_item == 1:
-        temperature_value += 1
+def set_hum_value_up():
+  global set_hum_value
+  set_hum_value += 1
+  if set_hum_value > 100:
+    set_hum_value = 100
 
-def decrease_value():
-    global humidity_value, temperature_value
-    if selected_submenu_item == 0:
-        humidity_value -= 1
-    elif selected_submenu_item == 1:
-        temperature_value -= 1
+def set_hum_value_down():
+  global set_hum_value
+  set_hum_value -= 1
+  if set_hum_value < 0:
+    set_hum_value = 0
+
+def set_temp_value_up():
+  global set_temp_value
+  set_temp_value += 1
+  if set_temp_value > 30:
+    set_temp_value = 30
+
+def set_temp_value_down():
+  global set_temp_value
+  set_temp_value -= 1
+  if set_temp_value < 10:
+    set_temp_value = 10
 
 try:
+    # Ana Döngü
     while True:
-        if GPIO.input(BUTTON_PIN_1) == GPIO.LOW:
-            selected_menu_item = (selected_menu_item + 1) % len(menu_items)
+      # Buton Basma Olayları
+      if GPIO.input(BUTTON_UP) == GPIO.LOW:
+        if current_menu == 0:
+          current_submenu = 0
+          display_submenu()
+        elif current_menu == 1:
+          # Hakkında Bilgileri Göster
+          pass
+        elif current_menu == 2:
+          # Çıkış
+          break
+      elif GPIO.input(BUTTON_DOWN) == GPIO.LOW:
+        if current_menu == 0:
+          current_submenu = 0
+          display_submenu()
+        elif current_menu == 1:
+          # Hakkında Bilgileri Göster
+          pass
+        elif current_menu == 2:
+          # Çıkış
+          break
+      elif GPIO.input(BUTTON_SELECT) == GPIO.LOW:
+        if current_menu == 0:
+          if current_submenu == 0:
+            # Nem Değerini Ayarla
+            pass
+          elif current_submenu == 1:
+            # Sıcaklık Değerini Ayarla
+            pass
+          elif current_submenu == 2:
+            current_menu = 0
             display_menu()
-            sleep(0.2)
-        elif GPIO.input(BUTTON_PIN_2) == GPIO.LOW:
-            if selected_menu_item == 0:  # Setting
-                selected_submenu_item = (selected_submenu_item + 1) % len(submenu_items)
-                update_submenu()
-            elif selected_menu_item == 2:  # Exit
-                break
-            sleep(0.2)
-        elif GPIO.input(BUTTON_PIN_3) == GPIO.LOW:
-            if selected_menu_item == 0 and selected_submenu_item == 2:  # Back from Setting submenu
-                selected_submenu_item = 0
-                display_menu()
-            sleep(0.2)
-
-except KeyboardInterrupt:
-    pass
-
-finally:
-    GPIO.cleanup()
+        elif current_menu == 1:
+          # Hakkında Bilgileri Göster
+          pass
+        elif current_menu == 2:
+          # Çık
+except:
+    print("hata")
