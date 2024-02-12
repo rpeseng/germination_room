@@ -28,6 +28,8 @@ class MenuOptions:
 
 
 class ButtonController:
+    count = 0
+
     def __init__(self, set_pin, increase_pin, decrease_pin):
         self.items = menu_items
         self.select_item = 0
@@ -41,7 +43,7 @@ class ButtonController:
         self.decrease_pin = decrease_pin
         self.button_pins = [self.set_pin]
 
-        count = 0
+
         self.yerdegistirme = 0
         self.set_pin_activate=0
 
@@ -76,21 +78,6 @@ class ButtonController:
         if self.select_item == 0:
             count = 1
             self.show_sub_menu1()
-
-
-
-        """ 
-       else:
-            selected_item = self.items[self.select_item]
-            # Seçilen menü öğesine göre işlevi çalıştır
-            if selected_item == "set_temp_min":
-                self.set_temp_min_function()
-            elif selected_item == "set_temp_max":
-                self.set_temp_max_function()
-            elif selected_item == "set_hum_min":
-                self.set_hum_min_function()
-            elif selected_item == "set_hum_max":
-                self.set_hum_max_function()"""
 
     def increase_pressed(self, channel):
 
@@ -212,11 +199,17 @@ def main():
     # ButonController sınıfını kullanarak nesne oluştur
     button_controller = ButtonController(set_pin=16, increase_pin=18, decrease_pin=26)
 
-    while True:
-        if count == 0:
-            button_controller.show_menu()
-        else:
-            button_controller.show_sub_menu1()
+    try:
+        while True:
+            if button_controller.count == 0:
+                button_controller.show_menu()
+            else:
+                button_controller.show_sub_menu1()
+
+    except Exception as error:
+        GPIO.cleanup()
+        button_controller.lcd.lcd_screen_deactivate()
+        print(f"hata: {error}")
 
 
 if __name__ == "__main__":
@@ -225,14 +218,5 @@ if __name__ == "__main__":
 
 
 
-"""try:
-    while True:
-        if button_controller.count == 0:
-            button_controller.show_menu()
-        else:
-            button_controller.show_sub_menu1()
-
-except Exception as error:
-    GPIO.cleanup()
-    print(f"hata: {error}")
+"""
 """
