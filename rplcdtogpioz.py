@@ -120,7 +120,7 @@ class ButtonController:
                         time.sleep(0.15)
                         print("Basildi")
                         return self.show_menu()
-                if self.select_item == 1:
+                elif self.select_item == 1:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
                     self.lcd.write("Menu")
