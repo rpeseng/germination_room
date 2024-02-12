@@ -73,10 +73,10 @@ class ButtonController:
     def set_temp_min_function(self):
         print("hade bakalım4")
     def set_pressed(self, channel):
-        print("4")
         print("Set button pressed")
-        print("5")
+
         if self.select_item == 0:
+            print("5")
             self.count = 1
             self.show_sub_menu1()
 
