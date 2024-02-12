@@ -76,6 +76,7 @@ class ButtonController:
         print("Set button pressed")
         if self.select_item == 0:
             self.count= 1
+            self.show_sub_menu1()
 
 
 
@@ -120,33 +121,36 @@ class ButtonController:
     def show_menu(self):
         try:
             while True:
-                self.lcd.clear_screen()
-                for i in range(len(self.items)):
-                    if i == self.select_item:
-                        if i == 0:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
-                        elif i == 1:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
-                        elif i == 2:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
-                        else:
-                            self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 0)
-                            self.lcd.write("> ")
-                            self.lcd.write(self.items[i])
+                if self.count == 0:
+                    self.lcd.clear_screen()
+                    for i in range(len(self.items)):
+                        if i == self.select_item:
+                            if i == 0:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
+                            elif i == 1:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
+                            elif i == 2:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
+                            else:
+                                self.lcd.lcd.cursor_pos = (0, 0)
+                                self.lcd.write("Menu")
+                                self.lcd.lcd.cursor_pos = (1, 0)
+                                self.lcd.write("> ")
+                                self.lcd.write(self.items[i])
+                else:
+                    break
                 time.sleep(0.2)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
@@ -193,6 +197,7 @@ class ButtonController:
                     self.yerdegistirme = 0
                 elif self.yerdegistirme==1:
                     self.count = 0
+                    self.show_menu()
                 time.sleep(0.5)
             except KeyboardInterrupt:
                 GPIO.cleanup()
