@@ -88,7 +88,8 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         if self.select_item == 0:
-                            self.show_sub_menu1()
+                            return self.show_sub_menu1()
+
                         time.sleep(0.15)
                     time.sleep(0.1)
         except KeyboardInterrupt:
@@ -118,7 +119,7 @@ class ButtonController:
                 if set_pin.is_pressed:
                     time.sleep(0.15)
                     print("Basildi")
-                    break
+                    return self.show_menu()
                 time.sleep(0.1)
 
         except KeyboardInterrupt:
