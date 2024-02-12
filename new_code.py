@@ -75,6 +75,7 @@ class ButtonController:
     def set_pressed(self, channel):
         print("Set button pressed")
         if self.select_item == 0:
+            print("count 1 olarak ayarlandı")
             self.count = 1
             self.show_sub_menu1()
 
