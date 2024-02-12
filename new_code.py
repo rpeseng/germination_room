@@ -161,6 +161,7 @@ class ButtonController:
 
     def show_sub_menu1(self):
         while True:
+            print("girildi")
             if self.select_item == 0:
                 try:
                     self.lcd.clear_screen()
