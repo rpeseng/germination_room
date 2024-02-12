@@ -119,33 +119,34 @@ class ButtonController:
 
     def show_menu(self):
         try:
-            self.lcd.clear_screen()
-            for i in range(len(self.items)):
-                if i == self.select_item:
-                    if i == 0:
-                        self.lcd.lcd.cursor_pos = (0, 0)
-                        self.lcd.write("Menu")
-                        self.lcd.lcd.cursor_pos = (1, 0)
-                        self.lcd.write("> ")
-                        self.lcd.write(self.items[i])
-                    elif i == 1:
-                        self.lcd.lcd.cursor_pos = (0, 0)
-                        self.lcd.write("Menu")
-                        self.lcd.lcd.cursor_pos = (1, 0)
-                        self.lcd.write("> ")
-                        self.lcd.write(self.items[i])
-                    elif i == 2:
-                        self.lcd.lcd.cursor_pos = (0, 0)
-                        self.lcd.write("Menu")
-                        self.lcd.lcd.cursor_pos = (1, 0)
-                        self.lcd.write("> ")
-                        self.lcd.write(self.items[i])
-                    else:
-                        self.lcd.lcd.cursor_pos = (0, 0)
-                        self.lcd.write("Menu")
-                        self.lcd.lcd.cursor_pos = (1, 0)
-                        self.lcd.write("> ")
-                        self.lcd.write(self.items[i])
+            while True:
+                self.lcd.clear_screen()
+                for i in range(len(self.items)):
+                    if i == self.select_item:
+                        if i == 0:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        elif i == 1:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        elif i == 2:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        else:
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
                 time.sleep(0.2)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
