@@ -82,14 +82,14 @@ class ButtonController:
                             self.lcd.write(self.items[i])
                     if increase_pin.is_pressed:
                         self.increase_pressed()
-                        time.sleep(0.1)
+                        time.sleep(0.15)
                     if decrease_pin.is_pressed:
                         self.decrease_pressed()
-                        time.sleep(0.1)
+                        time.sleep(0.15)
                     if set_pin.is_pressed:
                         self.show_sub_menu1()
-                        time.sleep(0.1)
-                    time.sleep(0.05)
+                        time.sleep(0.15)
+                    time.sleep(0.1)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
             self.lcd.lcd_screen_deactivate()
@@ -111,12 +111,12 @@ class ButtonController:
                     self.lcd.write(str(self.set_temp_min))
                 if increase_pin.is_pressed:
                     self.set_temp_min += 1
-                    time.sleep(0.12)
+                    time.sleep(0.15)
                 if decrease_pin.is_pressed:
                     self.set_temp_min -= 1
-                    time.sleep(0.12)
+                    time.sleep(0.15)
                 if set_pin.is_pressed:
-                    time.sleep(0.12)
+                    time.sleep(0.15)
                     print("Basildi")
                     break
                 time.sleep(0.1)
