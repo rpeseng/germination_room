@@ -230,8 +230,12 @@ class ButtonController:
                 self.lcd.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
                 self.lcd.lcd.cursor_pos = (1, 0)
+                self.lcd.write("SICAKLIK  :")
+                self.lcd.lcd.cursor_pos = (1, 12)
                 self.lcd.write(temp_value)
                 self.lcd.lcd.cursor_pos = (2, 0)
+                self.lcd.write("NEM        :")
+                self.lcd.lcd.cursor_pos = (2, 12)
                 self.lcd.write(hum_value)
 
                 time.sleep(0.2)
