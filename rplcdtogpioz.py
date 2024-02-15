@@ -118,7 +118,6 @@ class ButtonController:
     def show_sub_menu1(self):
         try:
             while True:
-                print(self.select_item)
                 if self.select_item == 0:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
