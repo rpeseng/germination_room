@@ -109,7 +109,7 @@ class ButtonController:
                             return
 
                         time.sleep(0.15)
-                    time.sleep(0.1)
+                    time.sleep(0.15)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
             self.lcd.lcd_screen_deactivate()
@@ -156,10 +156,9 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         time.sleep(0.15)
-                        print("Basildi2")
                         self.show_menu()
                         break
-                time.sleep(0.1)
+                time.sleep(0.15)
 
         except KeyboardInterrupt:
             self.lcd.clear_screen()
