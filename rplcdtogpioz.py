@@ -6,14 +6,6 @@ from data.am2120_data import AM2120Sensor
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "back"]
 
-# Submenu seçenekleri
-submenus = {
-    "set_temp_min": [
-        {"name": "Sıcaklığı 1 Derece Artır", "function":""},
-        {"name": "Sıcaklığı 1 Derece Azalt", "function":""},
-        {"name": "Sıcaklığı Manuel Gir", "function":""},
-    ]
-}
 
 set_temp_min = 2
 set_temp_max = 20
@@ -30,6 +22,7 @@ class ButtonController:
         self.items = menu_items
         self.select_item = 0
         self.lcd = LCDController()
+        self.am2120sensorvalues = AM2120Sensor()
 
         self.set_temp_min = 2
         self.set_temp_max = 20
@@ -56,7 +49,7 @@ class ButtonController:
                         if i == 0:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
+                            self.lcd.write("====  Menu  ====")
                             self.lcd.lcd.cursor_pos = (1, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
@@ -67,7 +60,7 @@ class ButtonController:
                         elif i == 1:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
+                            self.lcd.write("====  Menu  ====")
                             self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i-1])
                             self.lcd.lcd.cursor_pos = (2, 0)
@@ -78,7 +71,7 @@ class ButtonController:
                         elif i == 2:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
+                            self.lcd.write("====  Menu  ====")
                             self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i-2])
                             self.lcd.lcd.cursor_pos = (2, 2)
@@ -89,7 +82,7 @@ class ButtonController:
                         elif i == 3:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
+                            self.lcd.write("====  Menu  ====")
                             self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i - 2])
                             self.lcd.lcd.cursor_pos = (2, 2)
@@ -100,7 +93,7 @@ class ButtonController:
                         else:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
-                            self.lcd.write("Menu")
+                            self.lcd.write("====  Menu  ====")
                             self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i - 3])
                             self.lcd.lcd.cursor_pos = (2, 2)
@@ -132,7 +125,7 @@ class ButtonController:
                 if self.select_item == 0:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
-                    self.lcd.write("Menu")
+                    self.lcd.write("====  Menu  ====")
                     self.lcd.lcd.cursor_pos = (1, 0)
                     self.lcd.write("> ")
                     self.lcd.write(self.items[0])
@@ -147,13 +140,12 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         time.sleep(0.15)
-                        print("Basildi")
                         self.show_menu()
                         break
                 if self.select_item == 1:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
-                    self.lcd.write("Menu")
+                    self.lcd.write("====  Menu  ====")
                     self.lcd.lcd.cursor_pos = (1, 0)
                     self.lcd.write("> ")
                     self.lcd.write(self.items[1])
@@ -168,13 +160,12 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         time.sleep(0.15)
-                        print("Basildi")
                         self.show_menu()
                         break
                 if self.select_item == 2:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
-                    self.lcd.write("Menu")
+                    self.lcd.write("====  Menu  ====")
                     self.lcd.lcd.cursor_pos = (1, 0)
                     self.lcd.write("> ")
                     self.lcd.write(self.items[2])
@@ -189,13 +180,12 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         time.sleep(0.15)
-                        print("Basildi")
                         self.show_menu()
                         break
                 if self.select_item == 3:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
-                    self.lcd.write("Menu")
+                    self.lcd.write("====  Menu  ====")
                     self.lcd.lcd.cursor_pos = (1, 0)
                     self.lcd.write("> ")
                     self.lcd.write(self.items[3])
@@ -210,7 +200,6 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         time.sleep(0.15)
-                        print("Basildi")
                         self.show_menu()
                         break
                 if self.select_item == 4:
@@ -227,9 +216,18 @@ class ButtonController:
 
     def show_values(self):
         try:
+            sensor_values = self.am2120sensorvalues.read_am2120_values()
+            temp_value = sensor_values[0]
+            hum_value = sensor_values[1]
             while True:
                 self.lcd.clear_screen()
-                self.lcd.write("Hello")
+                self.lcd.lcd.cursor_pos = (0, 0)
+                self.lcd.write("=== ORTAM DEGERI ===")
+                self.lcd.lcd.cursor_pos = (1, 0)
+                self.lcd.write(temp_value)
+                self.lcd.lcd.cursor_pos = (2, 0)
+                self.lcd.write(hum_value)
+
                 time.sleep(0.2)
                 if set_pin.is_pressed:
                     time.sleep(0.15)
