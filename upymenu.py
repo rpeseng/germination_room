@@ -18,7 +18,6 @@ menu.add_option(menu_action)
 menu.add_option(MenuNoop("Nothing here"))
 
 lcd = LCDController()
-lcd = lcd
 
 current_manu = menu.start(lcd)
 
