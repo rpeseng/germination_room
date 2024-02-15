@@ -105,7 +105,8 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         if self.select_item == 0:
-                            return self.show_sub_menu1()
+                            self.show_sub_menu1()
+                            return
 
                         time.sleep(0.15)
                     time.sleep(0.1)
