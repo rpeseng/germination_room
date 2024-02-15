@@ -217,8 +217,8 @@ class ButtonController:
     def show_values(self):
         try:
             sensor_values = self.am2120sensorvalues.read_am2120_values()
-            temp_value = sensor_values[0]
-            hum_value = sensor_values[1]
+            temp_value = str(sensor_values[0])
+            hum_value = str(sensor_values[1])
             while True:
                 self.lcd.clear_screen()
                 self.lcd.lcd.cursor_pos = (0, 0)
