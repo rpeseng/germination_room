@@ -26,9 +26,7 @@ class ButtonController:
         self.set_hum_min = 65
         self.set_hum_max = 75
 
-        self.last_set_state = False
-        self.last_increase_state = False
-        self.last_decrease_state = False
+
 
     def increase_pressed(self):
 
@@ -279,24 +277,6 @@ class ButtonController:
         except KeyboardInterrupt:
             self.cleanup()
 
-    def is_button_pressed(self, button):
-        if button == "set":
-            current_state = set_pin.is_pressed
-            last_state = self.last_set_state
-            self.last_set_state = current_state
-        elif button == "increase":
-            current_state = increase_pin.is_pressed
-            last_state = self.last_increase_state
-            self.last_increase_state = current_state
-        elif button == "decrease":
-            current_state = decrease_pin.is_pressed
-            last_state = self.last_decrease_state
-            self.last_decrease_state = current_state
-
-        if current_state != last_state:
-            time.sleep(0.01)  # Debounce süresi
-            current_state = button.is_pressed
-        return current_state
 
 
     def show_values(self):
@@ -319,25 +299,12 @@ class ButtonController:
                 self.lcd.lcd.cursor_pos = (2, 12)
                 self.lcd.write(hum_value)
 
-                # Buton durumlarını kontrol edin ve basılı olduğunda ilgili işlevi çağırın
-                if self.is_button_pressed(set_pin, self.last_set_state):
-                    self.show_menu()
-                elif self.is_button_pressed(increase_pin, self.last_increase_state):
-                    self.show_menu()
-                elif self.is_button_pressed(decrease_pin, self.last_decrease_state):
-                    self.show_menu()
+                time.sleep(0.05)  # Küçük bir bekleme süresi
 
-                # Buton durumlarını güncelleyin
-                self.last_set_state = set_pin.is_pressed
-                self.last_increase_state = increase_pin.is_pressed
-                self.last_decrease_state = decrease_pin.is_pressed
-
-                time.sleep(0.01)  # Küçük bir bekleme süresi
-
-                """if decrease_pin.when_pressed or increase_pin.when_pressed or set_pin.when_pressed:
+                if decrease_pin.when_pressed or increase_pin.when_pressed or set_pin.when_pressed:
                     self.select_item = 0
                     self.show_menu()
-                    return"""
+                    return
 
 
         except KeyboardInterrupt:
