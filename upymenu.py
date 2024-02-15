@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from RPLCD import i2c
+from RPLCD import CharLCD
 
 # Buton pinleri
 buton_yukari = 23
@@ -50,7 +50,7 @@ menu = {
 }
 
 # LCD ekranı başlat
-lcd = i2c(lcd_i2c_adres, lcd_kolonlar, lcd_satirlar)
+lcd = CharLCD('PCF8574', 0x27)
 
 # Butonları ayarla
 GPIO.setmode(GPIO.BCM)
