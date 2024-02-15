@@ -34,11 +34,6 @@ class ButtonController:
         self.select_item = (self.select_item + 1) % len(self.items)
         print("Decrease button pressed")
 
-    def set_pressed(self):
-
-        print("set button pressed")
-
-
 
     def show_menu(self):
         try:
@@ -234,12 +229,13 @@ class ButtonController:
                 self.lcd.write("NEM      :")
                 self.lcd.lcd.cursor_pos = (2, 12)
                 self.lcd.write(hum_value)
+                time.sleep(0.15)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
                     self.select_item = 0
                     self.show_menu()
                     return
 
-                time.sleep(0.15)
+
         except KeyboardInterrupt:
             self.cleanup()
 
