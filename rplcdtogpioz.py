@@ -111,9 +111,9 @@ class ButtonController:
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("====  Menu  ====")
                             self.lcd.lcd.cursor_pos = (1, 2)
-                            self.lcd.write(self.items[i - 4])
+                            self.lcd.write(self.items[i -2])
                             self.lcd.lcd.cursor_pos = (2, 2)
-                            self.lcd.write(self.items[i - 3])
+                            self.lcd.write(self.items[i - 1])
                             self.lcd.lcd.cursor_pos = (3, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
@@ -222,6 +222,48 @@ class ButtonController:
                         self.show_menu()
                         break
                 if self.select_item == 4:
+                    self.lcd.clear_screen()
+                    self.lcd.lcd.cursor_pos = (0, 0)
+                    self.lcd.write("====  Menu  ====")
+                    self.lcd.lcd.cursor_pos = (1, 0)
+                    self.lcd.write("> ")
+                    self.lcd.write(self.items[3])
+                    self.lcd.lcd.cursor_pos = (2, 0)
+                    self.lcd.write("Set Degeri =  ")
+                    self.lcd.write(str(self.set_hum_max))
+                    time.sleep(0.1)
+                    if increase_pin.is_pressed:
+                        self.set_hum_max += 1
+                        time.sleep(0.1)
+                    if decrease_pin.is_pressed:
+                        self.set_hum_max -= 1
+                        time.sleep(0.1)
+                    if set_pin.is_pressed:
+                        time.sleep(0.1)
+                        self.show_menu()
+                        break
+                if self.select_item == 5:
+                    self.lcd.clear_screen()
+                    self.lcd.lcd.cursor_pos = (0, 0)
+                    self.lcd.write("====  Menu  ====")
+                    self.lcd.lcd.cursor_pos = (1, 0)
+                    self.lcd.write("> ")
+                    self.lcd.write(self.items[3])
+                    self.lcd.lcd.cursor_pos = (2, 0)
+                    self.lcd.write("Set Degeri =  ")
+                    self.lcd.write(str(self.set_hum_max))
+                    time.sleep(0.1)
+                    if increase_pin.is_pressed:
+                        self.set_hum_max += 1
+                        time.sleep(0.1)
+                    if decrease_pin.is_pressed:
+                        self.set_hum_max -= 1
+                        time.sleep(0.1)
+                    if set_pin.is_pressed:
+                        time.sleep(0.1)
+                        self.show_menu()
+                        break
+                if self.select_item == 6:
                     if set_pin.is_pressed:
                         time.sleep(0.1)
                         self.show_values()
