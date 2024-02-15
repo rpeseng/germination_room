@@ -11,6 +11,11 @@ set_pin = Button(26)
 increase_pin = Button(16)
 decrease_pin = Button(18)
 
+# Butonların durumlarını takip etmek için değişkenler
+last_set_state = False
+last_increase_state = False
+last_decrease_state = False
+
 
 class ButtonController:
     def __init__(self):
@@ -273,6 +278,13 @@ class ButtonController:
         except KeyboardInterrupt:
             self.cleanup()
 
+    def is_button_pressed(self, button, last_state):
+        current_state = button.is_pressed
+        if current_state != last_state:
+            time.sleep(0.01)  # Debounce süresi
+            current_state = button.is_pressed
+        return current_state
+
 
     def show_values(self):
         try:
@@ -293,11 +305,26 @@ class ButtonController:
                 self.lcd.write("NEM      :")
                 self.lcd.lcd.cursor_pos = (2, 12)
                 self.lcd.write(hum_value)
-                time.sleep(0.15)
-                if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
+
+                # Buton durumlarını kontrol edin ve basılı olduğunda ilgili işlevi çağırın
+                if self.is_button_pressed(set_pin, last_set_state):
+                    self.show_menu()
+                elif self.is_button_pressed(increase_pin, last_increase_state):
+                    self.show_menu()
+                elif self.is_button_pressed(decrease_pin, last_decrease_state):
+                    self.show_menu()
+
+                # Buton durumlarını güncelleyin
+                last_set_state = set_pin.is_pressed
+                last_increase_state = increase_pin.is_pressed
+                last_decrease_state = decrease_pin.is_pressed
+
+                time.sleep(0.01)  # Küçük bir bekleme süresi
+
+                """if decrease_pin.when_pressed or increase_pin.when_pressed or set_pin.when_pressed:
                     self.select_item = 0
                     self.show_menu()
-                    return
+                    return"""
 
 
         except KeyboardInterrupt:
