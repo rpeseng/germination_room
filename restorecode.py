@@ -67,12 +67,12 @@ class ButtonController:
                 time.sleep(0.2)
                 if increase_pin.is_pressed:
                     value += 1
-                    time.sleep(0.15)
+                    time.sleep(0.1)
                 elif decrease_pin.is_pressed:
                     value -= 1
-                    time.sleep(0.15)
+                    time.sleep(0.1)
                 elif set_pin.is_pressed:
-                    time.sleep(0.15)
+                    time.sleep(0.1)
                     return
         except KeyboardInterrupt:
             self.cleanup()

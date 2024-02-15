@@ -3,5 +3,3 @@ smbus2
 gpiozero
 Adafruit_DHT
 python-telegram-bot
-Adafruit-CharLCD
-machine

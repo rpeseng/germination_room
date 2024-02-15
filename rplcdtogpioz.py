@@ -97,12 +97,12 @@ class ButtonController:
                             self.lcd.write(self.items[i])
                     if increase_pin.is_pressed:
                         self.increase_pressed()
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if decrease_pin.is_pressed:
                         self.decrease_pressed()
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if set_pin.is_pressed:
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                         self.show_sub_menu1()
                         return
 
@@ -128,12 +128,12 @@ class ButtonController:
                     time.sleep(0.15)
                     if increase_pin.is_pressed:
                         self.set_temp_min += 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if decrease_pin.is_pressed:
                         self.set_temp_min -= 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if set_pin.is_pressed:
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                         self.show_menu()
                         break
                 if self.select_item == 1:
@@ -146,15 +146,15 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_max))
-                    time.sleep(0.15)
+                    time.sleep(0.1)
                     if increase_pin.is_pressed:
                         self.set_temp_max += 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if decrease_pin.is_pressed:
                         self.set_temp_max -= 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if set_pin.is_pressed:
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                         self.show_menu()
                         break
                 if self.select_item == 2:
@@ -167,15 +167,15 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_hum_min))
-                    time.sleep(0.15)
+                    time.sleep(0.1)
                     if increase_pin.is_pressed:
                         self.set_hum_min += 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if decrease_pin.is_pressed:
                         self.set_hum_min -= 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if set_pin.is_pressed:
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                         self.show_menu()
                         break
                 if self.select_item == 3:
@@ -188,20 +188,20 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_hum_max))
-                    time.sleep(0.15)
+                    time.sleep(0.1)
                     if increase_pin.is_pressed:
                         self.set_hum_max += 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if decrease_pin.is_pressed:
                         self.set_hum_max -= 1
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                     if set_pin.is_pressed:
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                         self.show_menu()
                         break
                 if self.select_item == 4:
                     if set_pin.is_pressed:
-                        time.sleep(0.15)
+                        time.sleep(0.1)
                         self.show_values()
                         break
                 time.sleep(0.15)
