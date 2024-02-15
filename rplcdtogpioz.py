@@ -214,6 +214,11 @@ class ButtonController:
             while True:
                 self.lcd.clear_screen()
                 self.lcd.write("Hello")
+                if set_pin.is_pressed:
+                    time.sleep(0.15)
+                    self.show_menu()
+                    return
+
         except:
             print("hataaa")
 
@@ -221,19 +226,8 @@ class ButtonController:
 def main():
     # ButonController sınıfını kullanarak nesne oluştur
     button_controller = ButtonController()
-
-
-
-
     try:
-        if set_pin.is_pressed:
-            time.sleep(0.15)
-            button_controller.show_menu()
-        else:
-            time.sleep(0.15)
-            button_controller.show_values()
-
-
+        button_controller.show_values()
 
     except Exception as error:
         button_controller.lcd.lcd_screen_deactivate()
