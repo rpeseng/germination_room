@@ -234,8 +234,8 @@ class ButtonController:
                     self.show_menu()
                     return
 
-        except:
-            print("hataaa")
+        except Exception as er:
+            print(f"Hataa : {er}")
 
 
 def main():
