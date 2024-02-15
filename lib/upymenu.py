@@ -59,7 +59,7 @@ class Menu:
             # If the current position matches the focus, render
             # the cursor otherwise, render an empty space
             if l == (self.focus - 1):
-                self.lcd.write(">")
+                self.lcd.write("DDD")
             else:
                 self.lcd.write(" ")
 
