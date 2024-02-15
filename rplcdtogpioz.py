@@ -4,7 +4,7 @@ from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
 
 # Menü seçenekleri
-menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max"]
+menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "back"]
 
 # Submenu seçenekleri
 submenus = {
@@ -86,7 +86,7 @@ class ButtonController:
                             self.lcd.lcd.cursor_pos = (3, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
-                        else:
+                        elif i == 3:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("Menu")
@@ -94,6 +94,17 @@ class ButtonController:
                             self.lcd.write(self.items[i - 2])
                             self.lcd.lcd.cursor_pos = (2, 2)
                             self.lcd.write(self.items[i - 1])
+                            self.lcd.lcd.cursor_pos = (3, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        else:
+                            self.lcd.clear_screen()
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("Menu")
+                            self.lcd.lcd.cursor_pos = (1, 2)
+                            self.lcd.write(self.items[i - 3])
+                            self.lcd.lcd.cursor_pos = (2, 2)
+                            self.lcd.write(self.items[i - 3])
                             self.lcd.lcd.cursor_pos = (3, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
@@ -202,6 +213,11 @@ class ButtonController:
                         print("Basildi")
                         self.show_menu()
                         break
+                if self.select_item == 4:
+                    if set_pin.is_pressed:
+                        time.sleep(0.15)
+                        self.show_values()
+                        break
                 time.sleep(0.15)
 
         except KeyboardInterrupt:
@@ -214,6 +230,7 @@ class ButtonController:
             while True:
                 self.lcd.clear_screen()
                 self.lcd.write("Hello")
+                time.sleep(0.2)
                 if set_pin.is_pressed:
                     time.sleep(0.15)
                     self.show_menu()
