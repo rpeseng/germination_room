@@ -8,29 +8,29 @@ buton_secim = 25
 
 # LCD ekran pinleri
 lcd_i2c_adres = 0x27
-lcd_kolonlar = 16
-lcd_satirlar = 2
+lcd_kolonlar = 20
+lcd_satirlar = 4
 
 
 
 # Fonksiyonlar
 def fonksiyon1():
-    # ...
+    print("func1")
 
 def fonksiyon2():
-    # ...
+    print("func1")
 
 def fonksiyon3():
-    # ...
+    print("func1")
 
 def alt_fonksiyon1():
-    # ...
+    print("func1")
 
 def alt_fonksiyon2():
-    # ...
+    print("func1")
 
 def alt_fonksiyon3():
-    # ...
+    print("func1")
 
 
     # Menü ve submenüler
