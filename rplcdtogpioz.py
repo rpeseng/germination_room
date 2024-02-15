@@ -137,7 +137,8 @@ class ButtonController:
                     if set_pin.is_pressed:
                         time.sleep(0.15)
                         print("Basildi")
-                        return self.show_menu()
+                        self.show_menu()
+                        break
                 if self.select_item == 1:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
@@ -156,6 +157,7 @@ class ButtonController:
                         time.sleep(0.15)
                     if set_pin.is_pressed:
                         time.sleep(0.15)
+                        print("Basildi")
                         self.show_menu()
                         break
                 time.sleep(0.15)
