@@ -209,20 +209,26 @@ class ButtonController:
             self.lcd.lcd_screen_deactivate()
 
 
+    def show_values(self):
+        self.lcd.clear_screen()
+        self.lcd.write("Hello")
+
+
 def main():
     # ButonController sınıfını kullanarak nesne oluştur
     button_controller = ButtonController()
 
-    def show_values():
-        button_controller.lcd.clear_screen()
-        button_controller.lcd.write("Hello")
+
 
 
     try:
         if set_pin.is_pressed:
+            time.sleep(0.15)
             button_controller.show_menu()
         else:
-            show_values()
+            time.sleep(0.15)
+            button_controller.show_values()
+
 
 
     except Exception as error:
