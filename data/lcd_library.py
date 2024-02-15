@@ -25,6 +25,9 @@ class LCDController:
         """
         self.lcd.clear()
 
+    def cursor_pos(self):
+        self.lcd.cursor_pos()
+
     def write(self, message):
         self.lcd.write_string(message)
 
