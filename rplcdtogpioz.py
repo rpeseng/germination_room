@@ -11,10 +11,7 @@ set_pin = Button(26)
 increase_pin = Button(16)
 decrease_pin = Button(18)
 
-# Butonların durumlarını takip etmek için değişkenler
-last_set_state = False
-last_increase_state = False
-last_decrease_state = False
+
 
 
 class ButtonController:
@@ -28,6 +25,10 @@ class ButtonController:
         self.set_temp_max = 20
         self.set_hum_min = 65
         self.set_hum_max = 75
+
+        self.last_set_state = False
+        self.last_increase_state = False
+        self.last_decrease_state = False
 
     def increase_pressed(self):
 
@@ -278,8 +279,20 @@ class ButtonController:
         except KeyboardInterrupt:
             self.cleanup()
 
-    def is_button_pressed(self, button, last_state):
-        current_state = button.is_pressed
+    def is_button_pressed(self, button):
+        if button == "set":
+            current_state = set_pin.is_pressed
+            last_state = self.last_set_state
+            self.last_set_state = current_state
+        elif button == "increase":
+            current_state = increase_pin.is_pressed
+            last_state = self.last_increase_state
+            self.last_increase_state = current_state
+        elif button == "decrease":
+            current_state = decrease_pin.is_pressed
+            last_state = self.last_decrease_state
+            self.last_decrease_state = current_state
+
         if current_state != last_state:
             time.sleep(0.01)  # Debounce süresi
             current_state = button.is_pressed
@@ -307,17 +320,17 @@ class ButtonController:
                 self.lcd.write(hum_value)
 
                 # Buton durumlarını kontrol edin ve basılı olduğunda ilgili işlevi çağırın
-                if self.is_button_pressed(set_pin, last_set_state):
+                if self.is_button_pressed(set_pin, self.last_set_state):
                     self.show_menu()
-                elif self.is_button_pressed(increase_pin, last_increase_state):
+                elif self.is_button_pressed(increase_pin, self.last_increase_state):
                     self.show_menu()
-                elif self.is_button_pressed(decrease_pin, last_decrease_state):
+                elif self.is_button_pressed(decrease_pin, self.last_decrease_state):
                     self.show_menu()
 
                 # Buton durumlarını güncelleyin
-                last_set_state = set_pin.is_pressed
-                last_increase_state = increase_pin.is_pressed
-                last_decrease_state = decrease_pin.is_pressed
+                self.last_set_state = set_pin.is_pressed
+                self.last_increase_state = increase_pin.is_pressed
+                self.last_decrease_state = decrease_pin.is_pressed
 
                 time.sleep(0.01)  # Küçük bir bekleme süresi
 
