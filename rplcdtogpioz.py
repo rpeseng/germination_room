@@ -7,11 +7,6 @@ from data.am2120_data import AM2120Sensor
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "back"]
 
 
-set_temp_min = 2
-set_temp_max = 20
-set_hum_min = 65
-set_hum_max = 75
-
 set_pin = Button(26)
 increase_pin = Button(16)
 decrease_pin = Button(18)
