@@ -210,8 +210,12 @@ class ButtonController:
 
 
     def show_values(self):
-        self.lcd.clear_screen()
-        self.lcd.write("Hello")
+        try:
+            while True:
+                self.lcd.clear_screen()
+                self.lcd.write("Hello")
+        except:
+            print("hataaa")
 
 
 def main():
