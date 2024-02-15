@@ -48,7 +48,7 @@ class Menu:
         self.viewport = self.options_chunked[self._current_chunk()]
 
         self.lcd.clear()
-        self.lcd.move_to(0, 0)
+        self.lcd.putstr(0, 0)
 
         self._render_cursor()
         self._render_options()
