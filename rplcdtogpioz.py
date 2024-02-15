@@ -240,6 +240,7 @@ class ButtonController:
 
                 if set_pin.is_pressed:
                     time.sleep(0.15)
+                    self.select_item = 0
                     self.show_menu()
                     return
                 time.sleep(0.2)
