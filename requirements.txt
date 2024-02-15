@@ -4,4 +4,4 @@ gpiozero
 Adafruit_DHT
 python-telegram-bot
 Adafruit-CharLCD
-upymenu
+machine

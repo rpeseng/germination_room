@@ -2,7 +2,7 @@
 
 import Adafruit_CharLCD as LCD
 import time
-import commands
+"""import commands"""
 from subprocess import PIPE, Popen
 from time import sleep, strftime, localtime
 from datetime import datetime, timedelta
@@ -41,28 +41,28 @@ class Utils:
         lcd.message("\n")
         lcd.message(CmdLine(wlan))"""
 
-    def ShowTemperature(self):
+"""    def ShowTemperature(self):
         temperature = "/bin/echo $(/opt/vc/bin/vcgencmd measure_temp | /usr/bin/cut -c \"6-9\")"
         lcd.clear()
         lcd.message("Temperature (C):")
         lcd.message("\n")
-        lcd.message(CmdLine(temperature))
+        lcd.message(CmdLine(temperature))"""
 
-    def GetSpace(self):
+"""    def GetSpace(self):
         space = "/bin/echo $(/bin/df -h / | /bin/sed -n '2p' | /usr/bin/awk '{print $4}')/$(/bin/df -h / | /bin/sed -n '2p' | /usr/bin/awk '{print $3}')"
         percentage = "/bin/echo $(/bin/df -h / | /bin/sed -n '2p' | /usr/bin/awk '{print $5}')"
         lcd.clear()
         lcd.message("Space: " + CmdLine(space))
         lcd.message("\n")
-        lcd.message("Percent.: " + CmdLine(percentage))
-
+        lcd.message("Percent.: " + CmdLine(percentage))"""
+"""
     def ShowDateTime(self):
         lcd.clear()
         while not(lcd.is_pressed(LCD.LEFT) or lcd.is_pressed(LCD.UP) or lcd.is_pressed(LCD.DOWN) or lcd.is_pressed(LCD.RIGHT)):
             time.sleep(0.25)
-            lcd.message(strftime('%a %b %d %Y\n%I:%M:%S %p     ', localtime()))
+            lcd.message(strftime('%a %b %d %Y\n%I:%M:%S %p"""     ', localtime()))
 
-    def ShowIPAddress(self):
+"""    def ShowIPAddress(self):
         lcd.clear()
         lcd.message("Local IP: \n" + commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:])
 
@@ -76,7 +76,7 @@ class Utils:
                 lcd.clear()
                 commands.getoutput("sudo shutdown -h now")
                 quit()
-            time.sleep(0.25)
+            time.sleep(0.25)"""
 
     def DoReboot(self):
         lcd.clear()
