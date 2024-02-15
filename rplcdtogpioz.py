@@ -241,7 +241,16 @@ class ButtonController:
                 self.lcd.write("NEM      :")
                 self.lcd.lcd.cursor_pos = (2, 12)
                 self.lcd.write(hum_value)
-
+                if decrease_pin.is_pressed:
+                    time.sleep(0.15)
+                    self.select_item = 0
+                    self.show_menu()
+                    return
+                if increase_pin.is_pressed:
+                    time.sleep(0.15)
+                    self.select_item = 0
+                    self.show_menu()
+                    return
                 if set_pin.is_pressed:
                     time.sleep(0.15)
                     self.select_item = 0
