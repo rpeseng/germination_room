@@ -219,7 +219,7 @@ def main():
 
 
     try:
-        if set_pin.is_pressed():
+        if set_pin.is_pressed:
             button_controller.show_menu()
         else:
             show_values()
