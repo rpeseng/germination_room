@@ -213,8 +213,16 @@ def main():
     # ButonController sınıfını kullanarak nesne oluştur
     button_controller = ButtonController()
 
+    def show_values():
+        button_controller.lcd.clear_screen()
+        button_controller.lcd.write("Hello")
+
+
     try:
-        button_controller.show_menu()
+        if set_pin.is_pressed():
+            button_controller.show_menu()
+        else:
+            show_values()
 
 
     except Exception as error:
