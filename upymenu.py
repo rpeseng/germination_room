@@ -1,16 +1,17 @@
 import RPi.GPIO as GPIO
-from RPLCD import CharLCD
+import RPLCD
+
+# Using BOARD numbering mode:
+lcd = RPLCD.CharLCD(mode=RPLCD.mode_I2C, address=0x27, gpio_mode=RPLCD.GPIO_BOARD)
+
+# Using BCM numbering mode:
+# lcd = RPLCD.CharLCD(mode=RPLCD.mode_I2C, address=0x27, gpio_mode=RPLCD.GPIO_BCM)
+
 
 # Buton pinleri
 buton_yukari = 23
 buton_asagi = 24
 buton_secim = 25
-
-# LCD ekran pinleri
-lcd_i2c_adres = 0x27
-lcd_kolonlar = 20
-lcd_satirlar = 4
-
 
 
 # Fonksiyonlar
@@ -49,8 +50,6 @@ menu = {
     }
 }
 
-# LCD ekranı başlat
-lcd = CharLCD('PCF8574', 0x27)
 
 # Butonları ayarla
 GPIO.setmode(GPIO.BCM)
