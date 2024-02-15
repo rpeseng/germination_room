@@ -1,6 +1,7 @@
 from lib.upymenu import Menu, MenuAction, MenuNoop
 from data.lcd_library import LCDController
-
+from RPLCD import *
+from RPLCD.i2c import CharLCD
 
 def action_callback():
     print("callback action choosen")
@@ -17,7 +18,7 @@ menu.add_option(submenu)
 menu.add_option(menu_action)
 menu.add_option(MenuNoop("Nothing here"))
 
-lcd = LCDController()
+lcd = CharLCD('PCF8574', 0x27)
 
 current_manu = menu.start(lcd)
 
