@@ -283,24 +283,15 @@ class ButtonController:
         try:
 
             while True:
-                sensor_values = self.am2120sensorvalues.read_am2120_values()
-                temp_value = "{:.2f}".format(sensor_values[0])
-                hum_value = "{:.2f}".format(sensor_values[1])
-
+                temp_value, hum_value = self.am2120sensorvalues.read_am2120_values()
                 self.lcd.clear_screen()
-                self.lcd.lcd.cursor_pos = (0, 0)
+                self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
-                self.lcd.lcd.cursor_pos = (1, 0)
-                self.lcd.write("SICAKLIK :")
-                self.lcd.lcd.cursor_pos = (1, 12)
-                self.lcd.write(temp_value)
-                self.lcd.lcd.cursor_pos = (2, 0)
-                self.lcd.write("NEM      :")
-                self.lcd.lcd.cursor_pos = (2, 12)
-                self.lcd.write(hum_value)
-
-                time.sleep(0.12)  # Küçük bir bekleme süresi
-
+                self.lcd.cursor_pos = (1, 0)
+                self.lcd.write(f"SICAKLIK : {temp_value:.2f}")
+                self.lcd.cursor_pos = (2, 0)
+                self.lcd.write(f"NEM      : {hum_value:.2f}")
+                time.sleep(0.12)
                 if decrease_pin.when_pressed or increase_pin.when_pressed or set_pin.when_pressed:
                     self.select_item = 0
                     self.show_menu()
