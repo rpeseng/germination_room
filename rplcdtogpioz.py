@@ -60,28 +60,28 @@ class ButtonController:
                             self.lcd.lcd.cursor_pos = (1, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
-                            self.lcd.lcd.cursor_pos = (2, 3)
+                            self.lcd.lcd.cursor_pos = (2, 2)
                             self.lcd.write(self.items[(i+1)])
-                            self.lcd.lcd.cursor_pos = (3, 3)
+                            self.lcd.lcd.cursor_pos = (3, 2)
                             self.lcd.write(self.items[(i+2)])
                         elif i == 1:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 3)
+                            self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i-1])
                             self.lcd.lcd.cursor_pos = (2, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
-                            self.lcd.lcd.cursor_pos = (3, 3)
+                            self.lcd.lcd.cursor_pos = (3, 2)
                             self.lcd.write(self.items[i+1])
                         elif i == 2:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 3)
+                            self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i-2])
-                            self.lcd.lcd.cursor_pos = (2, 3)
+                            self.lcd.lcd.cursor_pos = (2, 2)
                             self.lcd.write(self.items[i-1])
                             self.lcd.lcd.cursor_pos = (3, 0)
                             self.lcd.write("> ")
@@ -90,9 +90,9 @@ class ButtonController:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("Menu")
-                            self.lcd.lcd.cursor_pos = (1, 3)
+                            self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i - 2])
-                            self.lcd.lcd.cursor_pos = (2, 3)
+                            self.lcd.lcd.cursor_pos = (2, 2)
                             self.lcd.write(self.items[i - 1])
                             self.lcd.lcd.cursor_pos = (3, 0)
                             self.lcd.write("> ")
@@ -104,11 +104,11 @@ class ButtonController:
                         self.decrease_pressed()
                         time.sleep(0.15)
                     if set_pin.is_pressed:
-                        if self.select_item == 0:
-                            self.show_sub_menu1()
-                            return
-
                         time.sleep(0.15)
+                        self.show_sub_menu1()
+                        return
+
+
                     time.sleep(0.15)
         except KeyboardInterrupt:
             self.lcd.clear_screen()
