@@ -149,7 +149,7 @@ class ButtonController:
                     self.lcd.write(self.items[0])
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
-                    self.lcd.write(str(self.set_temp_min))
+                    self.lcd.write(str(self.set_temp_max))
                     if increase_pin.is_pressed:
                         self.set_temp_max += 1
                         time.sleep(0.15)
