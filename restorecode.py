@@ -61,8 +61,11 @@ class ButtonController:
         try:
             while True:
                 self.lcd.clear_screen()
+                self.lcd.cursor_pos = (0, 0)
                 self.lcd.write(f"====  Menu  ====")
+                self.lcd.cursor_pos = (1, 0)
                 self.lcd.write(f"> {option_name}")
+                self.lcd.cursor_pos = (2, 0)
                 self.lcd.write(f"{prefix} {value}")
                 time.sleep(0.2)
                 if increase_pin.is_pressed:
