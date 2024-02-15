@@ -100,7 +100,7 @@ class ButtonController:
 def main():
     button_controller = ButtonController()
     try:
-        button_controller.show_menu()
+        button_controller.show_values()
     except Exception as error:
         button_controller.cleanup()
         print(f"Hata: {error}")
