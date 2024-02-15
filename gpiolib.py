@@ -140,6 +140,7 @@ class ButtonController:
                     if GPIO.input(set_pin) == GPIO.LOW:
                         time.sleep(0.1)
                         self.set_pressed(set_pin)
+                        self.show_values()
                         return
 
 
