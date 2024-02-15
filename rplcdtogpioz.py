@@ -4,7 +4,7 @@ from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
 
 # Menü seçenekleri
-menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "back"]
+menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "set_morning_time", "set_night_time" "back"]
 
 
 set_pin = Button(26)
@@ -84,12 +84,34 @@ class ButtonController:
                             self.lcd.lcd.cursor_pos = (3, 0)
                             self.lcd.write("> ")
                             self.lcd.write(self.items[i])
-                        else:
+                        elif i == 4:
                             self.lcd.clear_screen()
                             self.lcd.lcd.cursor_pos = (0, 0)
                             self.lcd.write("====  Menu  ====")
                             self.lcd.lcd.cursor_pos = (1, 2)
                             self.lcd.write(self.items[i - 3])
+                            self.lcd.lcd.cursor_pos = (2, 2)
+                            self.lcd.write(self.items[i - 1])
+                            self.lcd.lcd.cursor_pos = (3, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        elif i == 5:
+                            self.lcd.clear_screen()
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("====  Menu  ====")
+                            self.lcd.lcd.cursor_pos = (1, 2)
+                            self.lcd.write(self.items[i - 4])
+                            self.lcd.lcd.cursor_pos = (2, 2)
+                            self.lcd.write(self.items[i - 1])
+                            self.lcd.lcd.cursor_pos = (3, 0)
+                            self.lcd.write("> ")
+                            self.lcd.write(self.items[i])
+                        else:
+                            self.lcd.clear_screen()
+                            self.lcd.lcd.cursor_pos = (0, 0)
+                            self.lcd.write("====  Menu  ====")
+                            self.lcd.lcd.cursor_pos = (1, 2)
+                            self.lcd.write(self.items[i - 5])
                             self.lcd.lcd.cursor_pos = (2, 2)
                             self.lcd.write(self.items[i - 3])
                             self.lcd.lcd.cursor_pos = (3, 0)
