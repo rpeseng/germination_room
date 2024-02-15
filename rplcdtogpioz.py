@@ -132,6 +132,7 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_min))
+                    time.sleep(0.15)
                     if increase_pin.is_pressed:
                         self.set_temp_min += 1
                         time.sleep(0.15)
@@ -152,6 +153,7 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_temp_max))
+                    time.sleep(0.15)
                     if increase_pin.is_pressed:
                         self.set_temp_max += 1
                         time.sleep(0.15)
@@ -172,6 +174,7 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_hum_min))
+                    time.sleep(0.15)
                     if increase_pin.is_pressed:
                         self.set_hum_min += 1
                         time.sleep(0.15)
@@ -192,6 +195,7 @@ class ButtonController:
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
                     self.lcd.write(str(self.set_hum_max))
+                    time.sleep(0.15)
                     if increase_pin.is_pressed:
                         self.set_hum_max += 1
                         time.sleep(0.15)
