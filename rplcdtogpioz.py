@@ -114,8 +114,7 @@ class ButtonController:
 
                     time.sleep(0.15)
         except KeyboardInterrupt:
-            self.lcd.clear_screen()
-            self.lcd.lcd_screen_deactivate()
+            self.cleanup()
 
 
     def show_sub_menu1(self):
@@ -213,8 +212,7 @@ class ButtonController:
                 time.sleep(0.15)
 
         except KeyboardInterrupt:
-            self.lcd.clear_screen()
-            self.lcd.lcd_screen_deactivate()
+            self.cleanup()
 
 
     def show_values(self):
@@ -242,10 +240,16 @@ class ButtonController:
                     return
 
                 time.sleep(0.2)
+        except KeyboardInterrupt:
+            self.cleanup()
 
         except Exception as er:
             print(f"Hataa : {er}")
 
+
+    def cleanup(self):
+        self.lcd.clear_screen()
+        self.lcd.lcd_screen_deactivate()
 
 def main():
     # ButonController sınıfını kullanarak nesne oluştur
