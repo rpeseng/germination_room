@@ -299,7 +299,7 @@ class ButtonController:
                 self.lcd.lcd.cursor_pos = (2, 12)
                 self.lcd.write(hum_value)
 
-                time.sleep(0.05)  # Küçük bir bekleme süresi
+                time.sleep(0.12)  # Küçük bir bekleme süresi
 
                 if decrease_pin.when_pressed or increase_pin.when_pressed or set_pin.when_pressed:
                     self.select_item = 0
