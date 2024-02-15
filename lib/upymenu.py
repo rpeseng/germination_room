@@ -55,7 +55,7 @@ class Menu:
 
     def _render_cursor(self):
         for l in range(0, self.lines):
-            self.lcd.move_to(l, 0)
+            self.lcd.putstr(l, 0)
             # If the current position matches the focus, render
             # the cursor otherwise, render an empty space
             if l == (self.focus - 1):
@@ -66,7 +66,7 @@ class Menu:
     def _render_options(self):
         # Render the options:
         for l, option in enumerate(self.viewport):
-            self.lcd.move_to(l, 0)  # Move to the line
+            self.lcd.putstr(l, 0)  # Move to the line
             # And render the longest possible string on the screen
             self.lcd.putstr(option.title[: self.columns - 1])
 
