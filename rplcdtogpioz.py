@@ -238,11 +238,11 @@ class ButtonController:
                 self.lcd.lcd.cursor_pos = (2, 12)
                 self.lcd.write(hum_value)
 
-                time.sleep(0.2)
                 if set_pin.is_pressed:
                     time.sleep(0.15)
                     self.show_menu()
                     return
+                time.sleep(0.2)
 
         except Exception as er:
             print(f"Hataa : {er}")
