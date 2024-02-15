@@ -39,6 +39,10 @@ class ButtonController:
         self.select_item = (self.select_item + 1) % len(self.items)
         print("Decrease button pressed")
 
+    def set_pressed(self):
+
+        print("set button pressed")
+
 
 
     def show_menu(self):
@@ -241,6 +245,7 @@ class ButtonController:
                 if set_pin.is_pressed:
                     time.sleep(0.15)
                     self.select_item = 0
+                    self.set_pressed()
                     self.show_menu()
                     return
                 time.sleep(0.2)
