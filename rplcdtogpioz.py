@@ -290,7 +290,7 @@ class ButtonController:
                 self.lcd.cursor_pos = (1, 0)
                 self.lcd.write(f"SICAKLIK : {temp_value:.2f}")
                 self.lcd.cursor_pos = (2, 0)
-                self.lcd.write(f"NEM      : {hum_value:.2f}")
+                self.lcd.write(f"    NEM      : {hum_value:.2f}")
                 time.sleep(0.12)
                 if decrease_pin.when_pressed or increase_pin.when_pressed or set_pin.when_pressed:
                     self.select_item = 0
