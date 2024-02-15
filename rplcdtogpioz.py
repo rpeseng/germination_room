@@ -220,11 +220,12 @@ class ButtonController:
 
     def show_values(self):
         try:
-            sensor_values = self.am2120sensorvalues.read_am2120_values()
-            temp_value ="{:.2f}".format(sensor_values[0])
 
-            hum_value = str(sensor_values[1])
             while True:
+                sensor_values = self.am2120sensorvalues.read_am2120_values()
+                temp_value = "{:.2f}".format(sensor_values[0])
+                hum_value = "{:.2f}".format(sensor_values[1])
+
                 self.lcd.clear_screen()
                 self.lcd.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
