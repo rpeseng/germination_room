@@ -239,7 +239,7 @@ class ButtonController:
                     self.show_menu()
                     return
 
-                time.sleep(0.2)
+                time.sleep(0.15)
         except KeyboardInterrupt:
             self.cleanup()
 
@@ -258,7 +258,7 @@ def main():
         button_controller.show_values()
 
     except Exception as error:
-        button_controller.lcd.lcd_screen_deactivate()
+        button_controller.cleanup()
         print(f"hata: {error}")
 
 
