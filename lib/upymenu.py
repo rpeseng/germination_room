@@ -28,8 +28,10 @@ class Menu:
     # Or when navigating to a submenu or parten
     def start(self, lcd):
         self.lcd = lcd  # Assign the LCD to the menu.
-        self.columns = lcd.num_columns  # Get the columns of the LCD
-        self.lines = lcd.num_lines  # And the line
+        #self.columns = lcd.num_columns  # Get the columns of the LCD
+        self.columns = 20
+        self.lines = 4
+        #self.lines = lcd.num_lines  # And the line
         self.active = True  # Set the screen as active
 
         # Chunk the list and calculate the viewport:
