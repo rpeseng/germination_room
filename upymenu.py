@@ -1,6 +1,6 @@
 from lib.upymenu import Menu, MenuAction, MenuNoop
 from data.lcd_library import LCDController
-from machine import Pin, I2C
+
 
 def action_callback():
     print("callback action choosen")
