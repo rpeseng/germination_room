@@ -34,15 +34,19 @@ class ButtonController:
 
 
 
-    def increase_pressed(self,channel):
+    def increase_pressed(self, channel):
 
         self.select_item = (self.select_item - 1) % len(self.items)
         print("increase button pressed")
 
-    def decrease_pressed(self,channel):
+    def decrease_pressed(self, channel):
 
         self.select_item = (self.select_item + 1) % len(self.items)
         print("Decrease button pressed")
+
+    def set_pressed(self, channel):
+
+        print("set button pressed")
 
 
     def show_menu(self):
