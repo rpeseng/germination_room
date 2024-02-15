@@ -157,7 +157,8 @@ class ButtonController:
                     if set_pin.is_pressed:
                         time.sleep(0.15)
                         print("Basildi2")
-                        return self.show_menu()
+                        self.show_menu()
+                        break
                 time.sleep(0.1)
 
         except KeyboardInterrupt:
