@@ -4,7 +4,7 @@ from data.lcd_library import LCDController
 from data.am2120_data import AM2120Sensor
 
 # Menü seçenekleri
-menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "set_morning_time", "set_night_time" "back"]
+menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "set_morning_time", "set_night_time", "back"]
 
 
 set_pin = Button(26)
