@@ -29,8 +29,8 @@ class ButtonController:
     def decrease_pressed(self):
         self.select_item = (self.select_item + 1) % len(self.items)
 
-    def set_pressed(self):
-        self.show_sub_menu(self.select_item)
+    """def set_pressed(self):
+        self.show_sub_menu(self.select_item)"""
 
     def show_menu(self):
         try:
@@ -85,8 +85,11 @@ class ButtonController:
             while True:
                 temp_value, hum_value = self.am2120sensorvalues.read_am2120_values()
                 self.lcd.clear_screen()
+                self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
+                self.lcd.cursor_pos = (1, 0)
                 self.lcd.write(f"SICAKLIK : {temp_value:.2f}")
+                self.lcd.cursor_pos = (2, 0)
                 self.lcd.write(f"NEM      : {hum_value:.2f}")
                 time.sleep(0.2)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
