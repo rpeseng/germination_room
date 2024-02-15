@@ -48,27 +48,27 @@ class Menu:
         self.viewport = self.options_chunked[self._current_chunk()]
 
         self.lcd.clear()
-        self.lcd.putstr(0, 0)
+        self.lcd.cursor_pos = (0, 0)
 
         self._render_cursor()
         self._render_options()
 
     def _render_cursor(self):
         for l in range(0, self.lines):
-            self.lcd.putstr(l, 0)
+            self.lcd.cursor_pos = (l, 0)
             # If the current position matches the focus, render
             # the cursor otherwise, render an empty space
             if l == (self.focus - 1):
-                self.lcd.putstr(">")
+                self.lcd.write(">")
             else:
-                self.lcd.putstr(" ")
+                self.lcd.write(" ")
 
     def _render_options(self):
         # Render the options:
         for l, option in enumerate(self.viewport):
-            self.lcd.putstr(l, 0)  # Move to the line
+            self.lcd.cursor_pos = (l, 0)  # Move to the line
             # And render the longest possible string on the screen
-            self.lcd.putstr(option.title[: self.columns - 1])
+            self.lcd.write(option.title[: self.columns - 1])
 
     # Add an option to the menu (could be an action or submenu)
     def add_option(self, option):
