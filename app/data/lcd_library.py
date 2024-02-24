@@ -2,7 +2,7 @@ from RPLCD import *
 from RPLCD.i2c import CharLCD
 
 from time import sleep
-from data.am2120_data import AM2120Sensor
+from app.data.am2120_data import AM2120Sensor
 
 framebuffer = [
         '',
@@ -29,24 +29,24 @@ class LCDController:
         self.lcd.cursor_pos()
 
     def write(self, message):
-        self.lcd.write_string(message)
+        self.lcd.write(message)
 
     def print_on_lcd(self, message, line, alignment='right'):
         """
                     Function is for print on lcd.
         """
         if line == 0:
-            self.lcd.cursor_post=(line, 0)
-            self.lcd.write_string(message)
+            self.lcd.cursor_post = (line, 0)
+            self.lcd.write(message)
         if line == 1:
-            self.lcd.cursor_post=(line, 0)
-            self.lcd.write_string(message)
+            self.lcd.cursor_post = (line, 0)
+            self.lcd.write(message)
         if line == 2:
-            self.lcd.cursor_post=(line, 0)
-            self.lcd.write_string(message)
+            self.lcd.cursor_post = (line, 0)
+            self.lcd.write(message)
         if line == 3:
-            self.lcd.cursor_post=(line, 0)
-            self.lcd.write_string(message)
+            self.lcd.cursor_post = (line, 0)
+            self.lcd.write(message)
 
 
     def write_to_lcd(self,lcd, framebuffer, num_cols):
@@ -63,13 +63,13 @@ class LCDController:
             self.write_to_lcd(self.lcd, framebuffer, 20)
             sleep(0.2)
 
-    def update_values(self):
+    def update_values(self, temp_value, hum_value, time):
 
         try:
-            avg_temp, avg_hum = self.am2120sensor.read_am2120_values()
-            self.print_on_lcd(f"Temperature =   {avg_temp:.2f}", 1, 'right')
-            self.print_on_lcd(f"Humudity    =   {avg_hum:.2f}", 2, 'right')
-
+            self.print_on_lcd(f"=== ORTAM DEGERI ===", 0, )
+            self.print_on_lcd(f"Temperature =   {temp_value:.2f}", 1, )
+            self.print_on_lcd(f"Humudity    =   {hum_value:.2f}", 2, )
+            self.print_on_lcd(f"Time:    =   {time:.2f}", 3, )
 
         except KeyboardInterrupt:
             pass
@@ -92,10 +92,10 @@ class LCDController:
             print(f"lcd_connection lcd_screen_deactivates: {error}")
             print(f"lcd_screen_deactivate : {error}")
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     lcd = LCDController()
     try:
         while True:
             lcd.update_values()
     except Exception as er:
-        print(er)
+        print(er)"""

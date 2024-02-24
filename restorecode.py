@@ -1,7 +1,7 @@
 from gpiozero import Button
 import time
-from data.lcd_library import LCDController
-from data.am2120_data import AM2120Sensor
+from app.data.lcd_library import LCDController
+from app.data.am2120_data import AM2120Sensor
 
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "back"]
@@ -67,7 +67,7 @@ class ButtonController:
                 self.lcd.write(f"> {option_name}")
                 self.lcd.cursor_pos = (2, 0)
                 self.lcd.write(f"{prefix} {value}")
-                time.sleep(0.2)
+                time.sleep(0.12)
                 if increase_pin.is_pressed:
                     value += 1
                     time.sleep(0.1)

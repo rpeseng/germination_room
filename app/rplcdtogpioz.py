@@ -1,7 +1,8 @@
 from gpiozero import Button
 import time
-from data.lcd_library import LCDController
-from data.am2120_data import AM2120Sensor
+from app.data.lcd_library import LCDController
+from app.data.am2120_data import AM2120Sensor
+from app.data.sql_connection import SqlSettings
 
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "set_morning_time", "set_night_time", "back"]
@@ -20,6 +21,7 @@ class ButtonController:
         self.select_item = 0
         self.lcd = LCDController()
         self.am2120sensorvalues = AM2120Sensor()
+        self.sqlvalues = SqlSettings()
 
         self.set_temp_min = 2
         self.set_temp_max = 20
@@ -282,16 +284,19 @@ class ButtonController:
     def show_values(self):
         try:
 
+
             while True:
-                temp_value, hum_value = self.am2120sensorvalues.read_am2120_values()
-                self.lcd.clear_screen()
+                values = self.sqlvalues.read_values_lcd()
+                #temp_value, hum_value = self.am2120sensorvalues.read_am2120_values()
+                self.lcd.update_values(values[0], values[1], values[2])
+                """                self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
                 self.lcd.cursor_pos = (1, 0)
                 self.lcd.write(f"SICAKLIK : {temp_value:.2f}")
                 self.lcd.cursor_pos = (2, 0)
-                self.lcd.write(f"    NEM      : {hum_value:.2f}")
-                time.sleep(0.2)
+                self.lcd.write(f"    NEM      : {hum_value:.2f}")"""
+                time.sleep(0.05)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
                     self.select_item = 0
                     self.show_menu()

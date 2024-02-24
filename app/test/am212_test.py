@@ -1,4 +1,4 @@
-from data.am2120_data import AM2120Sensor
+from app.data.am2120_data import AM2120Sensor
 
 try:
     sensor_values = AM2120Sensor()
