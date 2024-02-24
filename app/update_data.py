@@ -1,3 +1,4 @@
+import threading
 from threading import Thread, Event
 import time
 from time import sleep
@@ -9,6 +10,8 @@ from data.sql_connection import SqlSettings
 class UpdateData():
     def __init__(self):
         self.sensorvalue = AM2120Sensor()
+
+        # Her iş parçacığı için ayrı bir SqlSettings nesnesi oluşturun
         self.sqlcon = SqlSettings()
 
         self.stop_event = Event()  # Durdurma olayı
@@ -19,7 +22,10 @@ class UpdateData():
             temp_value, hum_value = self.sensorvalue.read_am2120_values()
             print(temp_value)
             print(hum_value)
-            self.sqlcon.insert_values(temp_value, hum_value)
+            # Her iş parçacığı için ayrı bir bağlantı oluşturun
+            sqlcon = SqlSettings()
+            sqlcon.insert_values(temp_value, hum_value)
+            sqlcon.close_connection()
             sleep(5)
 
     def stop_thread(self):
