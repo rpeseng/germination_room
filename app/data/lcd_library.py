@@ -29,7 +29,7 @@ class LCDController:
         self.lcd.cursor_pos()
 
     def write(self, message):
-        self.lcd.write(message)
+        self.lcd.write_string(message)
 
     def print_on_lcd(self, message, line, alignment='right'):
         """
@@ -63,7 +63,7 @@ class LCDController:
             self.write_to_lcd(self.lcd, framebuffer, 20)
             sleep(0.2)
 
-    """def update_values(self, temp_value, hum_value, time):
+    def update_values(self, temp_value, hum_value, time):
 
         try:
             self.print_on_lcd(f"=== ORTAM DEGERI ===", 0, )
@@ -77,7 +77,7 @@ class LCDController:
             print(f"lcd_connection update_values: {error}")
             self.lcd_screen_deactivate()
         finally:
-            self.clear_screen()"""
+            self.clear_screen()
 
 
     def lcd_screen_deactivate(self):
