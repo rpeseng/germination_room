@@ -287,7 +287,7 @@ class ButtonController:
 
             while True:
 
-                self.lcd.print_on_lcd("Message", 0)
+                self.lcd.print_on_lcd(25, 0)
 
                 time.sleep(0.05)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
