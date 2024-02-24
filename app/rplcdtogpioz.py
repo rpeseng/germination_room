@@ -288,6 +288,9 @@ class ButtonController:
             while True:
                 values = self.sqlvalues.read_values_lcd()
                 #temp_value, hum_value = self.am2120sensorvalues.read_am2120_values()
+                print(values[0])
+                print(values[1])
+                print(values[2])
                 self.lcd.update_values(values[0], values[1], values[2])
                 """                self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
