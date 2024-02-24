@@ -87,7 +87,7 @@ class SqlSettings:
             cursor = self.conn.cursor()
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute('''
-                    INSERT INTO values (temp_value, hum_value, timestamp)
+                    INSERT INTO add_values (temp_value, hum_value, timestamp)
                     VALUES (?, ?, ?)
             ''', (temp_value, hum_value, timestamp))
             print("added values: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
