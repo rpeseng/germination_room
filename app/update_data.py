@@ -20,7 +20,7 @@ class UpdateData():
         temp_value, hum_value = self.sensorvalue.read_am2120_values()
         print(temp_value)
         print(hum_value)
-        #self.sqlcon.insert_values(temp_value, hum_value)
+        self.sqlcon.insert_values(temp_value, hum_value)
         sleep(5)
 
 
