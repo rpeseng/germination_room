@@ -1,8 +1,9 @@
 import subprocess
 
+from app.data.lcd_library import LCDController
 def main():
     try:
-
+        lcd =  LCDController()
         # İlk Python kodunu başlat
         process1 = subprocess.Popen(['python3', '/home/germinationroom/Documents/germination_room/app/update_data.py'])
         # İkinci Python kodunu başlat
@@ -15,6 +16,7 @@ def main():
         # Ctrl+C algılandığında süreçleri öldür
         process1.terminate()
         process2.terminate()
+        lcd.lcd_screen_deactivate()
         print("Programdan çıkış yapıldı.")
     except Exception as error:
         print(f"Main python Directory : {error}")
