@@ -1,4 +1,6 @@
 import subprocess
+import time
+
 
 def main():
     try:
@@ -13,6 +15,7 @@ def main():
 
     except KeyboardInterrupt:
         # Ctrl+C algılandığında süreçleri öldür
+        time.sleep(0.2)
         process1.terminate()
         process2.terminate()
         print("Programdan çıkış yapıldı.")

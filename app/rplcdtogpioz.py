@@ -23,6 +23,7 @@ class ButtonController:
         self.am2120sensorvalues = AM2120Sensor()
         self.sqlvalues = SqlSettings()
 
+
         self.set_temp_min = 2
         self.set_temp_max = 20
         self.set_hum_min = 65
