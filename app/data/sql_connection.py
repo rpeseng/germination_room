@@ -75,9 +75,6 @@ class SqlSettings:
             ''', (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp))
             print("added set_value: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             self.conn.commit()
-        elif self.conn is None:
-            self.open_connection()
-            return
         else:
             print("add values is failed.")
 
@@ -91,9 +88,6 @@ class SqlSettings:
             ''', (temp_value, hum_value, timestamp))
             print("added values: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             self.conn.commit()
-        elif self.conn is None:
-            self.open_connection()
-            return
         else:
             print("add values is failed.")
 
