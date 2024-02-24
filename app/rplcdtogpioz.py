@@ -312,7 +312,7 @@ class ButtonController:
             self.cleanup()
 
         except Exception as er:
-            print(f"Hataa : {er}")
+            print(f"Hata show values : {er}")
 
 
     def cleanup(self):
