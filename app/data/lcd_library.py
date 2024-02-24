@@ -2,7 +2,7 @@ from RPLCD import *
 from RPLCD.i2c import CharLCD
 
 from time import sleep
-from app.data.am2120_data import AM2120Sensor
+from am2120_data import AM2120Sensor
 
 framebuffer = [
         '',
