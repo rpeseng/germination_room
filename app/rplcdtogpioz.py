@@ -295,7 +295,7 @@ class ButtonController:
                 hum_value = str(values[2])
                 end_date = str(values[3])
                 #self.lcd.update_values(values[1], values[2], values[2])
-                               self.lcd.clear_screen()
+                self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
                 self.lcd.cursor_pos = (1, 0)
