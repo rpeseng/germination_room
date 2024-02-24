@@ -133,3 +133,38 @@ class SqlSettings:
         finally:
             conn1.close()
             pass
+
+    def read_set_values(self):
+        if not os.path.exists(self.db_filename):
+            self.create_table()
+
+        conn2 = sqlite3.connect(self.db_filename)
+
+        try:
+            if conn2 is not None:
+                pass
+            else:
+                print("Connection is failed with database!")
+            cursor2 = conn2.cursor()
+
+            # Transaction started.
+            conn2.execute("BEGIN TRANSACTION")
+
+            cursor2.execute("SELECT * FROM set_values ORDER BY timestamp DESC LIMIT 1")
+
+            data = cursor2.fetchall()
+
+            # Print data to the lcd screen.
+            for d in data:
+                # Complete the transaction.
+                self.conn.commit()
+                return d
+
+        except Exception as er:
+            # Undo if there are errors during the transaction phase.
+            conn2.rollback()
+            print(f"read values error: {er}")
+
+        finally:
+            conn2.close()
+            pass

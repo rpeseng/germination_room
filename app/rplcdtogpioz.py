@@ -28,6 +28,14 @@ class ButtonController:
         self.set_temp_max = 20
         self.set_hum_min = 65
         self.set_hum_max = 75
+        self.read_set_values()
+
+    def read_set_values(self):
+        values = self.sqlvalues.read_set_values()
+        self.set_temp_min = values[1]
+        self.set_temp_max = values[2]
+        self.set_hum_min = values[3]
+        self.set_hum_max = values[4]
 
 
 
@@ -153,6 +161,8 @@ class ButtonController:
                     self.lcd.write(self.items[0])
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
+                    self.sqlvalues.insert_set_values(self.set_temp_min,7,
+                                               5, 6)
                     self.lcd.write(str(self.set_temp_min))
                     time.sleep(0.15)
                     if increase_pin.is_pressed:
