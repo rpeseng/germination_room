@@ -158,6 +158,7 @@ class ButtonController:
         try:
             while True:
                 if self.select_item == 0:
+                    self.read_set_values()
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
                     self.lcd.write("====  Menu  ====")
