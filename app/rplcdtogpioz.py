@@ -288,15 +288,15 @@ class ButtonController:
             while True:
                 values = self.sqlvalues.read_values_lcd()
                 #temp_value, hum_value = self.am2120sensorvalues.read_am2120_values()
-                temp_value = str(values[1])
-                hum_value = str(values[2])
+                temp_value = float(values[1])
+                hum_value = float(values[2])
 
                 #self.lcd.update_values(values[1], values[2], values[2])
                 self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
                 self.lcd.cursor_pos = (1, 0)
-                self.lcd.write(temp_value)
+                self.lcd.write("temp_value")
                 #self.lcd.write(f"SICAKLIK : {temp_value}")
                 self.lcd.cursor_pos = (2, 0)
                 #self.lcd.write(f"    NEM      : {hum_value}")
