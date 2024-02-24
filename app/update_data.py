@@ -17,11 +17,12 @@ class UpdateData():
         self.stop_event.clear()
 
     def insert_sensor_value_database(self):
-        temp_value, hum_value = self.sensorvalue.read_am2120_values()
-        print(temp_value)
-        print(hum_value)
-        self.sqlcon.insert_values(temp_value, hum_value)
-        sleep(5)
+        while not self.stop_event.is_set():
+            temp_value, hum_value = self.sensorvalue.read_am2120_values()
+            print(temp_value)
+            print(hum_value)
+            self.sqlcon.insert_values(temp_value, hum_value)
+            sleep(5)
 
 
     def stop_thread(self):
@@ -29,7 +30,7 @@ class UpdateData():
         self.stop_event.set()
 
     def close_sql_connection(self):
-        self.sql_settings.close_connection()
+        self.sqlcon.close_connection()
 
 
 def main():
