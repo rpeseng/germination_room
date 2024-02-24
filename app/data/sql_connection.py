@@ -115,7 +115,7 @@ class SqlSettings:
             # Transaction started.
             conn1.execute("BEGIN TRANSACTION")
 
-            cursor1.execute("SELECT * FROM values ORDER BY timestamp DESC LIMIT 1")
+            cursor1.execute("SELECT * FROM add_values ORDER BY timestamp DESC LIMIT 1")
 
             data = cursor1.fetchall()
 
