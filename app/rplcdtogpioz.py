@@ -294,7 +294,7 @@ class ButtonController:
                 self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
-                self.lcd.lcd.cursor_pos = (1, 0)
+                self.lcd.cursor_pos = (1, 0)
                 self.lcd.write(f"SICAKLIK : {values[1]}")
                 self.lcd.cursor_pos = (2, 0)
                 self.lcd.write(f"NEM      : {values[2]}")
