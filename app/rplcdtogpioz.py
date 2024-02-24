@@ -301,7 +301,7 @@ class ButtonController:
                 self.lcd.lcd.cursor_pos = (3, 0)
                 self.lcd.write(f"{data_time}")
 
-                time.sleep(0.1)
+                time.sleep(0.05)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
                     self.select_item = 0
                     self.show_menu()
