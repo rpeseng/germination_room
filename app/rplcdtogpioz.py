@@ -293,7 +293,6 @@ class ButtonController:
                 hum_value = float(values[2])
 
                 # self.lcd.update_values(values[1], values[2], values[2])
-                self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
                 self.lcd.cursor_pos = (1, 0)
@@ -306,6 +305,7 @@ class ButtonController:
                     self.select_item = 0
                     self.show_menu()
                     return
+                self.lcd.clear_screen()
 
 
         except KeyboardInterrupt:
