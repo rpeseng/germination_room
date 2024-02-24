@@ -164,8 +164,13 @@ class ButtonController:
                     self.lcd.write(self.items[0])
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
-                    self.sqlvalues.insert_set_values(self.set_temp_min,7,
-                                               5, 6)
+                    if set_pin.is_pressed:
+                        time.sleep(0.1)
+                        self.sqlvalues.insert_set_values(self.set_temp_min, 7,
+                                                         5, 6)
+                        self.show_menu()
+                        break
+
                     self.lcd.write(str(values[1]))
                     time.sleep(0.15)
                     if increase_pin.is_pressed:
