@@ -294,14 +294,14 @@ class ButtonController:
                 temp_value = str(values[1])
                 hum_value = str(values[2])
                 end_date = str(values[3])
-                self.lcd.update_values(values[1], values[2], values[2])
-                """                self.lcd.clear_screen()
+                #self.lcd.update_values(values[1], values[2], values[2])
+                               self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
                 self.lcd.cursor_pos = (1, 0)
-                self.lcd.write(f"SICAKLIK : {temp_value:.2f}")
+                self.lcd.write(f"SICAKLIK : {values[1]:.2f}")
                 self.lcd.cursor_pos = (2, 0)
-                self.lcd.write(f"    NEM      : {hum_value:.2f}")"""
+                self.lcd.write(f"    NEM      : {values[2]:.2f}")
                 time.sleep(0.05)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
                     self.select_item = 0
