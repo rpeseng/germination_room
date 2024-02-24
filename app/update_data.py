@@ -18,6 +18,8 @@ class UpdateData():
         try:
             while not self.stop_event.is_set():
                 temp_value, hum_value = self.sensorvalue.read_am2120_values()
+                temp_value = round(temp_value, 2)
+                hum_value = round(hum_value, 2)
                 print(temp_value)
                 print(hum_value)
                 # Her iş parçacığı için ayrı bir bağlantı oluşturun

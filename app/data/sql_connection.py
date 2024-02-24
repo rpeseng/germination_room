@@ -84,8 +84,6 @@ class SqlSettings:
 
     def insert_values(self, temp_value, hum_value):
         if self.conn is not None:
-            temp_value = round(temp_value, 2)
-            hum_value = round(hum_value, 2)
             cursor = self.conn.cursor()
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute('''
