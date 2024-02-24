@@ -69,7 +69,7 @@ class LCDController:
             self.print_on_lcd(f"=== ORTAM DEGERI ===", 0, )
             self.print_on_lcd(f"Temperature =   {temp_value:.2f}", 1, )
             self.print_on_lcd(f"Humudity    =   {hum_value:.2f}", 2, )
-            self.print_on_lcd(f"Time:    =   {time:.2f}", 3, )
+            self.print_on_lcd(f"Time:    =   {time}", 3, )
 
         except KeyboardInterrupt:
             pass
