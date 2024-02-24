@@ -5,7 +5,7 @@ from datetime import datetime
 
 class SqlSettings:
     def __init__(self):
-        self.db_filename = "/database/germinationroom.db"
+        self.db_filename = "/home/germinationroom/Documents/germination_room/app/database/germinationroom.db"
         self.conn = None
 
         self.open_connection()
