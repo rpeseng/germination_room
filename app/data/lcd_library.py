@@ -37,16 +37,16 @@ class LCDController:
         """
         if line == 0:
             self.lcd.cursor_post = (line, 0)
-            self.lcd.write(message)
+            self.lcd.write_string(message)
         if line == 1:
             self.lcd.cursor_post = (line, 0)
-            self.lcd.write(message)
+            self.lcd.write_string(message)
         if line == 2:
             self.lcd.cursor_post = (line, 0)
-            self.lcd.write(message)
+            self.lcd.write_string(message)
         if line == 3:
             self.lcd.cursor_post = (line, 0)
-            self.lcd.write(message)
+            self.lcd.write_string(message)
 
 
     def write_to_lcd(self,lcd, framebuffer, num_cols):

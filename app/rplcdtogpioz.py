@@ -292,20 +292,20 @@ class ButtonController:
                 temp_value = float(values[1])
                 hum_value = float(values[2])
 
-                # self.lcd.update_values(values[1], values[2], values[2])
+                self.lcd.update_values(values[1], values[2], values[3])
+                """self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
                 self.lcd.cursor_pos = (1, 0)
                 self.lcd.write(f"SICAKLIK : {temp_value}")
                 self.lcd.cursor_pos = (2, 0)
-                self.lcd.write(f"    NEM      : {hum_value}")
+                self.lcd.write(f"    NEM      : {hum_value}")"""
 
                 time.sleep(0.1)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
                     self.select_item = 0
                     self.show_menu()
                     return
-                self.lcd.clear_screen()
 
 
         except KeyboardInterrupt:
