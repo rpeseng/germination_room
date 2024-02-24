@@ -4,9 +4,9 @@ def main():
     try:
 
         # İlk Python kodunu başlat
-        process1 = subprocess.Popen(['python3', '/home/rpeseng/Documents/germination_room/app/update_data.py'])
+        process1 = subprocess.Popen(['python3', '/home/germinationroom/Documents/germination_room/app/update_data.py'])
         # İkinci Python kodunu başlat
-        process2 = subprocess.Popen(['python3', '/home/rpeseng/Documents/germination_room/app/rplcdtogpioz.py'])
+        process2 = subprocess.Popen(['python3', '/home/germinationroom/Documents/germination_room/app/rplcdtogpioz.py'])
 
         process1.wait()
         process2.wait()
