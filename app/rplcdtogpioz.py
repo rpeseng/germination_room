@@ -301,7 +301,7 @@ class ButtonController:
                 self.lcd.cursor_pos = (2, 0)
                 self.lcd.write(f"    NEM      : {hum_value}")"""
 
-                time.sleep(0.3)
+                time.sleep(0.1)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
                     self.select_item = 0
                     self.show_menu()
