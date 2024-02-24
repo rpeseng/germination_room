@@ -290,7 +290,7 @@ class ButtonController:
                 values = self.sqlvalues.read_values_lcd()
                 data_time = values[3][:-3]
                 self.lcd.update_values(values[1], values[2], values[3])
-                self.lcd.clear_screen()
+                self.lcd.lcd.clear()
                 self.lcd.lcd.cursor_pos = (0, 0)
                 self.lcd.lcd.write_string("=== ORTAM DEGERI ===")
                 self.lcd.lcd.cursor_pos = (1, 0)
