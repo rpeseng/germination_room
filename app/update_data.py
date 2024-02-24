@@ -1,4 +1,3 @@
-import threading
 from threading import Thread, Event
 import time
 from time import sleep
@@ -12,7 +11,6 @@ class UpdateData():
         self.sensorvalue = AM2120Sensor()
         self.sqlcon = SqlSettings()
 
-
         self.stop_event = Event()  # Durdurma olayı
         self.stop_event.clear()
 
@@ -23,7 +21,6 @@ class UpdateData():
             print(hum_value)
             self.sqlcon.insert_values(temp_value, hum_value)
             sleep(5)
-
 
     def stop_thread(self):
         # Durdurma olayını tetikle.
@@ -39,7 +36,6 @@ def main():
 
     try:
         update_thread = Thread(target=add_data.insert_sensor_value_database)
-
         update_thread.start()
 
         while True:
@@ -48,13 +44,12 @@ def main():
         print("Veriler durduruldu.")
         add_data.close_sql_connection()
         add_data.stop_thread()
-        if update_thread:
+        if update_thread is not None:
             update_thread.join()
 
     finally:
         add_data.close_sql_connection()
-        add_data.close_sql_connection()
-        update_thread.join()
+
 
 if __name__ == "__main__":
     main()
