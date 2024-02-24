@@ -12,7 +12,7 @@ framebuffer = [
 class LCDController:
     def __init__(self, address=0x27):
         # LCD ekranının I2C adresi
-        self.lcd = CharLCD('PCF8574', 0x27)
+        self.lcd = CharLCD('PCF8574', address)
         self.am2120sensor = AM2120Sensor()
 
         # Ekran temizleme
