@@ -1,8 +1,8 @@
 from gpiozero import Button
 import time
-from app.data.lcd_library import LCDController
-from app.data.am2120_data import AM2120Sensor
-from app.data.sql_connection import SqlSettings
+from data.lcd_library import LCDController
+from data.am2120_data import AM2120Sensor
+from data.sql_connection import SqlSettings
 
 # Menü seçenekleri
 menu_items = ["set_temp_min", "set_temp_max", "set_hum_min", "set_hum_max", "set_morning_time", "set_night_time", "back"]
