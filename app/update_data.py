@@ -18,15 +18,18 @@ class UpdateData():
         self.stop_event.clear()
 
     def insert_sensor_value_database(self):
-        while not self.stop_event.is_set():
-            temp_value, hum_value = self.sensorvalue.read_am2120_values()
-            print(temp_value)
-            print(hum_value)
-            # Her iş parçacığı için ayrı bir bağlantı oluşturun
-            sqlcon = SqlSettings()
-            sqlcon.insert_values(temp_value, hum_value)
-            sqlcon.close_connection()
-            sleep(5)
+        try:
+            while not self.stop_event.is_set():
+                temp_value, hum_value = self.sensorvalue.read_am2120_values()
+                print(temp_value)
+                print(hum_value)
+                # Her iş parçacığı için ayrı bir bağlantı oluşturun
+                sqlcon = SqlSettings()
+                sqlcon.insert_values(temp_value, hum_value)
+                sqlcon.close_connection()
+                sleep(5)
+        except KeyboardInterrupt:
+            print("Veriler durduruldu.")
 
     def stop_thread(self):
         # Durdurma olayını tetikle.
