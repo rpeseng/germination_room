@@ -1,6 +1,5 @@
 import subprocess
 
-from app.data.lcd_library import LCDController
 def main():
     try:
         lcd =  LCDController()
@@ -16,7 +15,6 @@ def main():
         # Ctrl+C algılandığında süreçleri öldür
         process1.terminate()
         process2.terminate()
-        lcd.lcd_screen_deactivate()
         print("Programdan çıkış yapıldı.")
     except Exception as error:
         print(f"Main python Directory : {error}")
