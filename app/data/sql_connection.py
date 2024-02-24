@@ -1,14 +1,16 @@
 import os.path
 import sqlite3
 from datetime import datetime
+import threading
 
 
 class SqlSettings:
     def __init__(self):
         self.db_filename = "/home/germinationroom/Documents/germination_room/app/database/germinationroom.db"
         self.conn = None
-
+        self.lock = threading.Lock()
         self.open_connection()
+
 
     def open_connection(self):
         """
@@ -71,19 +73,21 @@ class SqlSettings:
     def insert_set_values(self, set_temp_min, set_temp_max, set_hum_min, set_hum_max):
 
         if self.conn is not None:
-            cursor = self.conn.cursor()
-            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            cursor.execute('''
-                    INSERT INTO set_values (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp)
-                    VALUES (?, ?, ?, ?, ?)
-            ''', (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp))
-            print("added set_value: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-            self.conn.commit()
+            with self.lock:
+                cursor = self.conn.cursor()
+                timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                cursor.execute('''
+                        INSERT INTO set_values (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp)
+                        VALUES (?, ?, ?, ?, ?)
+                ''', (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp))
+                print("added set_value: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                self.conn.commit()
         else:
             print("add values is failed.")
 
     def insert_values(self, temp_value, hum_value):
         if self.conn is not None:
+
             cursor = self.conn.cursor()
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute('''
