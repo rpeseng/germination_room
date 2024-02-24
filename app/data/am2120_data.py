@@ -1,7 +1,7 @@
 import Adafruit_DHT
 
 class AM2120Sensor:
-    def __init__(self, sensor_pin1=19, sensor_pin2=21):
+    def __init__(self, sensor_pin1=20, sensor_pin2=21):
         self.sensor_pin1 = sensor_pin1    # Raspberry Pi üzerinde BCM numarasına göre pin ayarlayın
         self.sensor_pin2 = sensor_pin2
         self.sensor_type = Adafruit_DHT.DHT22  # DHT11 sensörü tipini belirtin
@@ -25,5 +25,5 @@ class AM2120Sensor:
                 print("Sensörden veri okunamadı. Hata olabilir.")
                 return None, None
         except Exception as error:
-            print(f"Hata oluştu! read_dht_value: {error}")
+            print(f"Hata oluştu! read_am2120_value: {error}")
 
