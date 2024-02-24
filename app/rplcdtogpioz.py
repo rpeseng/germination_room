@@ -291,7 +291,7 @@ class ButtonController:
                 print(values[0])
                 print(values[1])
                 print(values[2])
-                self.lcd.update_values(values[0], values[1], values[2])
+                self.lcd.update_values(values[0], values[1], values[1])
                 """                self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
                 self.lcd.write("=== ORTAM DEGERI ===")
