@@ -2,7 +2,7 @@ import subprocess
 
 def main():
     try:
-        lcd =  LCDController()
+
         # İlk Python kodunu başlat
         process1 = subprocess.Popen(['python3', '/home/germinationroom/Documents/germination_room/app/update_data.py'])
         # İkinci Python kodunu başlat
