@@ -43,26 +43,30 @@ class SqlSettings:
         if self.conn is not None:
             cursor = self.conn.cursor()
             # Temperature and humidity set values created.
-            cursor.execute(''' 
-                CREATE TABLE IF NOT EXIST set_values(
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS set_values(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     set_temp_min REAL,
                     set_temp_max REAL,
                     set_hum_min REAL,
                     set_hum_max REAL,
-                    timestamp TEXT,
+                    timestamp TEXT
                 )
             ''')
 
             # Temperature and humidity values added.
             cursor.execute('''
-                CREATE TABLE IF NOT EXIST add_values(
+                CREATE TABLE IF NOT EXISTS add_values(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     temp_value REAL,
                     hum_value REAL,
-                    timestamp TEXT,
+                    timestamp TEXT
                 )
             ''')
+
+        # Bağlantıyı kaydet ve işlemi tamamla
+        self.conn.commit()
+        self.conn.close()
 
     def insert_set_values(self, set_temp_min, set_temp_max, set_hum_min, set_hum_max):
 
