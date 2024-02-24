@@ -92,6 +92,8 @@ class SqlSettings:
             ''', (temp_value, hum_value, timestamp))
             print("added values: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             self.conn.commit()
+            cursor.close()
+            self.close_connection()
         else:
             print("add values is failed.")
 
