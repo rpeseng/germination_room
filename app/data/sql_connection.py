@@ -39,7 +39,7 @@ class SqlSettings:
             print(f"This {er} happened close_connection func.")
 
     def create_table(self):
-        self.open_connection()
+        self.conn = sqlite3.connect(self.db_filename)
         if self.conn is not None:
             cursor = self.conn.cursor()
             # Temperature and humidity set values created.
@@ -75,6 +75,9 @@ class SqlSettings:
             ''', (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp))
             print("added set_value: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             self.conn.commit()
+        elif self.conn is None:
+            self.open_connection()
+            return
         else:
             print("add values is failed.")
 
@@ -88,6 +91,9 @@ class SqlSettings:
             ''', (temp_value, hum_value, timestamp))
             print("added values: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             self.conn.commit()
+        elif self.conn is None:
+            self.open_connection()
+            return
         else:
             print("add values is failed.")
 
