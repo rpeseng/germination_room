@@ -297,7 +297,7 @@ class ButtonController:
                 self.lcd.lcd.write_string(f"SICAKLIK : {values[1]}")
                 self.lcd.lcd.cursor_pos = (2, 0)
                 self.lcd.lcd.write_string(f"NEM      : {values[2]}")
-                self.lcd.cursor_pos = (3, 0)
+                self.lcd.lcd.cursor_pos = (3, 0)
                 self.lcd.lcd.write_string(f"{data_time}")
 
                 time.sleep(0.5)
