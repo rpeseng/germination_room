@@ -288,10 +288,7 @@ class ButtonController:
             while True:
 
                 values = self.sqlvalues.read_values_lcd()
-                # temp_value, hum_value = self.am2120sensorvalues.read_am2120_values()
-                temp_value = float(values[1])
-                hum_value = float(values[2])
-
+                data_time = values[3][:-3]
                 self.lcd.update_values(values[1], values[2], values[3])
                 self.lcd.clear_screen()
                 self.lcd.cursor_pos = (0, 0)
@@ -301,7 +298,7 @@ class ButtonController:
                 self.lcd.cursor_pos = (2, 0)
                 self.lcd.lcd.write_string(f"    NEM      : {values[2]}")
                 self.lcd.cursor_pos = (3, 0)
-                self.lcd.lcd.write_string(f"{values[3]}")
+                self.lcd.lcd.write_string(f"{data_time}")
 
                 time.sleep(0.5)
                 if decrease_pin.is_pressed or increase_pin.is_pressed or set_pin.is_pressed:
