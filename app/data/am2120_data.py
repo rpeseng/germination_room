@@ -18,6 +18,8 @@ class AM2120Sensor:
             # Değerler başarıyla okundu mu kontrol et
             if avg_humidity is not None and avg_temperature is not None:
                 #print(f"Sıcaklık: {temperature:.1f}°C, Nem: {humidity:.1f}%")
+                avg_humidity = float(avg_humidity)
+                avg_temperature = float(avg_temperature)
                 return avg_temperature, avg_humidity
             else:
                 print("Sensörden veri okunamadı. Hata olabilir.")

@@ -18,6 +18,7 @@ class UpdateData():
 
     def insert_sensor_value_database(self):
         temp_value, hum_value = self.sensorvalue.read_am2120_values()
+        print(temp_value)
         self.sqlcon.insert_values(temp_value, hum_value)
         sleep(5)
 
