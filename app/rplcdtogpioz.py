@@ -30,12 +30,17 @@ class ButtonController:
         self.set_hum_max = 75
         self.read_set_values()
 
+
     def read_set_values(self):
         values = self.sqlvalues.read_set_values()
-        self.set_temp_min = values[1]
-        self.set_temp_max = values[2]
-        self.set_hum_min = values[3]
-        self.set_hum_max = values[4]
+        if values is None:
+            self.sqlvalues.insert_set_values(2, 20, 65, 75)
+        else:
+            self.set_temp_min = values[1]
+            self.set_temp_max = values[2]
+            self.set_hum_min = values[3]
+            self.set_hum_max = values[4]
+
 
 
 
