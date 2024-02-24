@@ -1,5 +1,5 @@
 import threading
-from threading import Thread, Event
+from multiprocessing import Process, Event
 import time
 from time import sleep
 
@@ -30,27 +30,30 @@ class UpdateData():
         except KeyboardInterrupt:
             print("Veriler durduruldu.")
 
-    def stop_thread(self):
+    def stop_process(self):
         # Durdurma olayını tetikle.
         self.stop_event.set()
 
+    def close_sql_connection(self):
+        self.sqlcon.close_connection()
 
 
 def main():
     add_data = UpdateData()
-    update_thread = None
+    update_process = None
 
     try:
-        update_thread = Thread(target=add_data.insert_sensor_value_database)
-        update_thread.start()
+        update_process = Process(target=add_data.insert_sensor_value_database)
+        update_process.start()
 
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
         print("Veriler durduruldu.")
-        add_data.stop_thread()
-        if update_thread is not None:
-            update_thread.join()
+        add_data.stop_process()
+        add_data.close_sql_connection()
+        if update_process is not None:
+            update_process.terminate()
 
     finally:
         print("Bağlantılar kapatıldı.")
