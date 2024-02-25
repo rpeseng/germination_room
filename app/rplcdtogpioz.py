@@ -27,6 +27,8 @@ class ButtonController:
         self.set_temp_max = 20
         self.set_hum_min = 65
         self.set_hum_max = 75
+        self.set_morning_time = 08.00
+        self.set_night_time = 18.00
 
     def read_set_values(self):
         set_values = self.sqlvalues.read_set_values()
@@ -37,6 +39,14 @@ class ButtonController:
             self.set_temp_max = set_values[2]
             self.set_hum_min = set_values[3]
             self.set_hum_max = set_values[4]
+
+    def read_set_times(self):
+        set_times = self.sqlvalues.read_set_update_times()
+        if set_times is None:
+            self.sqlvalues.set_update_time(08.00, 18.00)
+        else:
+            self.set_morning_time = set_times[1]
+            self.set_night_time = set_times[2]
 
     def increase_pressed(self):
 
@@ -151,6 +161,7 @@ class ButtonController:
     def show_sub_menu1(self):
         try:
             self.read_set_values()
+            self.read_set_times()
             while True:
                 if self.select_item == 0:
                     self.lcd.clear_screen()
@@ -192,6 +203,8 @@ class ButtonController:
                         self.set_temp_max -= 1
                         time.sleep(0.1)
                     if set_pin.is_pressed:
+                        self.sqlvalues.insert_set_values(self.set_temp_min, self.set_temp_max, self.set_hum_min,
+                                                         self.set_hum_max)
                         time.sleep(0.1)
                         self.show_menu()
                         break
@@ -213,6 +226,8 @@ class ButtonController:
                         self.set_hum_min -= 1
                         time.sleep(0.1)
                     if set_pin.is_pressed:
+                        self.sqlvalues.insert_set_values(self.set_temp_min, self.set_temp_max, self.set_hum_min,
+                                                         self.set_hum_max)
                         time.sleep(0.1)
                         self.show_menu()
                         break
@@ -234,6 +249,8 @@ class ButtonController:
                         self.set_hum_max -= 1
                         time.sleep(0.1)
                     if set_pin.is_pressed:
+                        self.sqlvalues.insert_set_values(self.set_temp_min, self.set_temp_max, self.set_hum_min,
+                                                         self.set_hum_max)
                         time.sleep(0.1)
                         self.show_menu()
                         break
@@ -246,7 +263,7 @@ class ButtonController:
                     self.lcd.write(self.items[3])
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
-                    self.lcd.write(str(self.set_hum_max))
+                    self.lcd.write(str(self.set_morning_time))
                     time.sleep(0.1)
                     if increase_pin.is_pressed:
                         self.set_hum_max += 1
@@ -255,6 +272,7 @@ class ButtonController:
                         self.set_hum_max -= 1
                         time.sleep(0.1)
                     if set_pin.is_pressed:
+                        self.sqlvalues.set_update_time(self.set_morning_time, self.set_night_time)
                         time.sleep(0.1)
                         self.show_menu()
                         break
@@ -267,7 +285,7 @@ class ButtonController:
                     self.lcd.write(self.items[3])
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
-                    self.lcd.write(str(self.set_hum_max))
+                    self.lcd.write(str(self.set_night_time))
                     time.sleep(0.1)
                     if increase_pin.is_pressed:
                         self.set_hum_max += 1
@@ -276,6 +294,7 @@ class ButtonController:
                         self.set_hum_max -= 1
                         time.sleep(0.1)
                     if set_pin.is_pressed:
+                        self.sqlvalues.set_update_time(self.set_morning_time, self.set_night_time)
                         time.sleep(0.1)
                         self.show_menu()
                         break

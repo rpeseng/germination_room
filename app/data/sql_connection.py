@@ -66,6 +66,9 @@ class SqlSettings:
                 )
             ''')
 
+            cursor.execute('''CREATE TABLE IF NOT EXISTS times
+                            (id INTEGER PRIMARY KEY, morning_time TEXT, night_time TEXT)''')
+
         # Bağlantıyı kaydet ve işlemi tamamla
         self.conn.commit()
         self.conn.close()
@@ -77,7 +80,7 @@ class SqlSettings:
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute('''
                     INSERT INTO set_values (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp)
-                    VALUES (?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, )
             ''', (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp))
             print("added set_value: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             self.conn.commit()
@@ -98,6 +101,16 @@ class SqlSettings:
             cursor.close()
         else:
             print("add values is failed.")
+
+    def set_update_time(self, morning_time, night_time):
+        if self.conn is not None:
+            cursor = self.conn.cursor()
+            cursor.execute("UPDATE times SET morning_time = ?", (morning_time,))
+            cursor.execute("UPDATE times SET night_time = ?", (night_time,))
+            self.conn.commit()
+            cursor.close()
+        else:
+            print("add times is failed.")
 
     def read_values_lcd(self):
         if not os.path.exists(self.db_filename):
@@ -167,4 +180,39 @@ class SqlSettings:
 
         finally:
             conn2.close()
+            pass
+
+    def read_set_update_times(self):
+        if not os.path.exists(self.db_filename):
+            self.create_table()
+
+        conn3 = sqlite3.connect(self.db_filename)
+
+        try:
+            if conn3 is not None:
+                pass
+            else:
+                print("Connection is failed with database!")
+            cursor3 = conn3.cursor()
+
+            # Transaction started.
+            conn3.execute("BEGIN TRANSACTION")
+
+            cursor3.execute("SELECT * FROM times ORDER BY timestamp DESC LIMIT 1")
+
+            data = cursor3.fetchall()
+
+            # Print data to the lcd screen.
+            for d in data:
+                # Complete the transaction.
+                self.conn.commit()
+                return d
+
+        except Exception as er:
+            # Undo if there are errors during the transaction phase.
+            conn3.rollback()
+            print(f"read values error: {er}")
+
+        finally:
+            conn3.close()
             pass
