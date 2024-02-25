@@ -25,8 +25,8 @@ class ButtonController:
         self.set_temp_max = 20
         self.set_hum_min = 65
         self.set_hum_max = 75
-        self.set_morning_time = 08.00
-        self.set_night_time = 18.00
+        self.set_morning_time = float(08.00)
+        self.set_night_time = float(18.00)
 
     def read_set_values(self):
         set_values = self.sqlvalues.read_set_values()
@@ -43,8 +43,8 @@ class ButtonController:
         if set_times is None:
             self.sqlvalues.insert_set_times(08.00, 18.00)
         else:
-            self.set_morning_time = set_times[1]
-            self.set_night_time = set_times[2]
+            self.set_morning_time = float(set_times[1])
+            self.set_night_time = float(set_times[2])
 
     def increase_pressed(self):
 
