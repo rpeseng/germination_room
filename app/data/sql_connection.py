@@ -107,6 +107,21 @@ class SqlSettings:
         else:
             print("add values is failed.")
 
+    def insert_set_times(self, morning_time, night_time):
+        if self.conn is not None:
+            cursor = self.conn.cursor()
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute(''' 
+                INSERT INTO times (morning_time, night_time, timestamp)
+                VALUES (?, ?, ?)
+                ''', (morning_time, night_time, timestamp))
+            print("insert time: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+            # cursor.execute("UPDATE times SET night_time = ?", (night_time,))  Tekli ekleme.
+            self.conn.commit()
+            cursor.close()
+        else:
+            print("add times is failed.")
+
     def set_update_time(self, morning_time, night_time):
         if self.conn is not None:
             cursor = self.conn.cursor()

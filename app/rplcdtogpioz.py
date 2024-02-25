@@ -41,7 +41,7 @@ class ButtonController:
     def read_set_times(self):
         set_times = self.sqlvalues.read_set_update_times()
         if set_times is None:
-            self.sqlvalues.set_update_time(08.00, 18.00)
+            self.sqlvalues.insert_set_times(08.00, 18.00)
         else:
             self.set_morning_time = set_times[1]
             self.set_night_time = set_times[2]
