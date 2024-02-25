@@ -70,7 +70,7 @@ class SqlSettings:
                             id INTEGER PRIMARY KEY AUTOINCREMENT, 
                             morning_time TEXT, 
                             night_time TEXT,
-                            timestamp TEXT,
+                            timestamp TEXT
                             )
                         ''')
 
@@ -113,7 +113,7 @@ class SqlSettings:
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute(''' 
                 UPDATE times SET (morning_time, night_time, timestamp)
-                VALUES ( ?, ?, ?)
+                VALUES (?, ?, ?)
                 ''', (morning_time, night_time, timestamp))
             print("update time: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             # cursor.execute("UPDATE times SET night_time = ?", (night_time,))  Tekli ekleme.
