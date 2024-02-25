@@ -32,14 +32,14 @@ class ButtonController:
 
 
     def read_set_values(self):
-        values = self.sqlvalues.read_set_values()
-        if values is None:
+        set_values = self.sqlvalues.read_set_values()
+        if set_values is None:
             self.sqlvalues.insert_set_values(2, 20, 65, 75)
         else:
-            self.set_temp_min = values[1]
-            self.set_temp_max = values[2]
-            self.set_hum_min = values[3]
-            self.set_hum_max = values[4]
+            self.set_temp_min = set_values[1]
+            self.set_temp_max = set_values[2]
+            self.set_hum_min = set_values[3]
+            self.set_hum_max = set_values[4]
 
 
 
