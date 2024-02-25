@@ -11,7 +11,6 @@ class SqlSettings:
         self.lock = threading.Lock()
         self.open_connection()
 
-
     def open_connection(self):
         """
             This function connects if the db_filename file exist, otherwise it creates and connects.
@@ -67,7 +66,11 @@ class SqlSettings:
             ''')
 
             cursor.execute('''CREATE TABLE IF NOT EXISTS times
-                            (id INTEGER PRIMARY KEY, morning_time TEXT, night_time TEXT)''')
+                            (id INTEGER PRIMARY KEY, 
+                            morning_time TEXT, 
+                            night_time TEXT,
+                            timestamp TEXT,
+                            )''')
 
         # Bağlantıyı kaydet ve işlemi tamamla
         self.conn.commit()
@@ -105,8 +108,13 @@ class SqlSettings:
     def set_update_time(self, morning_time, night_time):
         if self.conn is not None:
             cursor = self.conn.cursor()
-            cursor.execute("UPDATE times SET morning_time = ?", (morning_time,))
-            cursor.execute("UPDATE times SET night_time = ?", (night_time,))
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute(''' 
+                UPDATE times SET morning_time, night_time, timestamp)
+                VALUES ( ?, ?, ?)
+                ''', (morning_time, night_time, timestamp))
+            print("update time: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+            # cursor.execute("UPDATE times SET night_time = ?", (night_time,))  Tekli ekleme.
             self.conn.commit()
             cursor.close()
         else:
