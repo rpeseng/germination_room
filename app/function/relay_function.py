@@ -7,7 +7,7 @@ import sys
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
-from app.data.sql_connection import SqlSettings
+from data.sql_connection import SqlSettings
 
 
 class RelayFunction():
