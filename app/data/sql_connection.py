@@ -65,7 +65,8 @@ class SqlSettings:
                 )
             ''')
 
-            cursor.execute('''CREATE TABLE IF NOT EXISTS times(
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS times(
                             id INTEGER PRIMARY KEY AUTOINCREMENT, 
                             morning_time TEXT, 
                             night_time TEXT,
