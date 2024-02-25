@@ -23,13 +23,10 @@ class ButtonController:
         self.am2120sensorvalues = AM2120Sensor()
         self.sqlvalues = SqlSettings()
 
-
         self.set_temp_min = 2
         self.set_temp_max = 20
         self.set_hum_min = 65
         self.set_hum_max = 75
-        self.read_set_values()
-
 
     def read_set_values(self):
         set_values = self.sqlvalues.read_set_values()
@@ -40,11 +37,6 @@ class ButtonController:
             self.set_temp_max = set_values[2]
             self.set_hum_min = set_values[3]
             self.set_hum_max = set_values[4]
-
-
-
-
-
 
     def increase_pressed(self):
 
@@ -158,8 +150,8 @@ class ButtonController:
 
     def show_sub_menu1(self):
         try:
+            self.read_set_values()
             while True:
-                self.read_set_values()
                 if self.select_item == 0:
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
