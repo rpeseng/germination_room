@@ -83,7 +83,7 @@ class SqlSettings:
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute('''
                     INSERT INTO set_values (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp)
-                    VALUES (?, ?, ?, ?, ? )
+                    VALUES (?, ?, ?, ?, ?)
             ''', (set_temp_min, set_temp_max, set_hum_min, set_hum_max, timestamp))
             print("added set_value: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             self.conn.commit()

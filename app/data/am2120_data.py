@@ -27,6 +27,7 @@ class AM2120Sensor:
             else:
                 print("Sensörden veri okunamadı. Hata olabilir.")
                 return None, None
+
         except Exception as error:
             print(f"Hata oluştu! read_am2120_value: {error}")
 
