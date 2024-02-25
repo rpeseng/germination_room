@@ -36,7 +36,12 @@ class ButtonController:
         if values is None:
             self.sqlvalues.insert_set_values(2, 20, 65, 75)
         else:
-            return values
+            self.set_temp_min = values[1]
+            self.set_temp_max = values[2]
+            self.set_hum_min = values[3]
+            self.set_hum_max = values[4]
+
+
 
 
 
@@ -154,8 +159,8 @@ class ButtonController:
     def show_sub_menu1(self):
         try:
             while True:
+                self.read_set_values()
                 if self.select_item == 0:
-                    values = self.read_set_values()
                     self.lcd.clear_screen()
                     self.lcd.lcd.cursor_pos = (0, 0)
                     self.lcd.write("====  Menu  ====")
@@ -164,14 +169,7 @@ class ButtonController:
                     self.lcd.write(self.items[0])
                     self.lcd.lcd.cursor_pos = (2, 0)
                     self.lcd.write("Set Degeri =  ")
-                    if set_pin.is_pressed:
-                        time.sleep(0.1)
-                        self.sqlvalues.insert_set_values(self.set_temp_min, 7,
-                                                         5, 6)
-                        self.show_menu()
-                        break
-
-                    self.lcd.write(str(values[1]))
+                    self.lcd.write(self.set_temp_min)
                     time.sleep(0.15)
                     if increase_pin.is_pressed:
                         self.set_temp_min += 1
@@ -180,6 +178,7 @@ class ButtonController:
                         self.set_temp_min -= 1
                         time.sleep(0.1)
                     if set_pin.is_pressed:
+                        self.sqlvalues.insert_set_values(self.set_temp_min, self.set_temp_max, self.set_hum_min, self.set_hum_max)
                         time.sleep(0.1)
                         self.show_menu()
                         break
