@@ -6,18 +6,24 @@ def main():
     try:
 
         # İlk Python kodunu başlat
-        process1 = subprocess.Popen(['python3', '/home/germinationroom/Documents/germination_room/app/update_data.py'])
+        process1 = subprocess.Popen(['python3',
+                                     '/home/germinationroom/Documents/germination_room/app/update_data.py'])
         # İkinci Python kodunu başlat
-        process2 = subprocess.Popen(['python3', '/home/germinationroom/Documents/germination_room/app/rplcdtogpioz.py'])
+        process2 = subprocess.Popen(['python3',
+                                     '/home/germinationroom/Documents/germination_room/app/rplcdtogpioz.py'])
+        process3 = subprocess.Popen(['python3',
+                                     '/home/germinationroom/Documents/germination_room/app/function/relay_function.py'])
 
         process1.wait()
         process2.wait()
+        process3.wait()
 
     except KeyboardInterrupt:
         # Ctrl+C algılandığında süreçleri öldür
         time.sleep(0.2)
         process1.terminate()
         process2.terminate()
+        process3.terminate()
         print("Programdan çıkış yapıldı.")
     except Exception as error:
         print(f"Main python Directory : {error}")

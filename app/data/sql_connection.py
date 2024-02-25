@@ -241,3 +241,73 @@ class SqlSettings:
         finally:
             conn3.close()
             pass
+
+    def read_set_values_for_relay(self):
+        if not os.path.exists(self.db_filename):
+            self.create_table()
+
+        conn4 = sqlite3.connect(self.db_filename)
+
+        try:
+            if conn4 is not None:
+                pass
+            else:
+                print("Connection is failed with database!")
+            cursor4 = conn4.cursor()
+
+            # Transaction started.
+            conn4.execute("BEGIN TRANSACTION")
+
+            cursor4.execute("SELECT * FROM set_values ORDER BY timestamp DESC LIMIT 1")
+
+            data = cursor4.fetchall()
+
+            # Print data to the lcd screen.
+            for d in data:
+                # Complete the transaction.
+                self.conn.commit()
+                return d
+
+        except Exception as er:
+            # Undo if there are errors during the transaction phase.
+            conn4.rollback()
+            print(f"read values error: {er}")
+
+        finally:
+            conn4.close()
+            pass
+
+    def read_values_relay(self):
+        if not os.path.exists(self.db_filename):
+            self.create_table()
+
+        conn5 = sqlite3.connect(self.db_filename)
+
+        try:
+            if conn5 is not None:
+                pass
+            else:
+                print("Connection is failed with database!")
+            cursor5 = conn5.cursor()
+
+            # Transaction started.
+            conn5.execute("BEGIN TRANSACTION")
+
+            cursor5.execute("SELECT * FROM add_values ORDER BY timestamp DESC LIMIT 1")
+
+            data = cursor5.fetchall()
+
+            # Print data to the lcd screen.
+            for d in data:
+                # Complete the transaction.
+                self.conn.commit()
+                return d
+
+        except Exception as er:
+            # Undo if there are errors during the transaction phase.
+            conn5.rollback()
+            print(f"read values error: {er}")
+
+        finally:
+            conn5.close()
+            pass
