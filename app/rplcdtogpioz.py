@@ -264,13 +264,13 @@ class ButtonController:
                     self.lcd.write(str(self.set_morning_time))
                     time.sleep(0.1)
                     if increase_pin.is_pressed:
-                        self.set_morning_time += 1
+                        self.set_morning_time += 0.01
                         time.sleep(0.1)
                     if decrease_pin.is_pressed:
-                        self.set_morning_time -= 1
+                        self.set_morning_time -= 0.01
                         time.sleep(0.1)
                     if set_pin.is_pressed:
-                        self.sqlvalues.set_update_time(self.set_morning_time, self.set_night_time)
+                        self.sqlvalues.set_update_time(str(self.set_morning_time), str(self.set_night_time))
                         time.sleep(0.1)
                         self.show_menu()
                         break
@@ -286,13 +286,13 @@ class ButtonController:
                     self.lcd.write(str(self.set_night_time))
                     time.sleep(0.1)
                     if increase_pin.is_pressed:
-                        self.set_night_time += 1
+                        self.set_night_time += 0.01
                         time.sleep(0.1)
                     if decrease_pin.is_pressed:
-                        self.set_night_time -= 1
+                        self.set_night_time -= 0.01
                         time.sleep(0.1)
                     if set_pin.is_pressed:
-                        self.sqlvalues.set_update_time(self.set_morning_time, self.set_night_time)
+                        self.sqlvalues.set_update_time(str(self.set_morning_time), str(self.set_night_time))
                         time.sleep(0.1)
                         self.show_menu()
                         break
