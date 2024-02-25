@@ -65,12 +65,13 @@ class SqlSettings:
                 )
             ''')
 
-            cursor.execute('''CREATE TABLE IF NOT EXISTS times
-                            (id INTEGER PRIMARY KEY, 
+            cursor.execute('''CREATE TABLE IF NOT EXISTS times(
+                            id INTEGER PRIMARY KEY AUTOINCREMENT, 
                             morning_time TEXT, 
                             night_time TEXT,
                             timestamp TEXT,
-                            )''')
+                            )
+                        ''')
 
         # Bağlantıyı kaydet ve işlemi tamamla
         self.conn.commit()
@@ -110,7 +111,7 @@ class SqlSettings:
             cursor = self.conn.cursor()
             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute(''' 
-                UPDATE times SET morning_time, night_time, timestamp)
+                UPDATE times SET (morning_time, night_time, timestamp)
                 VALUES ( ?, ?, ?)
                 ''', (morning_time, night_time, timestamp))
             print("update time: ", datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
