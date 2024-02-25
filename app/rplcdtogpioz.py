@@ -308,15 +308,9 @@ class ButtonController:
         except KeyboardInterrupt:
             self.cleanup()
 
-
-
     def show_values(self):
         try:
-
-
             while True:
-
-
                 values = self.sqlvalues.read_values_lcd()
                 data_time = values[3][:-3]
 
@@ -336,19 +330,17 @@ class ButtonController:
                     self.show_menu()
                     return
 
-
         except KeyboardInterrupt:
             self.cleanup()
 
         except Exception as er:
             print(f"Hata show values : {er}")
 
-
     def cleanup(self):
         self.lcd.clear_screen()
         self.lcd.lcd_screen_deactivate()
-
 def main():
+
     # ButonController sınıfını kullanarak nesne oluştur
     button_controller = ButtonController()
     try:
