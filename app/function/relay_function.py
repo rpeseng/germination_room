@@ -1,7 +1,7 @@
 
 from gpiozero import LED
 from time import sleep
-from app.data.sql_connection import SqlSettings
+from data.sql_connection import SqlSettings
 
 
 class RelayFunction():
