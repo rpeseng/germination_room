@@ -1,6 +1,7 @@
-
 from gpiozero import LED
 from time import sleep
+from datetime import datetime
+
 import os
 import sys
 
@@ -22,7 +23,7 @@ class RelayFunction():
         self.set_led_control = LED(26)
 
 
-    def control_relay(self):
+    def relay_control(self):
         try:
             set_values = self.sqlvalues.read_set_values_for_relay()
 
@@ -39,33 +40,45 @@ class RelayFunction():
                 self.set_min_temp_control.on()
                 sleep(3)
                 self.set_min_temp_control.off()
-                print("111111")
             elif instant_temp_value > max_temp_values:
                 self.set_max_temp_control.on()
                 sleep(3)
                 self.set_max_temp_control.off()
-                print("22222")
             elif instant_hum_value < min_hum_values:
                 self.set_min_hum_control.on()
                 sleep(3)
                 self.set_min_hum_control.off()
-                print("3333")
             elif instant_hum_value > max_hum_values:
                 self.set_max_hum_control.on()
                 sleep(3)
                 self.set_max_hum_control.off()
-                print("44444")
         except KeyboardInterrupt:
             print("Finish.")
         except Exception as er:
             print(f"control Relay Error: {er}")
 
 
+    def led_control(self):
+        time_values =  self.sqlvalues.read_set_update_times_for_relay()
+        morning_time = time_values[1]
+        night_time = time_values[2]
+        now = datetime.now()
+        current_hour = now.hour
+        current_minute = now.minute
+
+        if 8 <= current_hour < 20:
+            self.set_led_control.on()
+        else:
+            self.set_led_control.off()
+
+        print(f"Anlık Zaman: {current_hour:02d}:{current_minute:02d}")
+        sleep(60)  # Her dakika kontrol et
+
 def main():
     relay_control = RelayFunction()
     try:
         while True:
-            relay_control.control_relay()
+            relay_control.relay_control()
             sleep(2)
     except Exception as er:
         print(f"Relay Function Error:  {er}")

@@ -311,3 +311,38 @@ class SqlSettings:
         finally:
             conn5.close()
             pass
+
+    def read_set_update_times_for_relay(self):
+        if not os.path.exists(self.db_filename):
+            self.create_table()
+
+        conn6 = sqlite3.connect(self.db_filename)
+
+        try:
+            if conn6 is not None:
+                pass
+            else:
+                print("Connection is failed with database!")
+            cursor6 = conn6.cursor()
+
+            # Transaction started.
+            conn6.execute("BEGIN TRANSACTION")
+
+            cursor6.execute("SELECT * FROM times ORDER BY timestamp DESC LIMIT 1")
+
+            data = cursor6.fetchall()
+
+            # Print data to the lcd screen.
+            for d in data:
+                # Complete the transaction.
+                self.conn.commit()
+                return d
+
+        except Exception as er:
+            # Undo if there are errors during the transaction phase.
+            conn6.rollback()
+            print(f"read values error: {er}")
+
+        finally:
+            conn6.close()
+            pass

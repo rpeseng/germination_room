@@ -30,4 +30,5 @@ class AM2120Sensor:
 
         except Exception as error:
             print(f"Hata oluştu! read_am2120_value: {error}")
+            pass
 
